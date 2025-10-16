@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <attr name="colorMaterial100" format="color" />
+    <attr name="colorMaterial300" format="color" />
+    <attr name="accentOrTextSecondary" format="color" />
+    <attr name="accentOrTextPrimary" format="color" />
+    <attr name="primaryOrTextSecondary" format="color" />
+    <attr name="primaryOrTextPrimary" format="color" />
+    <attr name="fabColorBackground" format="color" />
+    <attr name="selectedColorPrimary" format="color" />
+    <attr name="whiteOrTextPrimary" format="color" />
+
+
+    <!--图形验证码-->
+    <declare-styleable name="VerifyCode">
+        <attr name="codeTextSize" format="dimension"/>
+        <attr name="codeBackground" format="color"/>
+        <attr name="codeLength" format="integer"/>
+        <attr name="isContainChar" format="boolean"/>
+        <attr name="pointNum" format="integer"/>
+        <attr name="linNum" format="integer"/>
+    </declare-styleable>
+
+    <!--输入密码hint提示-->
+    <declare-styleable name="PassWorkInput">
+        <attr name="hint" format="reference"/>
+    </declare-styleable>
+
+
+    <!--测试 vpn-->
+    <declare-styleable name="DropDownPreference">
+        <attr name="android:entries" />
+        <attr name="android:entryValues" />
+    </declare-styleable>
+    <declare-styleable name="NumberPickerPreference">
+        <attr name="max" format="integer" />
+        <attr name="min" format="integer" />
+    </declare-styleable>
+</resources>

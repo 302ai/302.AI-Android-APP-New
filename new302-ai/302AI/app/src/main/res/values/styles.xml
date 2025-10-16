@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="CustomSwitch" parent="Widget.MaterialComponents.CompoundButton.Switch">
+<!--        &lt;!&ndash; 滑块（thumb）颜色 &ndash;&gt;-->
+<!--        <item name="colorControlActivated">#FFFFFF</item>-->
+<!--        <item name="colorPrimary">#FFFFFF</item>-->
+<!--        &lt;!&ndash; 轨道（track）颜色 &ndash;&gt;-->
+<!--        <item name="colorSwitchThumbNormal">#d2b5f9</item>-->
+<!--        &lt;!&ndash; 轨道在选中状态下的颜色 &ndash;&gt;-->
+<!--        <item name="android:trackTint">#8E47F0</item>-->
+
+        <!-- 滑块（thumb）颜色 -->
+        <item name="colorControlActivated">#8e47f0</item>
+        <!-- 轨道（track）颜色 -->
+        <item name="colorSwitchThumbNormal">#BDBDBD</item>
+        <!-- 轨道在选中状态下的颜色 -->
+        <item name="android:trackTint">#d2b5f9</item>
+
+    </style>
+
+    <style name="DialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/slide_in_bottom</item>
+        <item name="android:windowExitAnimation">@anim/slide_out_bottom</item>
+    </style>
+
+
+    <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowBackground">@drawable/splash_screen</item>
+    </style>
+
+    <style name="LoadingDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item><!--边框-->
+        <item name="android:windowIsFloating">true</item><!--是否浮现在activity之上-->
+        <item name="android:windowIsTranslucent">false</item><!--半透明-->
+        <item name="android:windowNoTitle">true</item><!--无标题-->
+        <item name="android:windowBackground">@color/transparent</item><!--背景透明-->
+        <item name="android:backgroundDimEnabled">true</item><!--模糊-->
+        <item name="android:gravity">center|bottom</item>
+    </style>
+
+    <style name="Theme.Dialog" parent="@android:style/Theme.Dialog">
+
+        <!-- 边框 -->
+        <item name="android:windowFrame">@android:color/transparent</item>
+        <!-- 是否浮现在activity之上 -->
+        <item name="android:windowIsFloating">true</item>
+        <!-- 半透明 -->
+        <item name="android:windowIsTranslucent">false</item>
+        <!-- 无标题 -->
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+        <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
+
+        <!-- 自己想要的背景 -->
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+
+    <style name="AppTheme.Chat" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- 以下配置会导致透明状态栏 -->
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+    </style>
+
+    <style name="CustomSeekBarStyle" parent="Widget.AppCompat.SeekBar">
+        <!-- 正确设置轨道和进度条（用progressDrawable引用layer-list） -->
+        <item name="android:progressDrawable">@drawable/seekbar_progress_drawable</item>
+        <!-- 滑块设置（正确引用drawable） -->
+        <item name="android:thumb">@drawable/seekbar_thumb</item>
+        <!-- 滑块与轨道的间距（0dp表示对齐） -->
+        <item name="android:thumbOffset">0dp</item>
+    </style>
+
+</resources>

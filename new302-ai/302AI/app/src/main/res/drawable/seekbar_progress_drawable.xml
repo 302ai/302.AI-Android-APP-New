@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 底部轨道（未选中部分） -->
+    <item android:id="@android:id/background">
+        <shape android:shape="rectangle">
+            <size android:height="6dp" /> <!-- 轨道粗细 -->
+            <solid android:color="#E0E0E0" /> <!-- 轨道颜色 -->
+            <corners android:radius="3dp" />
+        </shape>
+    </item>
+
+    <!-- 已选中的进度条 -->
+    <item android:id="@android:id/progress">
+        <clip> <!-- 关键：用clip实现进度裁剪 -->
+            <shape android:shape="rectangle">
+                <size android:height="6dp" /> <!-- 进度条粗细（与轨道一致） -->
+                <solid android:color="@color/color302AI" /> <!-- 进度条颜色 -->
+                <corners android:radius="3dp" />
+            </shape>
+        </clip>
+    </item>
+</layer-list>

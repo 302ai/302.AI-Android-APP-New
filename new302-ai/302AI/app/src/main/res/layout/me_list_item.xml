@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/chat_item_layout"
+    android:layout_marginTop="10dp">
+    <HorizontalScrollView
+        android:id="@+id/fileHorScr"
+        android:layout_width="wrap_content"
+        android:layout_height="56dp"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+        <LinearLayout
+            android:id="@+id/fileChatLine"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <HorizontalScrollView
+        android:id="@+id/imageHorScr"
+        android:layout_width="wrap_content"
+        android:layout_height="56dp"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/fileHorScr"
+        app:layout_constraintRight_toRightOf="parent">
+        <LinearLayout
+            android:id="@+id/imageChatLine"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <LinearLayout
+        android:id="@+id/deepLine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:visibility="gone"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageHorScr">
+        <TextView
+            android:id="@+id/deepThinkTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="已深度思考 (8.6s)"
+            android:textSize="14sp"
+            android:textColor="@color/gray"/>
+        <ImageView
+            android:id="@+id/downDeepImage"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/icon_down"/>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/msgLine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="10dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/deepLine"
+        >
+        <TextView
+            android:id="@+id/text1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceListItemSmall"
+            android:gravity="center_vertical"
+            android:layout_marginTop="3dp"
+            android:text="这是深度思考内容"
+            android:textSize="13sp"
+            android:visibility="gone"
+            android:textColor="@color/gray"
+            android:paddingStart="?android:attr/listPreferredItemPaddingStart"
+            android:paddingEnd="?android:attr/listPreferredItemPaddingEnd"
+            android:minHeight="?android:attr/listPreferredItemHeightSmall"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/deepLine"
+            android:textIsSelectable="true"
+            android:scrollbars="vertical"/>
+
+
+        <TextView
+            android:id="@+id/messageTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_marginTop="3dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text1"
+            android:background="@drawable/shape_select_site_bg_purple_line"
+            tools:ignore="WebViewLayout"
+            android:textColor="@color/white"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:textIsSelectable="false"
+            android:scrollbars="vertical"
+            />
+        <LinearLayout
+            android:id="@+id/loadingThreeLine"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:orientation="vertical"
+            android:gravity="center_vertical"
+            android:visibility="gone"
+            android:layout_marginTop="3dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text1"
+            android:background="@drawable/shape_select_site_bg_gray_line">
+            <com.newAi302.app.view.ThreeCircularLoadingAnim
+                android:id="@+id/loadThreeImage"
+                android:layout_width="40dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center"
+                />
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/chatToolLine"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/msgLine">
+
+        <LinearLayout
+            android:id="@+id/copyLine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:background="@drawable/shape_select_site_bg_line2">
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_gravity="center"
+                android:background="@drawable/icon_copy"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/goodLine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="15dp"
+            app:layout_constraintLeft_toRightOf="@+id/copyLine"
+            app:layout_constraintTop_toTopOf="parent"
+            android:background="@drawable/shape_select_site_bg_line2">
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/goodImage"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_gravity="center"
+                android:background="@drawable/icon_again"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/badLine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="15dp"
+            app:layout_constraintLeft_toRightOf="@+id/goodLine"
+            app:layout_constraintTop_toTopOf="parent"
+            android:background="@drawable/shape_select_site_bg_line2">
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/badImage"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_gravity="center"
+                android:background="@drawable/icon_again"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/againLine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="15dp"
+            app:layout_constraintLeft_toRightOf="@+id/badLine"
+            app:layout_constraintTop_toTopOf="parent"
+            android:background="@drawable/shape_select_site_bg_line2">
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_gravity="center"
+                android:background="@drawable/icon_again"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/moreLine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="15dp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:background="@drawable/shape_select_site_bg_line2">
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_gravity="center"
+                android:background="@drawable/icon_again"
+                />
+        </LinearLayout>
+
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/codePreConst"
+        android:layout_width="match_parent"
+        android:background="@drawable/shape_select_site_bg_gray_dialog_edit"
+        android:layout_height="40dp"
+        android:visibility="gone"
+        android:layout_marginTop="10dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/chatToolLine">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/shape_select_site_bg_green"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/icon_code_logo"
+                android:layout_gravity="center"
+                android:textColor="@color/green"/>
+            <TextView
+                android:id="@+id/codeFileNameTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="15dp"
+                android:text="xxxxxxx.html"
+                android:textSize="14sp"
+                android:textColor="@color/black"/>
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/icon_new_left"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

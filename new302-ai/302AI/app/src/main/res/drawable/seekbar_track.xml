@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <!-- 轨道高度（粗细） -->
+    <size android:height="4dp" />
+    <!-- 轨道颜色 -->
+    <solid android:color="#E0E0E0" />
+    <!-- 轨道圆角（可选） -->
+    <corners android:radius="2dp" />
+</shape>

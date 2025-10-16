@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rl_phone_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.newAi302.app.widget.view.PhoneLocationView
+        android:id="@+id/rl_phone_location"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+    <com.newAi302.app.widget.view.PassWorkEditView
+        android:id="@+id/rl_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_below="@+id/rl_phone_location" />
+
+    <com.newAi302.app.widget.view.VerificationEditTextView
+        android:id="@+id/verification_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl_phone_location"
+        android:layout_toStartOf="@+id/verifyCodeView"
+        android:layout_marginTop="5dp"/>
+
+    <com.newAi302.app.widget.view.VerifyCodeView
+        android:id="@+id/verifyCodeView"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/rl_phone_location"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="5dp"
+        android:layout_alignParentEnd="true"/>
+    <RelativeLayout
+        android:id="@+id/sms_login_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        android:layout_below="@+id/verifyCodeView">
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/edit_verify_code"
+            android:layout_width="150dp"
+            android:layout_height="40dp"
+            android:background="@color/input_bg"
+            android:hint="@string/please_verify_code"
+            android:maxLines="1"
+            android:paddingStart="10dp"
+            android:singleLine="true"
+            android:textColor="@color/black"
+            android:textColorHint="@color/input_hint"
+            android:textSize="14sp" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_verify_code"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@+id/edit_verify_code"
+            android:gravity="center"
+            android:text="@string/get_verify_code"
+            android:textColor="@color/selected" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_code_empty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/edit_verify_code"
+            android:textColor="@color/empty_tip"
+            android:textSize="14sp"
+            tools:text="验证码不能为空" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_password_operate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_below="@+id/sms_login_view"
+        android:layout_marginTop="15dp">
+
+        <androidx.appcompat.widget.AppCompatCheckBox
+            android:id="@+id/checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:buttonTint="@color/color302AI" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_remember_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="1dp"
+            android:layout_toEndOf="@+id/checkbox"
+            android:text="@string/remember_password"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_forget_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:text="@string/forget_password"
+            android:textColor="@color/color302AI"
+            android:textSize="14sp"
+            tools:ignore="RelativeOverlap" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/rl_proxy302_rule"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl_password_operate"
+        android:layout_marginTop="0dp">
+
+        <androidx.appcompat.widget.AppCompatCheckBox
+            android:id="@+id/checkbox1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:buttonTint="@color/color302AI" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_remember_password1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="1dp"
+            android:layout_toEndOf="@+id/checkbox1"
+            android:text="@string/proxy_message1"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_user_terms"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="@string/user_terms"
+            android:textColor="@color/color302AI"
+            android:textSize="14sp" />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="@string/proxy_message2"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_privacy_agreement"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="@string/privacy_agreement"
+            android:textColor="@color/color302AI"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/btn_login"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_below="@+id/rl_proxy302_rule"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/shape_btn_login_bg"
+        android:gravity="center"
+        android:text="@string/login"
+        android:textColor="@color/white"
+        android:textSize="16sp" />
+
+</RelativeLayout>

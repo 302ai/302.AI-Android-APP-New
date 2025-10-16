@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 配置应用内部存储的images目录 -->
+    <files-path
+        name="internal_images"
+        path="images" />
+
+    <!-- 应用内部存储目录 -->
+    <files-path name="internal_files" path="." />
+</paths>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <!-- 进度条高度（与轨道保持一致或不同） -->
+    <size android:height="4dp" />
+    <!-- 进度条颜色 -->
+    <solid android:color="@color/color302AI" />
+    <!-- 进度条圆角（与轨道匹配） -->
+    <corners android:radius="2dp" />
+</shape>

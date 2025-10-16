@@ -1,0 +1,357 @@
+<resources>
+    <string name="app_name">302.AI</string>
+    <string name="title_activity_setting">SettingActivity</string>
+    <string name="chat_title">新しいチャット</string>
+    <string name="hide_title">シークレットセッション</string>
+    <string name="front_page_message">こんにちは、私と一緒に世界を探検する準備はできていますか？</string>
+    <string name="chat_edit_message">ご質問があれば何でもお寄せください…</string>
+    <string name="front_page_bottom_message">AIは間違いを犯す可能性がありますので、重要な情報の検証にご協力ください。</string>
+    <string name="voice_message">押し続けて話す</string>
+    <string name="cancel_message">キャンセル</string>
+    <string name="delete_message">削除</string>
+    <string name="edit_message">編集</string>
+    <string name="send_message">送信</string>
+    <string name="resource_library">リソースライブラリ</string>
+    <string name="today_message">今日</string>
+    <string name="yesterday_message">昨日</string>
+    <string name="earlier_message">先ほど</string>
+    <string name="edit_search_history_message">検索内容を入力してください</string>
+    <string name="voice_mike_message">音声認識</string>
+    <string name="voice_short_can_not_message">音声入力が短すぎます。マイクアイコンを長押ししてください</string>
+    <string name="open_hide_chat_toast_message">シークレット セッションに切り替えました</string>
+    <string name="close_hide_chat_toast_message">シークレットセッションが終了しました</string>
+    <string name="plase_wait_back_delect_toast_message">削除する前に返信が完了するまでお待ちください</string>
+    <string name="plase_first_enter_question_toast_message">まず質問を入力してください</string>
+    <string name="can_not_send_empty_toast_message">空のコンテンツを送信できません</string>
+    <string name="parsing_image_toast_message">画像を解析しています。お待ちください</string>
+    <string name="network_error_toast_message">ネットワーク エラー:</string>
+    <string name="already_new_session_toast_message">これはすでに新しいセッションです。ありがとうございます</string>
+    <string name="cancel_rename_toast_message">名前の変更をキャンセル</string>
+    <string name="screenshot_save_toast_message">スクリーンショットはアルバムに保存されました。ありがとうございます。</string>
+    <string name="screenshot_can_not_toast_message">まずは大きなモデルと話してからスクリーンショットを撮ってください。ありがとうございます。</string>
+    <string name="install_file_mangager_toast_message">ファイルマネージャーをインストールしてください</string>
+    <string name="again_later_toast_message">後でもう一度お試しください</string>
+    <string name="cancel_feedback_toast_message">フィードバックをキャンセル</string>
+    <string name="rename_title_message">名前を変更</string>
+    <string name="edit_new_name_hint_message">新しい名前を編集してください</string>
+    <string name="pormpt_hint_message">   上記以外のカスタムプロンプトワードを入力してください</string>
+    <string name="prompt_help_title_message">システムプロンプトの単語ヘルプ</string>
+    <string name="prompt_help_message">システムプロンプトは、AIの会話スタイルと役割を導くための指示です。システムプロンプトを設定することで、会話全体を通してAIが特定のアイデンティティ、トーン、または行動で応答するようにすることができます。例えば、システムプロンプトを使用することで、AIが教師、アシスタント、または専門家の役割を果たすことができ、さまざまなシナリオのニーズにより適切に対応できるようになります。</string>
+    <string name="select_expression_title_message">表現を選択してください</string>
+    <string name="language_en_message">英語</string>
+    <string name="language_ch_message">中国語</string>
+    <string name="language_ja_message">日本語</string>
+    <string name="good_toast_message">いいね</string>
+    <string name="cancel_good_toast_message">いいねをキャンセル</string>
+    <string name="bad_toast_message">よくない</string>
+    <string name="again_toast_message">再試行</string>
+    <string name="pre_code_toast_message">コードをプレビュー</string>
+    <string name="screenshot_toast_message">スクリーンショット</string>
+    <string name="select_text_toast_message">テキストを選択</string>
+    <string name="copy_toast_message">コピー</string>
+    <string name="user_edit_toast_message">編集</string>
+
+
+    <string name="select_file_dialog_title">ファイルを選択してください</string>
+    <string name="archive_dialog_message">アーカイブから選択</string>
+    <string name="camera_dialog_message">カメラ</string>
+    <string name="push_picture_dialog_message">写真をアップロード</string>
+    <string name="appendix_dialog_message">添付ファイル</string>
+
+    <string name="select_function_dialog_title">関数の選択</string>
+    <string name="web_think_dialog_message">Web検索</string>
+    <string name="deep_think_dialog_message">ディープシンキング</string>
+    <string name="think_model_dialog_message">思考モデル</string>
+    <string name="mcp_dialog_message">MCP1</string>
+
+    <string name="login_message">従量課金制のエンタープライズレベルAIプラットフォーム</string>
+    <string name="login_button_message">今すぐログイン</string>
+    <string name="setting_title_message">設定</string>
+    <string name="setting_account_message">302.AI ID</string>
+    <string name="setting_balance_message">残高</string>
+    <string name="setting_consumption_details_message">使用量の詳細</string>
+    <string name="setting_top_up_message">チャージ</string>
+    <string name="setting_language_message">言語</string>
+    <string name="setting_theme_message">テーマ</string>
+    <string name="setting_preference_message">設定</string>
+    <string name="setting_application_message">アプリケーション</string>
+    <string name="setting_general_message">一般的な</string>
+    <string name="setting_manager_message">管理</string>
+    <string name="setting_model_manager_message">モデル管理</string>
+    <string name="setting_tools_manager_message">MCPサービス</string>
+    <string name="setting_my_archive_manager_message">アーカイブ</string>
+    <string name="setting_my_kb_manager_message">ナレッジベース</string>
+    <string name="setting_about_message">概要</string>
+    <string name="setting_announcement_message">お知らせ</string>
+    <string name="setting_contact_us_message">お問い合わせ</string>
+    <string name="setting_version_information_message">バージョン情報</string>
+    <string name="setting_service_agreement_message">サービス規約</string>
+    <string name="setting_log_out_message">ログアウト</string>
+    <string name="setting_clear_chat_message">すべてのセッションログをクリアする</string>
+
+    <string name="announcement_details_title_message">発表内容</string>
+    <string name="announcement_details_one_message">302.AIは、AI技術交流グループへの参加を心からお誘いいたします。</string>
+    <string name="announcement_details_two_message">AI分野におけるコミュニケーションとコラボレーションをさらに促進するため、302.AIはWeChatグループを作成しました。\n\n\nQRコードをスキャンして、どなたでもご参加いただけます。\nグループでは、以下のことが可能です。\n- 最新のAIニュースや技術アップデートを入手する\n - 技術サポートやソリューションを探す \n- AI愛好家や専門家と経験や洞察を交換する、様々なAI関連のディスカッションやイベントに参加する。\n\n\nWeChatの制限により、WeChatでQRコードをスキャンするか、WeChat ID：wx_302A1を検索して302.AIアカウントマネージャーを追加してください。マネージャーがあなたをグループに追加します。302.AIは、活発で協力的なAIコミュニティを築くために、皆様のご参加をお待ちしております。</string>
+    <string name="privacy_policy_message">プライバシーポリシー</string>
+    <string name="terms_message">利用規約</string>
+
+    <string name="personal_center_title_message">個人データ</string>
+    <string name="personal_user_name_message">ユーザー名</string>
+    <string name="personal_change_password_message">パスワードを変更する</string>
+    <string name="personal_cancel_account_message">アカウントをキャンセルする</string>
+    <string name="personal_upload_image_toast_message">写真をアップロードしています。お待ちください</string>
+    <string name="personal_select_image_message">アバターを選択</string>
+    <string name="change_password_title_message">パスワードを変更する</string>
+    <string name="change_password_old_message">古いパスワード</string>
+    <string name="change_password_new_message">新しいパスワード</string>
+    <string name="change_password_new_again_message">新しいパスワードの確認</string>
+    <string name="change_password_old_hint_message">古いパスワードを入力してください</string>
+    <string name="change_password_new_hint_message">新しいパスワードを入力してください</string>
+    <string name="change_password_new_again_hint_message">パスワードを改めて入力</string>
+    <string name="change_password_save_message">パスワードの変更</string>
+    <string name="change_password_fail_toast_message">入力したパスワードが正しくありません</string>
+    <string name="change_password_not_same_toast_message">入力した2つのパスワードが一致しません</string>
+    <string name="change_password_sucess_toast_message">パスワードが正常に変更されました</string>
+    <string name="change_password_failed_toast_message">パスワードの変更に失敗しました</string>
+    <string name="delete_user_title_message">キャンセル手順</string>
+    <string name="delete_user_message">アカウントを解約すると、すべての情報が永久に消去されます。慎重に操作してください。</string>
+    <string name="delete_user_cancel_message">アカウントのキャンセルをキャンセル</string>
+    <string name="delete_user_failed_message">カウントの削除に失敗しました</string>
+    <string name="change_name_failed_message">ユーザー名の変更に失敗しました</string>
+    <string name="change_name_sucess_message">ユーザー名の変更に成功しました</string>
+
+    <string name="setting_add_model_title_message">モデルを追加</string>
+    <string name="setting_add_model_id_message">モデルID</string>
+    <string name="setting_add_model_save_message">保存</string>
+    <string name="setting_add_model_id_edit_message">モデルIDを入力してください</string>
+    <string name="setting_add_model_id_edit_bottom_message">これはリクエストを開始する際に使用するモデルの\n実際の名前です</string>
+    <string name="setting_add_model_remark_message">備考</string>
+    <string name="setting_add_model_remark_edit_message">備考を入力してください</string>
+    <string name="setting_add_model_remark_edit_bottom_message">このモデルには、表示目的のみで、よりわかりやすい名\n前を付けることができます</string>
+    <string name="setting_add_model_power_message">モデルパワー</string>
+    <string name="setting_add_model_reasoning_message">推論</string>
+    <string name="setting_add_model_image_understanding_message">画像理解</string>
+    <string name="setting_add_model_advanced_settings_message">詳細設定</string>
+
+    <string name="setting_add_model_manager_title_message">モデル管理</string>
+    <string name="setting_add_model_manager_add_message">追加</string>
+    <string name="setting_add_model_manager_search_edit_message">検索内容を入力してください</string>
+    <string name="setting_add_model_manager_classification_message">分類</string>
+    <string name="setting_add_model_manager_custom_model_message">カスタムモデル</string>
+
+    <string name="setting_preferences_title_message">設定</string>
+    <string name="setting_preferences_default_chat_model_message">デフォルトの\nチャットモデル</string>
+    <string name="setting_preferences_build_title_model_time_message">タイトル生成</string>
+    <string name="setting_preferences_default_title_model_message">タイトル生成モデル</string>
+    <string name="setting_preferences_auto_scroll_bottom_message">自動スクロールダウン</string>
+    <string name="setting_preferences_default_incognito_message">デフォルトでシークレット \nセッションを使用する</string>
+    <string name="setting_preferences_default_search_message">デフォルトの検索サービス</string>
+    <string name="setting_preferences_build_title_model_time_one_message">初回</string>
+    <string name="setting_preferences_build_title_model_time_every_message">毎回</string>
+    <string name="setting_preferences_chat_time_one_message">最初の会話</string>
+    <string name="setting_preferences_chat_time_every_message">すべての会話</string>
+
+    <string name="setting_default_model_last_time_message">最後に使用したモデル</string>
+    <string name="setting_default_model_chat_same_title_message">チャットと同じモデル</string>
+
+    <string name="setting_bottom_title_message">セッションタイトル</string>
+    <string name="setting_bottom_parameter_message">パラメータ設定</string>
+    <string name="setting_bottom_model_message">モデル</string>
+    <string name="setting_bottom_painting_message">絵画</string>
+    <string name="setting_bottom_cue_words_message">システムプロンプトの単語を設定する</string>
+    <string name="setting_bottom_kb_message">ナレッジベース</string>
+    <string name="setting_bottom_prompt_message">システムプロンプトの単語を設定</string>
+    <string name="setting_bottom_random_message">ランダム性</string>
+    <string name="setting_bottom_precise_message">より正確</string>
+    <string name="setting_bottom_creativity_message">よりクリエイティブ</string>
+    <string name="setting_bottom_share_message">共有</string>
+    <string name="setting_bottom_link_share_message">リンク共有</string>
+    <string name="setting_bottom_generate_screenshot_message">スクリーンショットを生成</string>
+
+    <string name="select_text_title_message">テキストを選択してください</string>
+
+    <string name="pay_text_title_message">リチャージセンター</string>
+    <string name="pay_text_explanation_message">購入手順
+\n1. 手数料：Alipay 3.4% + $0.5 | クレジットカード 3.4% + $0.5 | USDT 1.3%（高額電信送金および自動チャージは免除されます）
+\n2. 請求書発行サービス：国内法人送金、バックエンドチャージ、国際送金で請求書をご利用いただけます。詳細はアカウントマネージャーにお問い合わせください。
+\n注意事項
+\nAlipayおよびUSDTチャージの処理には約5～15分かかります。しばらくお待ちください。15分後にページを更新してください。資金が入金されていない場合は、カスタマーサービスまでご連絡ください。
+\nPTCの説明
+\nPTCは、302.AIでの購入に使用できる302.AIが提供するトークンです。1 PTC = 1 USD、約7人民元です。購入ルールに従ってPTCを購入し、その後「PTC」を使用して302.AIの製品またはサービスをご購入いただけます。PTC購入後の返金はできません。</string>
+    <string name="pay_text_protocol_title_message">再充電契約</string>
+    <string name="pay_text_hot_message">ホットセール</string>
+    <string name="pay_text_recommend_message">特別推薦</string>
+    <string name="pay_text_recharge_instructions_message">充電手順：</string>
+    <string name="pay_text_next_message">次のステップ</string>
+    <string name="pay_text_gift_message">贈り物 20PTC</string>
+    <string name="pay_text_agree_message">支払いは読んで同意することを意味します</string>
+    <string name="pay_text_pay_protocol_message">《ユーザーリチャージ契約》</string>
+    <string name="pay_text_pay_actual_message">実際に支払った金額</string>
+    <string name="pay_text_pay_now_message">今すぐ支払う</string>
+    <string name="pay_text_pay_toast_message">まずお支払い金額を選択してください</string>
+    <string name="pay_text_pay_way_toast_message">まずお支払い方法を選択してください</string>
+    <string name="copy_code_toast_message">コードをコピー</string>
+    <string name="thinking_over_message">思考完了</string>
+
+    <string name="setting_prompt_title_message">システムプロンプト</string>
+    <string name="setting_prompt_empty_message">空</string>
+    <string name="setting_prompt_customize_message">自動設定</string>
+
+    <string name="close_message">閉鎖</string>
+
+    <string name="feed_back_title_message">改善にご協力ください</string>
+    <string name="feed_back_bottom_message">皆様からいただいたフィードバックはすべてAIの改善に役立ちます。引き続きご協力をお願いいたします</string>
+    <string name="feed_back_content_issues_message">コンテンツの品質に関する問題</string>
+    <string name="feed_back_logical_issues_message">論理的な欠陥</string>
+    <string name="feed_back_expression_issues_message">不明瞭な表現</string>
+    <string name="feed_back_answer_issues_message">関連性のない回答</string>
+    <string name="feed_back_other_issues_message">追加情報</string>
+    <string name="feed_back_edit_issues_message">ご意見をお聞かせください～</string>
+    <string name="feed_back_push_issues_message">フィードバックを送信</string>
+
+    <string name="rename_message">名前を変更</string>
+    <string name="rename_edit_message">新しい名前を編集してください</string>
+    <string name="more_select_message">複数選択問題</string>
+    <string name="collect_message">集める</string>
+
+    <string name="resource_library_title_message">リソースライブラリ</string>
+
+    <string name="insufficient_message">账户余额不足，创建属于自己的工具，更多请访问 302.AI</string>
+
+    <string name="setting_select_model_title_message">モデルを選択してください</string>
+
+    <string name="version_information_title_message">バージョン情報</string>
+    <string name="service_agreement_title_message">サービス契約</string>
+
+    <string name="get_title_message">日语</string>
+    <string name="get_title_message1">6个日语单词</string>
+
+    <string name="Consumption_details_title_message">消費量の詳細</string>
+    <string name="consumption_account_balance_message">口座残高</string>
+    <string name="consumption_today_message">今日の消費量</string>
+    <string name="consumption_month_message">今月の消費量</string>
+    <string name="consumption_historical_message">過去の消費量</string>
+    <string name="consumption_session_title_message">セッションタイトル</string>
+    <string name="consumption_kb_message">ナレッジベース名</string>
+    <string name="consumption_file_message">アーカイブ</string>
+    <string name="consumption_incognito_session_message">シークレットセッション</string>
+    <string name="consumption_account_recharge_message">アカウントのリチャージ</string>
+
+    <string name="proxy_message1">‌読了同意</string>
+    <string name="proxy_message2">および</string>
+    <string name="user_terms">利用規約</string>
+    <string name="privacy_agreement">プライバシー</string>
+
+    <string name="proxy_name_type">Dynamic Residence</string>
+    <string name="email_login" >メールログイン</string>
+    <string name="phone_login" >電話ログイン</string>
+    <string name="phone_msg" >電話番号</string>
+    <string name="phone_email_msg" >携帯電話番号/メールアドレス</string>
+    <string name="vc_msg" >検証コード</string>
+    <string name="password_login" >パスログ‌</string>
+    <string name="sms_login" >SMSログイン</string>
+    <string name="jump_login" >飛び越える</string>
+    <string name="email_register">メールアドレス登録</string>
+    <string name="phone_register">電話番号登録</string>
+    <string name="user_name">ユーザー名*</string>
+    <string name="email_name">メールアドレス*</string>
+    <string name="email_edit_name">メールアドレス/携帯電話番号を入力してください</string>
+    <string name="email_new_name">メールアドレス</string>
+    <string name="email_verify_code">メールアドレス VC*</string>
+    <string name="email_verify_code_new">メールアドレス VC</string>
+    <string name="email_password">パスワード*</string>
+    <string name="email_edit_password">パスワードを入力してください</string>
+    <string name="email_new_password">パスワード</string>
+    <string name="email_password_again">パスワードをもう一度入力してください*</string>
+    <string name="password_min_8_bits">パスワードは8文字以上でなければなりません</string>
+    <string name="passwords_entered_twice_inconsistent">2回入力したパスワードが一致しません</string>
+    <string name="please_enter_correct_phone_number">有効な携帯電話番号を入力してください</string>
+    <string name="verification">キャプチャ*</string>
+    <string name="verification_new">キャプチャ</string>
+    <string name="remember_password">RMP</string>
+    <string name="forget_password">パスワードを忘れた場合?</string>
+    <string name="login">ログイン</string>
+    <string name="login_google">Googleログイン</string>
+    <string name="register_google">Google登録</string>
+    <string name="no_account_yet">アカウントをお持ちでないですか？今すぐ登録</string>
+    <string name="invite_code">招待コード（任意）</string>
+    <string name="register_account">アカウント登録</string>
+    <string name="please_verify_code">VCを入力してください</string>
+    <string name="get_verify_code">認証コードを取得</string>
+    <string name="get_email_verify_code">VCを送信</string>
+    <string name="verify_code_had_send">送信済み</string>
+    <string name="register_use_phone_number">携帯電話番号で登録</string>
+    <string name="back_login">ログインに戻る</string>
+    <string name="change_password">パスワードを変更</string>
+    <string name="user_name_empty">ユーザー名は空欄にできません</string>
+    <string name="email_empty">メールアドレスは空欄にできません</string>
+    <string name="email_code_empty">メール認証コードは空欄にできません</string>
+    <string name="password_empty_tip">パスワードは空欄にできません</string>
+    <string name="empty_tip">確認コードは空欄にできません</string>
+    <string name="email_illegal">入力されたメールアドレスは無効です</string>
+
+    <string name="smmary">Summary</string>
+    <string name="dynamic_ip">Dynamic IP</string>
+    <string name="deduction_by_traffic">Deduction by traffic</string>
+    <string name="deduction_by_ip">Deduction by IP</string>
+    <string name="static_ip">Static IP</string>
+    <string name="quick_access">Quick access</string>
+    <string name="top_up">top up</string>
+    <string name="personal_center">Personal Center</string>
+    <string name="help_center">Help Center</string>
+    <string name="logout">logout</string>
+    <string name="proxy_details">Proxy Details</string>
+    <string name="proxy_type">Proxy Type：</string>
+    <string name="remark">Remark：</string>
+    <string name="location">location：</string>
+    <string name="proxy_address">proxy address：</string>
+    <string name="proxy_user_name">proxy username：</string>
+    <string name="proxy_password">proxy password：</string>
+    <string name="sure">もちろん</string>
+    <string name="connected_not">Not connected</string>
+    <string name="connect_success">Connection successful</string>
+    <string name="connect_fail">Connection failed</string>
+
+    <string name="pay_details">Please select payment method</string>
+
+
+    <string name="toast_loading">loading..</string>
+    <string name="exit_program">Exit the program again</string>
+
+    <!--接口返回错误提示-->
+    <string name="verify_code_error">認証コードエラー</string>
+    <string name="login_password_error">ログインパスワードが間違っています</string>
+
+    <string name="register_already_email_error" >ユーザーは既に存在します。ログインしてください</string>
+
+    <string name="register_no_email_error" >このメールアカウントは登録されていません</string>
+    <string name="register_no_phone_error" >このモバイルアカウントは登録されていません</string>
+
+    <string name="register_success" >登録に成功しました。ログインしてください</string>
+
+    <string name="change_password_success">パスワードリセットリンクをメールで送信しました。ご確認ください。</string>
+
+    <string name="change_password_success_phone">パスワードの変更に成功しました。</string>
+    <string name="email_vc_error">正しいメールアドレスまたは認証コードを入力してください。</string>
+    <string name="no_agree_error">利用規約とプライバシーポリシーをお読みになり、同意してください。同意します。</string>
+    <string name="confirm">confirm</string>
+    <string name="cancel">cancel</string>
+    <string name="ipinfo">Check IP</string>
+    <string name="payBtn">Payment</string>
+    <string name="payMessage">注：AlipayおよびUSDTでの入金には約5～15分かかります。しばらくお待ちください。15分後にページを更新してください。それでも資金が入金されない場合は、カスタマーサービスまでお問い合わせください。</string>>
+    <string name="ailipayBtn">Alipay</string>
+    <string name="stripepayBtn">クレジットカード</string>
+    <string name="usdtpayBtn">USDT</string>
+    <string name="bankCardId">下記に銀行カード番号を入力してください</string>
+    <string name="version_title">新しいバージョンが利用可能です</string>
+    <string name="version_message">最新バージョンに更新しますか？</string>
+    <string name="version_message1">最新バージョンに更新してください。</string>
+    <string name="version_button">更新</string>
+    <string name="version_button1">後で更新</string>
+
+    <string name="wallet_title_message">財布</string>
+
+    <string name="edit_name_title_message">名前を変更</string>
+    <string name="edit_name_message">新しい名前を編集してください</string>
+
+</resources>

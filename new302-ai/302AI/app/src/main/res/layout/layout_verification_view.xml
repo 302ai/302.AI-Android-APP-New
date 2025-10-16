@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/verification_code"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/input_bg">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/img_verification"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:visibility="gone"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="20dp"
+            android:background="@drawable/icon_verifiy" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/edit_verification"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="15dp"
+            android:layout_toEndOf="@+id/img_verification"
+            android:background="@null"
+            android:gravity="center_vertical"
+            android:lines="1"
+            android:singleLine="true"
+            android:hint="@string/verification"
+            android:textColor="@color/black"
+            android:textColorHint="@color/input_hint"
+            android:textSize="14sp" />
+    </RelativeLayout>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_empty_tip"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_marginTop="5dp"
+        android:textColor="@color/empty_tip"
+        android:textSize="14sp"
+        tools:text="@string/empty_tip" />
+
+</LinearLayout>

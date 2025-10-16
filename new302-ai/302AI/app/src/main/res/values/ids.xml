@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="statusbarutil_fake_status_bar_view" type="id" />
+    <item name="statusbarutil_translucent_view" type="id" />
+    <item name="tab_miles" type="id" />
+    <item name="tab_km" type="id" />
+    <item name="tab_explore" type="id" />
+    <item name="tab_follow" type="id" />
+    <item name="tab_comment" type="id" />
+    <item name="tab_attitude" type="id" />
+
+    <item name="tag_item_user_id" type="id" />
+    <item name="tag_item_coordinate" type="id" />
+    <item name="tag_item_old_coordinate" type="id" />
+
+</resources>

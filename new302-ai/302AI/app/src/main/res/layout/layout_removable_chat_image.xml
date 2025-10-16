@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="0dp">
+    <LinearLayout
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:orientation="horizontal">
+        <FrameLayout
+            android:layout_width="56dp"
+            android:layout_height="56dp">
+
+            <ImageView
+                android:id="@+id/imageViewMain"
+                android:layout_width="52dp"
+                android:layout_height="52dp"
+                android:scaleType="centerCrop"
+                android:layout_gravity="center"
+                android:background="@color/BgPrimary"/>
+
+            <ImageView
+                android:id="@+id/imageViewDelete"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="top|end"
+                android:layout_margin="8dp"
+                android:visibility="gone"
+                android:src="@drawable/icon_close"
+                android:contentDescription="删除图片"/>
+        </FrameLayout>
+        <LinearLayout
+            android:id="@+id/fileLine"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/fileNameTv"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:text="文件名称.pdf"
+                android:maxLines="1"
+                android:textSize="12sp"
+                android:ellipsize="middle"
+                android:textColor="@color/black"/>
+            <TextView
+                android:id="@+id/fileSizeTv"
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
+                android:text="12kb"
+                android:maxLines="1"
+                android:layout_marginTop="5dp"
+                android:textSize="12sp"
+                android:ellipsize="middle"
+                android:textColor="@color/textSettingColor"/>
+        </LinearLayout>
+        
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_r4_ffffff_bg"
+    android:minWidth="310dp"
+    android:theme="@style/Theme.Dialog">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_proxy_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:text="@string/pay_details"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        tools:ignore="RelativeOverlap" />
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/btn_close"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="10dp"
+        android:background="@null"
+        android:contentDescription="@null"
+        android:padding="5dp"
+        android:src="@drawable/icon_close" />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/tv_proxy_name"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="20dp"
+        android:background="@color/dividing_line" />
+    <com.github.lzyzsd.jsbridge.BridgeWebView
+        android:id="@+id/webViewUrl"
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:visibility="gone"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="20dp"
+        android:layout_below="@+id/view"
+        tools:ignore="WebViewLayout" />
+    <LinearLayout
+        android:id="@+id/ll_pay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/view"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="20dp"
+        android:orientation="vertical"
+        android:paddingTop="10dp"
+        android:paddingBottom="20dp">
+        <LinearLayout
+            android:id="@+id/ll_alipay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="@drawable/shape_frame_bg"
+            android:layout_below="@+id/view"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            android:orientation="horizontal"
+            android:paddingTop="10dp"
+            android:paddingBottom="20dp">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/btn_aili_pay"
+                android:layout_width="60dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginBottom="20dp"
+                android:gravity="center"
+                android:text="@string/ailipayBtn"
+                android:textColor="@color/un_selected"
+                android:textSize="14sp" />
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:layout_marginTop="15dp"
+                android:layout_marginStart="35dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/aili_pay"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_stripe"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="@drawable/shape_frame_bg"
+            android:layout_below="@+id/view"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            android:orientation="horizontal"
+            android:paddingTop="10dp"
+            android:paddingBottom="20dp">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/btn_stripe_pay"
+                android:layout_width="60dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginBottom="20dp"
+                android:gravity="center"
+                android:text="@string/stripepayBtn"
+                android:textColor="@color/un_selected"
+                android:textSize="14sp" />
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:layout_marginTop="15dp"
+                android:layout_marginStart="35dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/cand_one"
+                />
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:layout_marginTop="15dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/card_two"
+                />
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:layout_marginTop="15dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/card_three"
+                />
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:layout_marginTop="15dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/card_four"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_usdt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/view"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="@drawable/shape_frame_bg"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            android:orientation="horizontal"
+            android:paddingTop="10dp"
+            android:paddingBottom="20dp">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/btn_usdt_pay"
+                android:layout_width="60dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginBottom="20dp"
+                android:gravity="center"
+                android:text="@string/usdtpayBtn"
+                android:textColor="@color/un_selected"
+                android:textSize="14sp" />
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:layout_marginTop="15dp"
+                android:layout_marginStart="35dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/udst_pay"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/view"
+            android:layout_gravity="center"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:orientation="horizontal"
+            android:paddingTop="10dp">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:background="@drawable/protect_pay"
+                />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/pay_msg"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginBottom="20dp"
+                android:gravity="center"
+                android:text="SSL Secure Payment"
+                android:textColor="@color/un_selected"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <View
+            android:id="@+id/view_two"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/ll_message"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            android:background="@color/dividing_line" />
+        <TextView
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/un_selected"
+            android:text="@string/payMessage"
+            />
+        </LinearLayout>
+
+
+
+
+    <View
+        android:id="@+id/view_two1"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/ll_pay"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="20dp"
+        android:background="@color/dividing_line" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/btn_confirm"
+        android:layout_width="60dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/view_two1"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/shape_frame_bg"
+        android:gravity="center"
+        android:text="@string/cancel"
+        android:textColor="@color/un_selected"
+        android:textSize="14sp" />
+
+</RelativeLayout>

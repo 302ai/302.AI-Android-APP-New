@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FFFFFFFF</color>
+    <color name="white">#747177</color>
+    <color name="textColor">#FFFFFFFF</color>
+    <color name="textColor1">#8E8E8E</color>
+    <color name="textColor2">#D3D3D3</color>
+    <color name="textSettingColor">#FFFFFFFF</color>
+    <color name="textSettingColor1">#8E8E8E</color>
+    <color name="textSettingColor2">#CD0404</color>
+    <color name="textSettingColor3">#AAAAAA</color>
+
+    <color name="textDialogColor">#747177</color>
+
+    <color name="backgroundChat">#333333</color>
+    <color name="backgroundSetting">#333333</color>
+    <color name="backgroundGreen">#DEF3E4</color>
+
+
+
+    <color name="lineSetting">#F6F6F6</color>
+
+    <color name="leftDialogLine">#EBEBEB</color>
+
+    <color name="backWhite">#F9F9F9</color>
+    <color name="BgPrimary">#F7F8F9</color>
+    <color name="BgChat">#f5f5f5</color>
+    <color name="dividing_line">#E5E6E8</color> <!--分割线-->
+    <color name="preference_simple_menu_background">#FFFDFDFD</color>
+    <color name="shadow">#D3D3D3</color><!--阴影-->
+    <color name="gray">#FF666666</color>
+    <color name="green">#00FF00</color>
+    <color name="blue">#4169E1</color>
+    <color name="delete_red">#FD5972</color>
+    <color name="delete_red1">#FD5912</color>
+
+    <color name="莫兰迪灰褐色">#B6B5A7</color>
+    <color name="莫兰迪灰米色">#E8E3DE</color>
+    <color name="莫兰迪灰蓝色">#3498db</color>
+    <color name="莫兰迪深棕色">#9A8F8F</color>
+
+
+    <color name="color1">#f3ecfd</color>
+    <color name="color2">#f7f1eb</color>
+    <color name="color3">#d3ecf6</color>
+    <color name="color4">#fef1e0</color>
+    <color name="color5">#e8dfdb</color>
+    <color name="color6">#daedf8</color>
+    <color name="color7">#f7e7eb</color>
+
+    <color name="colorSelect">#DFDFDF</color>
+    <color name="colorUnselect">#F5F5F5</color>
+
+    <color name="colorPurple">#871F78</color>
+    <color name="colorLightPurple">#DB70DB</color>
+    <color name="color302AI">#8e47f0</color>
+
+    <color name="StaticWhite">#FFFFFF</color>
+
+    <color name="un_selected">#525961</color> <!--登录 未选中-->
+    <color name="selected">#3756CA</color> <!--登录 已选中-->
+    <color name="underline">#375CAC</color>  <!--登录 下划线-->
+    <color name="input_bg">#F2F3F5</color> <!--输入框背景-->
+    <color name="input_hint">#9CA6B0</color> <!--输入框提示颜色-->
+    <color name="verification_bg">#FFECE8</color> <!--验证码背景颜色-->
+    <color name="empty_tip">#F53F3F</color> <!--验证码为空提示-->
+    <color name="forget_password">#7664DD</color> <!--忘记密码-->
+    <color name="login_bg">#5848D5</color><!--登录按钮颜色-->
+    <color name="frame_bg">#BBBBBB</color><!--边框-->
+    <color name="register_btn">#02BD7E</color>
+    <color name="transparent">#00000000</color>
+    <color name="Static1D">#FF1D1D1D</color>
+    <color name="login_color_bg_one">#5948D5</color>
+    <color name="login_color_bg_two">#D7D3F4</color>
+    <color name="Primary">#FF1F81</color>
+    <color name="details_bg">#F2E5C2</color>
+    <color name="details_txt">#81641C</color>
+    <color name="confirm">#466FFF</color>
+
+
+</resources>

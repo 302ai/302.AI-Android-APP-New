@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 底层：定义圆角形状（裁剪区域） -->
+    <item>
+        <shape android:shape="rectangle">
+            <!-- 这里的颜色不影响显示，仅用于定义裁剪范围 -->
+            <solid android:color="@color/transparent" />
+            <!-- 顶部两角圆角，底部直角 -->
+            <corners
+                android:topLeftRadius="26dp"
+                android:topRightRadius="26dp"
+                android:bottomLeftRadius="0dp"
+                android:bottomRightRadius="0dp" />
+        </shape>
+    </item>
+
+    <!-- 上层：图片（会被底层形状裁剪） -->
+    <item>
+        <bitmap
+            android:src="@drawable/icon_feed_back_bg"
+        android:scaleType="centerCrop"
+        android:gravity="center" />
+    </item>
+</layer-list>

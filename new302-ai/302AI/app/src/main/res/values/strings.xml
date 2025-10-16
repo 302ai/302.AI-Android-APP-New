@@ -1,0 +1,394 @@
+<resources>
+    <string name="app_name">302.AI</string>
+    <string name="title_activity_setting">SettingActivity</string>
+    <string name="chat_title">NewChat</string>
+    <string name="hide_title">Incognito session</string>
+    <string name="front_page_message">Hi,are you ready to explore the world with me?</string>
+    <string name="chat_edit_message">Ask me any questions...</string>
+    <string name="front_page_bottom_message">AI can make mistakes, please consider verifying important information.</string>
+    <string name="voice_message">Hold to speak</string>
+    <string name="cancel_message">Cancel</string>
+    <string name="delete_message">Delete</string>
+    <string name="edit_message">Edit</string>
+    <string name="send_message">Send</string>
+    library
+    <string name="resource_library">Resource library</string>
+    <string name="today_message">Today</string>
+    <string name="yesterday_message">Yesterday</string>
+    <string name="earlier_message">Earlier</string>
+    <string name="edit_search_history_message">Please enter search content</string>
+    <string name="voice_mike_message">Speech recognition</string>
+    <string name="voice_short_can_not_message">The voice input is too short. Please long press the microphone icon</string>
+    <string name="open_hide_chat_toast_message">Switched to Incognito session</string>
+    <string name="close_hide_chat_toast_message">Incognito session closed</string>
+    <string name="plase_wait_back_delect_toast_message">Please wait for the reply to be completed before deleting</string>
+    <string name="plase_first_enter_question_toast_message">Please enter a question first</string>
+    <string name="can_not_send_empty_toast_message">Cannot send empty content</string>
+    <string name="parsing_image_toast_message">Parsing the image, please wait</string>
+    <string name="network_error_toast_message">Network Error:</string>
+    <string name="already_new_session_toast_message">This is already a new session, thank you</string>
+    <string name="cancel_rename_toast_message">Cancel Rename</string>
+    <string name="screenshot_save_toast_message">The screenshot has been saved to the album, thank you</string>
+    <string name="screenshot_can_not_toast_message">Please talk to the big model first and then take a screenshot, thank you</string>
+    <string name="install_file_mangager_toast_message">Please install a file manager</string>
+    <string name="again_later_toast_message">Please try again later</string>
+    <string name="cancel_feedback_toast_message">Cancel Feedback</string>
+    <string name="rename_title_message">Rename</string>
+    <string name="edit_new_name_hint_message">Please edit the new name</string>
+    <string name="pormpt_hint_message">   Please fill in a custom prompt word other than the one above</string>
+    <string name="prompt_help_title_message">System prompt word help</string>
+    <string name="prompt_help_message">System prompts are instructions used to guide the AI is conversational style and role. By setting system prompts, you can ensure that the AI responds with a specific identity, tone, or behavior throughout the conversation. For example, system prompts can be used to allow the AI to play the role of teacher, assistant, or expert, better meeting the needs of different scenarios.</string>
+    <string name="select_expression_title_message">Please select an expression</string>
+    <string name="language_en_message">English</string>
+    <string name="language_ch_message">Chinese</string>
+    <string name="language_ja_message">Japanese</string>
+    <string name="good_toast_message">Like</string>
+    <string name="cancel_good_toast_message">Cancel Like</string>
+    <string name="bad_toast_message">Dislike</string>
+    <string name="again_toast_message">Retry</string>
+    <string name="pre_code_toast_message">Preview Code</string>
+    <string name="screenshot_toast_message">Screenshot</string>
+    <string name="select_text_toast_message">Select Text</string>
+    <string name="copy_toast_message">Copy</string>
+    <string name="user_edit_toast_message">Edit</string>
+
+
+    <string name="select_file_dialog_title">Please select file</string>
+    <string name="archive_dialog_message">from the archive</string>
+    <string name="camera_dialog_message">Camera</string>
+    <string name="push_picture_dialog_message">Upload photo</string>
+    <string name="appendix_dialog_message">Attachment</string>
+
+    <string name="select_function_dialog_title">Function Selection</string>
+    <string name="web_think_dialog_message">Web Search</string>
+    <string name="deep_think_dialog_message">Deep Thinking</string>
+    <string name="think_model_dialog_message">Thinking Model</string>
+    <string name="mcp_dialog_message">MCP1</string>
+
+    <string name="login_message">A pay-as-you-go enterprise-grade AI platform</string>
+    <string name="login_button_message">Login now</string>
+    <string name="setting_title_message">Settings</string>
+    <string name="setting_account_message">302.AI ID</string>
+    <string name="setting_balance_message">Balance</string>
+    <string name="setting_consumption_details_message">Consumption details</string>
+    <string name="setting_top_up_message">Top up</string>
+    <string name="setting_language_message">Language</string>
+    <string name="setting_theme_message">Theme</string>
+    <string name="setting_preference_message">Preferences</string>
+    <string name="setting_application_message">Application</string>
+    <string name="setting_general_message">General</string>
+    <string name="setting_manager_message">Manager</string>
+    <string name="setting_model_manager_message">Model management</string>
+    <string name="setting_tools_manager_message">MCP services</string>
+    <string name="setting_my_archive_manager_message">Archive</string>
+    <string name="setting_my_kb_manager_message">Knowledge Base</string>
+    <string name="setting_about_message">About</string>
+    <string name="setting_announcement_message">Announcement</string>
+    <string name="setting_contact_us_message">Contact Us</string>
+    <string name="setting_version_information_message">Version Information</string>
+    <string name="setting_service_agreement_message">Service Agreement</string>
+    <string name="setting_log_out_message">Logout</string>
+    <string name="setting_clear_chat_message">Clear all session logs</string>
+
+    <string name="announcement_details_title_message">Announcement details</string>
+    <string name="announcement_details_one_message">302.AI sincerely invites you to join the AI technology exchange group</string>
+    <string name="announcement_details_two_message">To further promote communication and collaboration in the AI field, 302.AI has created a WeChat group. Everyone is welcome to scan the QR code to join! \n\n\nIn the group,\n you can:\n - Get the latest AI news and technology updates \n- Seek technical support and solutions \n- Exchange experiences and insights with AI enthusiasts and professionals, and participate in various AI-related discussions and events.\n\n\n Due to WeChat restrictions, please use WeChat to scan the QR code or search for WeChat ID: wx_302A1 to add a 302.AI account manager, who will then add you to the group. 302.AI looks forward to your joining us to build an active and supportive AI community!</string>
+    <string name="privacy_policy_message">Privacy Policy</string>
+    <string name="terms_message">Terms of use</string>
+
+    <string name="personal_center_title_message">Personal Data</string>
+    <string name="personal_user_name_message">username</string>
+    <string name="personal_change_password_message">Change Password</string>
+    <string name="personal_cancel_account_message">Cancel account</string>
+    <string name="personal_upload_image_toast_message">Uploading pictures, please wait</string>
+    <string name="personal_select_image_message">Select an avatar</string>
+    <string name="change_password_title_message">Change Password</string>
+    <string name="change_password_old_message">Old Password</string>
+    <string name="change_password_new_message">New Password</string>
+    <string name="change_password_new_again_message">Confirm New Password</string>
+    <string name="change_password_old_hint_message">Please enter your old password</string>
+    <string name="change_password_new_hint_message">Please enter your new password</string>
+    <string name="change_password_new_again_hint_message">Please enter your new password again</string>
+    <string name="change_password_save_message">Change Password</string>
+    <string name="change_password_fail_toast_message">The password you entered is incorrect</string>
+    <string name="change_password_not_same_toast_message">The two passwords you entered do not match</string>
+    <string name="change_password_sucess_toast_message">Password changed successfully</string>
+    <string name="change_password_failed_toast_message">Password change failed</string>
+    <string name="delete_user_title_message">Cancellation Instructions</string>
+    <string name="delete_user_message">After canceling your account, all information will disappear permanently. Please operate with caution.</string>
+    <string name="delete_user_cancel_message">Cancel account cancellation</string>
+    <string name="delete_user_failed_message">Account deletion failed</string>
+    <string name="change_name_failed_message">Username change failed</string>
+    <string name="change_name_sucess_message">Username change successful</string>
+
+    <string name="setting_add_model_title_message">Add Model</string>
+    <string name="setting_add_model_id_message">Model ID</string>
+    <string name="setting_add_model_save_message">Save</string>
+    <string name="setting_add_model_id_edit_message">Please enter the model ID</string>
+    <string name="setting_add_model_id_edit_bottom_message">This is the actual name of the model,used to initiate \n the request</string>
+    <string name="setting_add_model_remark_message">Remarks</string>
+    <string name="setting_add_model_remark_edit_message">Please enter your remarks</string>
+    <string name="setting_add_model_remark_edit_bottom_message">You can set a more recognizable name for this model, for display purposes only</string>
+    <string name="setting_add_model_power_message">Model Power</string>
+    <string name="setting_add_model_reasoning_message">Reasoning</string>
+    <string name="setting_add_model_image_understanding_message">Image understanding</string>
+    <string name="setting_add_model_advanced_settings_message">Advanced settings</string>
+
+    <string name="setting_add_model_manager_title_message">Model management</string>
+    <string name="setting_add_model_manager_add_message">Add</string>
+    <string name="setting_add_model_manager_search_edit_message">Please enter search content</string>
+    <string name="setting_add_model_manager_classification_message">Classification</string>
+    <string name="setting_add_model_manager_custom_model_message">Custom model</string>
+
+    <string name="setting_preferences_title_message">Preferences</string>
+    <string name="setting_preferences_default_chat_model_message">Default Chat Model</string>
+    <string name="setting_preferences_build_title_model_time_message">Title Generation</string>
+    <string name="setting_preferences_default_title_model_message">Title Generation Model</string>
+    <string name="setting_preferences_auto_scroll_bottom_message">Auto Scroll Bottom</string>
+    <string name="setting_preferences_default_incognito_message">Use Incognito session by default</string>
+    <string name="setting_preferences_default_search_message">Default Search Service</string>
+    <string name="setting_preferences_build_title_model_time_one_message">First Time</string>
+    <string name="setting_preferences_build_title_model_time_every_message">Every Time</string>
+    <string name="setting_preferences_chat_time_one_message">First conversation</string>
+    <string name="setting_preferences_chat_time_every_message">Every conversation</string>
+
+    <string name="setting_default_model_last_time_message">Last used model</string>
+    <string name="setting_default_model_chat_same_title_message">Same model as chat</string>
+
+    <string name="setting_bottom_title_message">Session Title</string>
+    <string name="setting_bottom_parameter_message">Parameter Settings</string>
+    <string name="setting_bottom_model_message">Model</string>
+    <string name="setting_bottom_painting_message">painting</string>
+    <string name="setting_bottom_cue_words_message">Set system prompt words</string>
+    <string name="setting_bottom_kb_message">Knowledge Base</string>
+    <string name="setting_bottom_prompt_message">Set System Prompt Words</string>
+    <string name="setting_bottom_random_message">Randomness</string>
+    <string name="setting_bottom_precise_message">More Accurate</string>
+    <string name="setting_bottom_creativity_message">More Creative</string>
+    <string name="setting_bottom_share_message">Share</string>
+    <string name="setting_bottom_link_share_message">Link Sharing</string>
+    <string name="setting_bottom_generate_screenshot_message">Generate Screenshot</string>
+
+    <string name="select_text_title_message">Please select text</string>
+
+    <string name="pay_text_title_message">Recharge Center</string>
+    <string name="pay_text_explanation_message">Purchase Instructions
+\n1. Handling Fees: Alipay 3.4% + $0.5 | Credit Card 3.4% + $0.5 | USDT 1.3% (Large-amount wire transfers and automatic top-ups are waived)
+\n2. Invoice Service: Invoices are available for domestic corporate transfers, back-end top-ups, and international transfers. Contact your account manager for details.
+\nNotes
+\nAlipay and USDT top-ups take approximately 5-15 minutes to process. Please be patient. Refresh the page after 15 minutes. If your funds have not been credited, please contact customer service.
+\nPTC Description
+\nPTC is a token provided by 302.AI for purchases on 302.AI. 1 PTC = 1 USD, approximately 7 RMB. You can purchase PTC according to the purchase rules first, and then use "PTC" to purchase 302.AI products or services. Once the PTC is purchased, no refunds will be accepted.</string>
+    <string name="pay_text_protocol_title_message">Recharge Agreement</string>
+    <string name="pay_text_hot_message">Hot Sale</string>
+    <string name="pay_text_recommend_message">Recommend</string>
+    <string name="pay_text_recharge_instructions_message">Recharge Instructions：</string>
+    <string name="pay_text_next_message">Next step</string>
+    <string name="pay_text_gift_message">handsel 20PTC</string>
+    <string name="pay_text_agree_message">Payment means reading and agreeing</string>
+    <string name="pay_text_pay_protocol_message">《User Recharge Agreement》</string>
+    <string name="pay_text_pay_actual_message">Actual amount paid</string>
+    <string name="pay_text_pay_now_message">Pay now</string>
+    <string name="pay_text_pay_toast_message">Please select the payment amount first</string>
+    <string name="pay_text_pay_way_toast_message">Please select payment method first</string>
+    <string name="copy_code_toast_message">Copy code</string>
+    <string name="thinking_over_message">Thinking Completed</string>
+
+    <string name="setting_prompt_title_message">System Prompt Words</string>
+    <string name="setting_prompt_empty_message">Empty</string>
+    <string name="setting_prompt_customize_message">Customize</string>
+
+    <string name="close_message">Close</string>
+
+    <string name="feed_back_title_message">Help us make it better</string>
+    <string name="feed_back_bottom_message">Every piece of feedback you provide will help improve the AI. Thank you for your continued progress.</string>
+    <string name="feed_back_content_issues_message">Content quality issues</string>
+    <string name="feed_back_logical_issues_message">Logical flaws</string>
+    <string name="feed_back_expression_issues_message">Unclear expression</string>
+    <string name="feed_back_answer_issues_message">Irrelevant answers</string>
+    <string name="feed_back_other_issues_message">Additional information</string>
+    <string name="feed_back_edit_issues_message">Tell us what you think～</string>
+    <string name="feed_back_push_issues_message">Submit feedback</string>
+
+    <string name="rename_message">Rename</string>
+    <string name="rename_edit_message">Please edit the new name</string>
+    <string name="more_select_message">Multiple Choice</string>
+    <string name="collect_message">collect</string>
+
+    <string name="resource_library_title_message">Resource library</string>
+
+
+    <string name="insufficient_message">Insufficient account balance. Create your own tool, for details please view 302.AI</string>
+
+    <string name="setting_select_model_title_message">Select model</string>
+
+    <string name="version_information_title_message">Version information</string>
+    <string name="service_agreement_title_message">Service Agreement</string>
+
+    <string name="get_title_message">英文</string>
+    <string name="get_title_message1">6个英文单词</string>
+
+    <string name="Consumption_details_title_message">Consumption details</string>
+    <string name="consumption_account_balance_message">Account balance</string>
+    <string name="consumption_today_message">Consumption today</string>
+    <string name="consumption_month_message">Consumption this month</string>
+    <string name="consumption_historical_message">Historical consumption</string>
+    <string name="consumption_session_title_message">Session title</string>
+    <string name="consumption_kb_message">Knowledge base name</string>
+    <string name="consumption_file_message">Archives</string>
+    <string name="consumption_incognito_session_message">Incognito session</string>
+    <string name="consumption_account_recharge_message">Account recharge</string>
+
+
+    <string name="app_name_long" translatable="false">NekoBox for Android</string>
+    <string name="service_mode_vpn" translatable="false">VPN</string>
+    <string name="ws_max_early_data" translatable="false">Max early data</string>
+    <string name="traffic" translatable="false">%1$s↑ %2$s↓</string>
+    <string name="action_socks" translatable="false">SOCKS</string>
+    <string name="action_http" translatable="false">HTTP</string>
+    <string name="action_shadowsocks" translatable="false">Shadowsocks</string>
+    <string name="action_shadowsocksr" translatable="false">ShadowsocksR</string>
+    <string name="action_vmess" translatable="false">VMess</string>
+    <string name="action_trojan" translatable="false">Trojan</string>
+    <string name="action_trojan_go" translatable="false">Trojan Go</string>
+    <string name="action_mieru" translatable="false">Mieru</string>
+    <string name="action_naive" translatable="false">Naïve</string>
+    <string name="action_ping_tunnel" translatable="false">Ping Tunnel</string>
+    <string name="action_hysteria" translatable="false">Hysteria</string>
+    <string name="action_ssh" translatable="false">SSH</string>
+    <string name="action_wireguard" translatable="false">WireGuard</string>
+    <string name="action_tuic" translatable="false">TUIC</string>
+    <string name="v2rayn" translatable="false">V2RayN</string>
+    <string name="available" translatable="false">%dms</string>
+    <string name="connection_test_tcp_ping" translatable="false">TCPing</string>
+    <string name="connection_test_icmp_ping" translatable="false">ICMPing</string>
+    <string name="connection_test_url_test" translatable="false">URL Test</string>
+    <string name="cancel">cancel</string>
+    <string name="ooc_subscription_token" translatable="false">OOCv1 API Token</string>
+    <string name="traffic_uplink" translatable="false">%s | %s/s ↑</string>
+    <string name="traffic_downlink" translatable="false">%s | %s/s ↓</string>
+    <string name="traffic_uplink_total" translatable="false">%s ↑</string>
+    <string name="traffic_downlink_total" translatable="false">%s ↓</string>
+    <string name="cloudflare_wrap" translatable="false">Cloudflare Warp</string>
+    <string name="pcap" translatable="false">Pcap</string>
+    <string name="mtu" translatable="false">MTU</string>
+
+    <string name="proxy_message1">Read and Agree to</string>
+    <string name="proxy_message2">and</string>
+    <string name="user_terms">UTs</string>
+    <string name="privacy_agreement">PAs</string>
+
+    <string name="proxy_name_type">Dynamic Residence</string>
+    <string name="email_login">email login</string>
+    <string name="phone_login">phone login</string>
+    <string name="phone_msg">Phone number</string>
+    <string name="phone_email_msg">Phone number/email address</string>
+    <string name="vc_msg">Verification Code</string>
+    <string name="password_login">Pwdlog</string>
+    <string name="sms_login">SMS login</string>
+    <string name="jump_login">Jump Login</string>
+    <string name="email_register">email-Reg</string>
+    <string name="phone_register">phone-Reg</string>
+    <string name="user_name">username*</string>
+    <string name="email_name">email*</string>
+    <string name="email_edit_name">Please enter your email address</string>
+    <string name="email_new_name">email</string>
+    <string name="email_verify_code">email VC*</string>
+    <string name="email_verify_code_new">email VC</string>
+    <string name="email_password">password*</string>
+    <string name="email_edit_password">Please enter your password</string>
+    <string name="email_new_password">password</string>
+    <string name="email_password_again">Enter your password again*</string>
+    <string name="password_min_8_bits">The password must be at least 8 characters long</string>
+    <string name="passwords_entered_twice_inconsistent">The passwords you entered twice do not match</string>
+    <string name="please_enter_correct_phone_number">Please enter a valid mobile phone number</string>
+    <string name="verification">Captcha*</string>
+    <string name="verification_new">Captcha</string>
+    <string name="remember_password">RMP</string>
+    <string name="forget_password">forget the password?</string>
+    <string name="login">login</string>
+    <string name="login_google">google login</string>
+    <string name="register_google">google register</string>
+    <string name="no_account_yet">Don not have an account?Register now</string>
+    <string name="invite_code">Invitation code (optional)</string>
+    <string name="register_account">Register account</string>
+    <string name="please_verify_code">Please enter the VC</string>
+    <string name="get_verify_code">Get verification code</string>
+    <string name="get_email_verify_code">Send VC</string>
+    <string name="verify_code_had_send">Sent</string>
+    <string name="register_use_phone_number">Register using your mobile phone number</string>
+    <string name="back_login">Back to Login</string>
+    <string name="change_password">Change Password</string>
+    <string name="user_name_empty">Username cannot be empty</string>
+    <string name="email_empty">Email address cannot be empty</string>
+    <string name="email_code_empty">Email verification code cannot be empty</string>
+    <string name="password_empty_tip">Password cannot be empty</string>
+    <string name="empty_tip">Verification code cannot be empty</string>
+    <string name="email_illegal">The email address entered is invalid</string>
+
+    <string name="smmary">Summary</string>
+    <string name="dynamic_ip">Dynamic IP</string>
+    <string name="deduction_by_traffic">Deduction by traffic</string>
+    <string name="deduction_by_ip">Deduction by IP</string>
+    <string name="static_ip">Static IP</string>
+    <string name="quick_access">Quick access</string>
+    <string name="top_up">top up</string>
+    <string name="personal_center">Personal Center</string>
+    <string name="help_center">Help Center</string>
+    <string name="logout">logout</string>
+    <string name="proxy_details">Proxy Details</string>
+    <string name="proxy_type">Proxy Type：</string>
+    <string name="remark">Remark：</string>
+    <string name="location">location：</string>
+    <string name="proxy_address">proxy address：</string>
+    <string name="proxy_user_name">proxy username：</string>
+    <string name="proxy_password">proxy password：</string>
+    <string name="sure">sure</string>
+    <string name="connected_not">Not connected</string>
+    <string name="connect_success">Connection successful</string>
+    <string name="connect_fail">Connection failed</string>
+
+    <string name="pay_details">Please select payment method</string>
+
+
+    <string name="toast_loading">loading..</string>
+    <string name="exit_program">Exit the program again</string>
+
+    <!--接口返回错误提示-->
+    <string name="verify_code_error">Verification code error</string>
+    <string name="login_password_error">Wrong login password</string>
+
+    <string name="register_already_email_error">The user already exists, please login</string>
+
+    <string name="register_no_email_error">This email account is not registered</string>
+    <string name="register_no_phone_error">This mobile account is not registered</string>
+
+    <string name="register_success">Registration successful, please login</string>
+
+    <string name="change_password_success">The password reset link has been sent to your email, please check.</string>
+
+    <string name="change_password_success_phone">The password changed successfully.</string>
+    <string name="email_vc_error">Please enter the correct email or verification code.</string>
+    <string name="no_agree_error">Please read and agree to the User Terms and Privacy Agreement.</string>
+    <string name="confirm">confirm</string>
+    <string name="ipinfo">Check IP</string>
+    <string name="payBtn">Payment</string>
+    <string name="payMessage">Notice:The recharge process of Alipay and USDT takes about 5-15 minutes, please wait patiently. Refresh the page after 15 minutes. If the funds are still not received, please contact customer service.</string>
+    >
+    <string name="ailipayBtn">Alipay</string>
+    <string name="stripepayBtn">credit card</string>
+    <string name="usdtpayBtn">USDT</string>
+    <string name="bankCardId">Please enter your bank card number below</string>
+    <string name="version_title">A new version is available</string>
+    <string name="version_message">Do you want to update to the latest version?</string>
+    <string name="version_message1">Please update to the latest version.</string>
+    <string name="version_button">Update</string>
+    <string name="version_button1">Update later</string>
+
+    <string name="wallet_title_message">Wallet</string>
+
+    <string name="edit_name_title_message">Rename</string>
+    <string name="edit_name_message">Please edit the new name</string>
+
+
+</resources>

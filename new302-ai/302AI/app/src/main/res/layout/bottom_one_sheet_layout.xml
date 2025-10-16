@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="500dp"
+    android:background="@drawable/bg_b"
+    android:minHeight="120dp"
+    android:minWidth="120dp"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <WebView
+        android:id="@+id/webViewMessage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="12dp"
+        android:textSize="18sp" />
+</LinearLayout>

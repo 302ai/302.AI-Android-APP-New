@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle"
+    > <!-- 基础形状为矩形 -->
+
+    <!-- 填充颜色（可选，也可替换为图片） -->
+    <solid android:color="@color/white"
+        /> <!-- 替换为你的背景色 -->
+    <!-- 关键：只设置上面两个角的圆角半径（单位dp） -->
+    <corners
+        android:topLeftRadius="8dp"
+        android:topRightRadius="8dp"
+        android:bottomLeftRadius="0dp"
+        android:bottomRightRadius="0dp" />
+
+    <!-- 可选：添加边框 -->
+    <!-- <stroke
+        android:width="1dp"
+        android:color="@color/grey" /> -->
+
+</shape>

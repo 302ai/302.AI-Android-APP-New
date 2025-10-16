@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rl_email"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="20dp"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/rl_phone_location"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@drawable/shape_shadow_bg">
+
+        <LinearLayout
+            android:id="@+id/ll_location"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="1dp"
+            android:background="@drawable/shape_frame_bg"
+            android:orientation="horizontal">
+
+            <com.rilixtech.widget.countrycodepicker.CountryCodePicker
+                android:id="@+id/codePicker"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:paddingStart="20dp"
+                app:ccp_arrowSize="20sp"
+                app:ccp_defaultCode="86"
+                app:ccp_defaultNameCode="CN"
+                app:ccp_hideNameCode="true"
+                app:ccp_hidePhoneCode="true"
+                app:ccp_selectionDialogShowSearch="true"
+                app:ccp_textSize="22sp"
+                tools:ignore="RtlSymmetry" />
+
+
+        </LinearLayout>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_area_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
+            android:visibility="gone"
+            android:layout_toEndOf="@+id/ll_location"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            tools:text="+852" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/edit_phone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/tv_area_code"
+            android:background="@null"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:singleLine="true"
+
+            android:textColor="@color/black"
+            android:textColorHint="@color/input_hint"
+            android:textSize="14sp" />
+    </RelativeLayout>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_phone_number_error_tip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl_phone_location"
+        android:textColor="@color/empty_tip"
+        android:textSize="14sp"
+        tools:text="@string/please_enter_correct_phone_number" />
+
+</RelativeLayout>

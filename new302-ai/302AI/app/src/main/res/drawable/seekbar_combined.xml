@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 底层：未选中轨道 -->
+    <item android:drawable="@drawable/seekbar_track_unselected" />
+
+    <!-- 上层：选中轨道，使用clip控制显示范围 -->
+    <item android:id="@android:id/progress">
+        <clip>
+            <bitmap android:src="@drawable/seekbar_track_selected" />
+        </clip>
+    </item>
+</layer-list>

@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ll_phone_register"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/personal_user_name_message"
+            android:textSize="14sp"
+            android:layout_marginTop="20dp"
+            android:textColor="@color/black"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="6dp"
+            android:background="@color/input_bg">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/img_user"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="20dp"
+                android:background="@drawable/icon_user_name" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/edit_user_name"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="15dp"
+                android:layout_toEndOf="@+id/img_user"
+                android:background="@null"
+                android:gravity="center_vertical"
+                android:hint="@string/user_name"
+                android:lines="1"
+                android:singleLine="true"
+                android:textColor="@color/black"
+                android:textColorHint="@color/input_hint"
+                android:textSize="14sp" />
+
+        </RelativeLayout>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_empty_tip_useName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/empty_tip"
+            android:textSize="14sp"
+            tools:text="@string/user_name_empty" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:visibility="gone"
+        android:background="@color/input_bg">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/img_invite"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="20dp"
+            android:background="@drawable/icon_invite" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/edit_invite_code"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="15dp"
+            android:layout_toEndOf="@+id/img_invite"
+            android:background="@null"
+            android:gravity="center_vertical"
+            android:hint="@string/invite_code"
+            android:lines="1"
+            android:singleLine="true"
+            android:textColor="@color/black"
+            android:textColorHint="@color/input_hint"
+            android:textSize="14sp" />
+
+    </RelativeLayout>
+
+    <com.newAi302.app.widget.view.PhoneLocationView
+        android:id="@+id/rl_phone_location"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/verification_new"
+        android:textSize="14sp"
+        android:layout_marginTop="18dp"
+        android:textColor="@color/black"/>
+
+    <RelativeLayout
+        android:id="@+id/rl_verify_code"
+        android:layout_marginTop="6dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.newAi302.app.widget.view.VerificationEditTextView
+            android:id="@+id/verification_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_toStartOf="@+id/verifyCodeView" />
+
+        <com.newAi302.app.widget.view.VerifyCodeView
+            android:id="@+id/verifyCodeView"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="10dp" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/vc_msg"
+        android:textSize="14sp"
+        android:layout_marginTop="18dp"
+        android:textColor="@color/black"/>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:orientation="horizontal">
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/edit_verify_code"
+            android:layout_width="150dp"
+            android:layout_height="40dp"
+            android:background="@color/input_bg"
+            android:hint="@string/please_verify_code"
+            android:maxLines="1"
+            android:paddingStart="10dp"
+            android:singleLine="true"
+            android:textColor="@color/black"
+            android:textColorHint="@color/input_hint"
+            android:textSize="14sp" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_verify_code"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@+id/edit_verify_code"
+            android:gravity="center"
+            android:background="@drawable/shape_line_r2_bg_302ai"
+            android:text="@string/get_verify_code"
+            android:textColor="@color/white" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_code_empty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/edit_verify_code"
+            android:textColor="@color/empty_tip"
+            android:textSize="14sp"
+            tools:text="@string/empty_tip" />
+
+    </RelativeLayout>
+
+    <com.newAi302.app.widget.view.PassWorkEditView
+        android:id="@+id/rl_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:hint="@string/email_password" />
+
+    <com.newAi302.app.widget.view.PassWorkEditView
+        android:id="@+id/rl_password_again"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:hint="@string/email_password_again" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/btn_register_phone"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/shape_line_r2_bg_302ai"
+        android:gravity="center"
+        android:text="@string/register_use_phone_number"
+        android:textColor="@color/white"
+        android:textSize="16sp" />
+
+</androidx.appcompat.widget.LinearLayoutCompat>
