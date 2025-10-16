@@ -75,7 +75,7 @@ class HomeMessageAdapter(private val context:Context,private var chatList: List<
             }
         }*/
         return ChatViewHolder(view)
-    }
+    }//
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onBindViewHolder(holder: ChatViewHolder, position: Int) {
