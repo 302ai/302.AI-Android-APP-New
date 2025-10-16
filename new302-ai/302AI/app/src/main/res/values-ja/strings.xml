@@ -120,6 +120,11 @@
     <string name="change_name_failed_message">ユーザー名の変更に失敗しました</string>
     <string name="change_name_sucess_message">ユーザー名の変更に成功しました</string>
 
+    <string name="version_now_message">現在のバージョン</string>
+    <string name="version_new_message">更新されたバージョン</string>
+    <string name="version_title_message">バージョン情報</string>
+    <string name="back_login_message">ログインに戻る</string>
+
     <string name="setting_add_model_title_message">モデルを追加</string>
     <string name="setting_add_model_id_message">モデルID</string>
     <string name="setting_add_model_save_message">保存</string>
@@ -251,6 +256,8 @@
     <string name="password_login" >パスログ‌</string>
     <string name="sms_login" >SMSログイン</string>
     <string name="jump_login" >飛び越える</string>
+    <string name="email_verify" >メール認証</string>
+    <string name="sms_verify" >SMS認証</string>
     <string name="email_register">メールアドレス登録</string>
     <string name="phone_register">電話番号登録</string>
     <string name="user_name">ユーザー名*</string>

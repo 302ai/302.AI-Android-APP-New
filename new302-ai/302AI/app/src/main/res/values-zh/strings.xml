@@ -120,6 +120,11 @@
     <string name="change_name_failed_message">修改用户名失败</string>
     <string name="change_name_sucess_message">修改用户名成功</string>
 
+    <string name="version_now_message">当前版本</string>
+    <string name="version_new_message">版本更新</string>
+    <string name="version_title_message">版本信息</string>
+    <string name="back_login_message">回到登录</string>
+
 
     <string name="setting_add_model_title_message">添加模型</string>
     <string name="setting_add_model_id_message">模型ID</string>
@@ -264,6 +269,8 @@
     <string name="password_login" >密码登录</string>
     <string name="sms_login" >短信登录</string>
     <string name="jump_login" >跳过</string>
+    <string name="email_verify" >邮箱验证</string>
+    <string name="sms_verify" >短信验证</string>
     <string name="email_register">邮箱注册</string>
     <string name="phone_register">手机号注册</string>
     <string name="user_name">用户名*</string>

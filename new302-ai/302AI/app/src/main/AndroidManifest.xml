@@ -29,13 +29,21 @@
         android:theme="@style/SplashTheme"
         tools:targetApi="31">
         <activity
-            android:name=".ui.ChangePasswordActivity"
+            android:name=".ui.login.ForgetPassWordNewActivity"
             android:exported="false"
             android:screenOrientation="portrait"/>
         <activity
+            android:name=".ui.VersionUpdateActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.ChangePasswordActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".ui.PersonalCenterActivity"
             android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.PayActivity"
             android:exported="false"

@@ -231,11 +231,12 @@
             android:id="@+id/tv_email_verify_code"
             android:layout_width="100dp"
             android:layout_height="40dp"
+            android:background="@drawable/shape_line_r2_bg_302ai"
             android:layout_alignParentEnd="true"
             android:layout_marginStart="5dp"
             android:gravity="center"
             android:text="@string/get_email_verify_code"
-            android:textColor="@color/selected" />
+            android:textColor="@color/white" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_empty_tip_email_code"

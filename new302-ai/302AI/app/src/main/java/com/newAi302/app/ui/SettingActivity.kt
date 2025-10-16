@@ -364,7 +364,7 @@ class SettingActivity : BaseActivity(), PayDetailsDialog.OnButtonClickListener {
         }
 
         binding.versionConst.setOnClickListener {
-            val intent = Intent(this, VersionInformationActivity::class.java)
+            val intent = Intent(this, VersionUpdateActivity::class.java)
             startActivity(intent)
         }
         binding.protocolConst.setOnClickListener {

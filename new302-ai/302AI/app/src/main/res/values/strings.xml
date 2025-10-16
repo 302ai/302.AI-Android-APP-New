@@ -121,6 +121,11 @@
     <string name="change_name_failed_message">Username change failed</string>
     <string name="change_name_sucess_message">Username change successful</string>
 
+    <string name="version_now_message">Current version</string>
+    <string name="version_new_message">Updated version</string>
+    <string name="version_title_message">Version Information</string>
+    <string name="back_login_message">Back to login</string>
+
     <string name="setting_add_model_title_message">Add Model</string>
     <string name="setting_add_model_id_message">Model ID</string>
     <string name="setting_add_model_save_message">Save</string>
@@ -287,6 +292,8 @@
     <string name="password_login">Pwdlog</string>
     <string name="sms_login">SMS login</string>
     <string name="jump_login">Jump Login</string>
+    <string name="email_verify" >Email Auth</string>
+    <string name="sms_verify" >SMS Auth</string>
     <string name="email_register">email-Reg</string>
     <string name="phone_register">phone-Reg</string>
     <string name="user_name">username*</string>

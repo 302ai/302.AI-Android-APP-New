@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import com.newAi302.app.MainActivity
 import com.newAi302.app.ui.login.ForgetPassWordEmailActivity
+import com.newAi302.app.ui.login.ForgetPassWordNewActivity
 import com.newAi302.app.ui.login.ForgetPassWordPhoneActivity
 import com.newAi302.app.ui.login.LoginOneActivity
 import com.newAi302.app.ui.login.RegisterActivity
@@ -48,7 +49,8 @@ class ProxyActivityNavUtil {
          * 跳转到忘记密码页 - email
          */
         fun navToForgetPassWordEmail(activity: Activity) {
-            val intent = Intent(activity, ForgetPassWordEmailActivity::class.java)
+            //val intent = Intent(activity, ForgetPassWordEmailActivity::class.java)
+            val intent = Intent(activity, ForgetPassWordNewActivity::class.java)
             activity.startActivity(intent)
         }
 
