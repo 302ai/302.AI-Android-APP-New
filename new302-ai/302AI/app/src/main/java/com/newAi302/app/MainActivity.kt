@@ -269,6 +269,8 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
 
     private var hideTitle = ""
 
+    private var mReadImageUrl = ""
+
     private val screenReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             when (intent?.action) {
@@ -482,7 +484,7 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
             searchServiceType = readSearchServiceType
 
             //val readAppEmojisData = dataStoreManager.readAppEmojisData.first()
-            val readImageUrl = dataStoreManager.readImageUrl.first()
+            mReadImageUrl = dataStoreManager.readImageUrl.first()?:""
 
 
             // 2. 切换主线程统一更新 UI（避免多次切换线程）
@@ -525,7 +527,7 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
                 }*/
                 // 方法1：使用内置的CircleCrop变换
                 Glide.with(this@MainActivity)
-                    .load(readImageUrl)
+                    .load(mReadImageUrl)
                     .apply(RequestOptions.circleCropTransform())
                     .placeholder(android.R.drawable.ic_menu_gallery)
                     .error(android.R.drawable.stat_notify_error)
@@ -1248,6 +1250,17 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
     @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
     @RequiresApi(35)
     private fun initData(){
+        lifecycleScope.launch(Dispatchers.IO) {
+            mReadImageUrl = dataStoreManager.readImageUrl.first()?:""
+            lifecycleScope.launch(Dispatchers.Main) {
+                Glide.with(this@MainActivity)
+                    .load(mReadImageUrl)
+                    .apply(RequestOptions.circleCropTransform())
+                    .placeholder(android.R.drawable.ic_menu_gallery)
+                    .error(android.R.drawable.stat_notify_error)
+                    .into(binding.userImage)
+            }
+        }
         refreshChatList(false)
 
         val chatItem = intent.getSerializableExtra("chat_item") as? ChatItemRoom
@@ -1629,11 +1642,12 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
             currentPhotoPath?.let { path ->
                 isPicture = true
                 isFile = false
-                imageUrlLocal = "$path"
+                //imageUrlLocal = "$path"
                 val imageFile = File(path)
                 //Log.e("ceshi","3图片地址$imageFile")
                 if (imageFile.exists()) {
                     val contentUri = Uri.fromFile(imageFile)
+                    imageUrlLocal = "$contentUri"
                     //上传图片到服务器
                     lifecycleScope.launch(Dispatchers.IO) {
                         chatViewModel.upLoadImage(this@MainActivity,
@@ -3479,6 +3493,7 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
         binding.bottomTv.text = setMsg.bottomMsg
         binding.welcomeTv.text = setMsg.welcomeMsg
         binding.messageEditText.hint = setMsg.senMsg
+        mReadImageUrl = setMsg.imageUrl
         // 方法1：使用内置的CircleCrop变换
         Glide.with(this@MainActivity)
             .load(setMsg.imageUrl)
@@ -3531,6 +3546,7 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
                     userConfigurationRoom?.let {
                         //val readAppEmojisData = userConfigurationRoom.appEmojisData
                         val readImageUrl = userConfigurationRoom.appEmojisData
+                        mReadImageUrl = readImageUrl
                         val readBuildTitleModelType = userConfigurationRoom.defaultBuildTitleModelType
                         val readModelType = userConfigurationRoom.defaultChatModelType
                         val readUserEmailData = userConfigurationRoom.userId

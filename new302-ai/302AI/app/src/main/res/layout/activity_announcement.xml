@@ -54,43 +54,50 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <LinearLayout
-        android:id="@+id/text1"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="756dp"
+        android:layout_height="700dp"
         android:layout_marginTop="10dp"
-        android:orientation="vertical"
-        android:background="@drawable/background_setting"
         app:layout_constraintTop_toBottomOf="@+id/topTitleConst"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/announcement_details_one_message"
-            android:textStyle="bold"
-            android:textSize="20sp"
-            android:paddingLeft="25dp"
-            android:paddingRight="25dp"
-            android:textColor="@color/black"
-            android:layout_gravity="center"/>
-        <TextView
+        <LinearLayout
+            android:id="@+id/text1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="35dp"
-            android:paddingRight="35dp"
-            android:textColor="@color/black"
-            android:textSize="14sp"
-            android:layout_marginTop="15dp"
-            android:text="@string/announcement_details_two_message"/>
+            android:orientation="vertical"
+            android:background="@drawable/background_setting"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/announcement_details_one_message"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:paddingLeft="25dp"
+                android:paddingRight="25dp"
+                android:textColor="@color/black"
+                android:layout_gravity="center"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="35dp"
+                android:paddingRight="35dp"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:layout_marginTop="15dp"
+                android:text="@string/announcement_details_two_message"/>
 
-        <ImageView
-            android:layout_width="230dp"
-            android:layout_height="230dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/icon_code"/>
-    </LinearLayout>
+            <ImageView
+                android:layout_width="230dp"
+                android:layout_height="230dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/icon_code"/>
+        </LinearLayout>
+    </ScrollView>
+
+
 
 
 

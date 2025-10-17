@@ -54,16 +54,35 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <ImageView
+        android:id="@+id/logoImage"
+        android:layout_width="80dp"
+        android:layout_height="104dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/icon_version_logo"
+        app:layout_constraintTop_toBottomOf="@+id/topTitleConst"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+    <LinearLayout
+        android:id="@+id/logoLine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/logoImage"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+    </LinearLayout>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cons2"
         android:layout_width="match_parent"
         android:layout_height="108dp"
-        android:layout_marginTop="18dp"
+        android:layout_marginTop="36dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/topTitleConst"
+        app:layout_constraintTop_toBottomOf="@+id/logoLine"
         android:background="@drawable/shape_select_site_bg_write">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -170,7 +189,7 @@
                 <TextView
                     android:id="@+id/versionNewTV"
                     android:layout_width="70dp"
-                    android:layout_height="20dp"
+                    android:layout_height="wrap_content"
                     android:text="1.0.0"
                     android:textAlignment="center"
                     android:background="@drawable/shape_select_site_bg_red_setting_line"

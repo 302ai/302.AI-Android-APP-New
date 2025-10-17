@@ -42,6 +42,11 @@ class VersionUpdateActivity : AppCompatActivity() {
         lifecycleScope.launch(Dispatchers.IO) {
             getProxyAPK()
         }
+        binding.versionNewCons.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.data = Uri.parse("https://302.ai/downloads/") // 设置要跳转的网址
+            this.startActivity(intent) // 启动活动
+        }
     }
 
     private fun getProxyAPK() {

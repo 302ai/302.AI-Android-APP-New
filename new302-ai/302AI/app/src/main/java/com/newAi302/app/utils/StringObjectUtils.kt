@@ -403,6 +403,28 @@ object StringObjectUtils {
         return urls
     }
 
+    fun extractAllImageUrlsNew(input: String): List<String> {
+        // 正则表达式：同时匹配以下两种URL
+        // 1. src="content://..." 或 ima="content://..."（支持英文引号"和中文引号“”）
+        // 2. src="file://..." 或 ima="file://..."（支持英文引号"和中文引号“”）
+        // 说明：
+        // - (src|ima)=["“”] 匹配属性名（src或ima）+ 引号（英文"或中文“”）
+        // - (content://|file://)/.*? 捕获以content://或file://开头的URL（非贪婪模式）
+        // - ["“”] 匹配结束的引号
+        val regex = "(src|ima)=[\"“”]((content://|file://)/.*?)[\"“”]"
+        val pattern = Pattern.compile(regex)
+        val matcher: Matcher = pattern.matcher(input)
+
+        val urls = mutableListOf<String>()
+        // 循环查找所有匹配的URL
+        while (matcher.find()) {
+            // group(2) 是捕获到的URL（content://... 或 file://...）
+            val url = matcher.group(2)
+            urls.add(url)
+        }
+        return urls
+    }
+
 
 
 

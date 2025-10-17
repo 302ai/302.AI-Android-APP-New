@@ -6,6 +6,7 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.text.TextUtils
 import android.util.AttributeSet
+import android.util.Log
 import android.view.View
 import android.widget.RelativeLayout
 import androidx.core.content.ContextCompat
@@ -75,7 +76,8 @@ class PhoneLocationView(context: Context, attrs: AttributeSet? = null) :
         mBinding.codePicker.setOnCountryChangeListener {
             mBinding.tvAreaCode.text = "+" + it.phoneCode
             mCountryCode = it.phoneCode
-            if (mBinding.editPhone.text.toString() == ""){
+            Log.e("ceshi","选择区号：${it.phoneCode},,${mBinding.editPhone.text.toString()}")
+            if (mBinding.editPhone.text.toString().length < 10){
                 mBinding.editPhone.setText("+$mCountryCode")
             }
             WearData.getInstance().saveCountryCode(mCountryCode)

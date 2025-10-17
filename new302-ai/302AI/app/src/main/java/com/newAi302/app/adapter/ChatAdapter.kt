@@ -290,8 +290,9 @@ class ChatAdapter(private var messageList: List<ChatMessage>, private val contex
             holder.fileHorScr.visibility = View.VISIBLE
         }
         if (chatMessage.message.contains(".jpg") || chatMessage.message.contains("media.documents/")){
-            val urlLists = StringObjectUtils.extractAllImageUrls(chatMessage.message)
+            val urlLists = StringObjectUtils.extractAllImageUrlsNew(chatMessage.message)
             Log.e("ceshi","图片的数量${urlLists}")
+            Log.e("chatAdapter","图片信息：${chatMessage.message}")
             for (url in urlLists){
                 addNewImageView(url,holder, context)
             }

@@ -52,14 +52,19 @@ class ForgetPassWordNewActivity :
     override fun initListener() {
         mBinding?.llEmailLogin?.setOnClickListener {
             setLoginSwitch(false)
+//            mPhoneNumber =
+//                if (!TextUtils.isEmpty(WearData.getInstance().phoneCode)) WearData.getInstance().phoneCode else ""
+
         }
 
         mBinding?.llPhoneLogin?.setOnClickListener {
             setLoginSwitch(true)
+            mEmail =
+                if (!TextUtils.isEmpty(WearData.getInstance().emailCode)) WearData.getInstance().emailCode else ""
+            Log.e("ceshi","邮箱号码：$mEmail")
+            mBinding?.editEmailInput?.setText(mEmail)
         }
 
-        mPhoneNumber =
-            if (!TextUtils.isEmpty(WearData.getInstance().phoneCode)) WearData.getInstance().phoneCode else ""
 
 
         /**手机修改密码*/
@@ -170,10 +175,10 @@ class ForgetPassWordNewActivity :
                 if (TextUtils.isEmpty(mBinding?.editVerifyCode?.text.toString())) resources.getString(
                     R.string.empty_tip
                 ) else ""
-
+            Log.e("ceshi","邮箱修改密码：mPhoneNumber：$mPhoneNumber）mVerifyPhoneCode：$mVerifyPhoneCode）mPassWordPhone：$mPassWordPhone）")
             //满足以上条件次才可以提交
             if (mIsFillPassWork!! && mIsFillPassWorkAgain && mIsEquals && isPhone == true && isVerifyCode) {
-                mPresenter.resetLoginPassWordPhone(mPhoneNumber, mVerifyCode, mPassWordPhone)
+                mPresenter.resetLoginPassWordPhone(mPhoneNumber, mVerifyPhoneCode, mPassWordPhone)
             }
         }
 
@@ -193,7 +198,7 @@ class ForgetPassWordNewActivity :
         })
         /**邮箱验证*/
         //邮箱
-        mBinding?.editEmail?.addTextChangedListener {
+        mBinding?.editEmailInput?.addTextChangedListener {
             mEmail = it.toString()
             mBinding?.tvEmptyTipEmail?.text =
                 if (StringUtils.isEmpty(it.toString())) resources.getString(R.string.email_empty) else ""
@@ -328,9 +333,6 @@ class ForgetPassWordNewActivity :
 
     override fun initView() {
         setLoginSwitch(false)
-        mEmail =
-            if (!TextUtils.isEmpty(WearData.getInstance().emailCode)) WearData.getInstance().emailCode else ""
-        mBinding?.editEmail?.setText(mEmail)
 
     }
 
@@ -339,7 +341,8 @@ class ForgetPassWordNewActivity :
     }
 
     override fun onPhoneCodeSuccess() {
-        finish()
+        //finish()
+        setPhoneVerifyCodeState()
     }
 
     override fun onFail() {
@@ -382,7 +385,7 @@ class ForgetPassWordNewActivity :
         LoginModel.registerEmailCodeNew(hashMap,
             object : RequestCallback<BaseResponse<EmailCodeBeanRes>>() {
                 override fun onSuccess(data: BaseResponse<EmailCodeBeanRes>?) {
-                    setPhoneVerifyCodeState()
+                    setEmailVerifyCodeState()
                 }
 
                 override fun onError(e: NetException?) {
@@ -400,7 +403,7 @@ class ForgetPassWordNewActivity :
     }
 
     //设置发送手机验证码状态
-    private fun setPhoneVerifyCodeState() {
+    private fun setEmailVerifyCodeState() {
         //发送手机验证码成功后，倒计时60秒，改变按钮文案，并且设置不可点击，
         countDownTimer = object : CountDownTimer(60000L, 1000L) {
             override fun onTick(millisUntilFinished: Long) {
@@ -416,6 +419,26 @@ class ForgetPassWordNewActivity :
                     resources.getString(R.string.get_email_verify_code)  //获取验证码
                 mBinding?.tvEmailVerifyCode?.isClickable = true
                 mBinding?.tvEmailVerifyCode?.setTextColor(resources.getColor(R.color.white))
+            }
+        }.start()
+    }
+
+    private fun setPhoneVerifyCodeState() {
+        //发送手机验证码成功后，倒计时60秒，改变按钮文案，并且设置不可点击，
+        countDownTimer = object : CountDownTimer(60000L, 1000L) {
+            override fun onTick(millisUntilFinished: Long) {
+                mBinding?.tvVerifyCode?.setTextColor(resources.getColor(R.color.white))
+                mBinding?.tvVerifyCode?.text =
+                    resources.getString(R.string.verify_code_had_send)+" ${millisUntilFinished/1000}S"  //验证码已发送
+                mBinding?.tvVerifyCode?.isClickable = false
+                mBinding?.tvVerifyCode?.setTextColor(resources.getColor(R.color.white))
+            }
+
+            override fun onFinish() {
+                mBinding?.tvVerifyCode?.text =
+                    resources.getString(R.string.get_email_verify_code)  //获取验证码
+                mBinding?.tvVerifyCode?.isClickable = true
+                mBinding?.tvVerifyCode?.setTextColor(resources.getColor(R.color.white))
             }
         }.start()
     }
