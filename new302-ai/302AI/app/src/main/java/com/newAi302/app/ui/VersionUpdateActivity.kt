@@ -39,6 +39,9 @@ class VersionUpdateActivity : AppCompatActivity() {
         binding.backImage.setOnClickListener {
             finish()
         }
+        lifecycleScope.launch(Dispatchers.IO) {
+            getProxyAPK()
+        }
     }
 
     private fun getProxyAPK() {

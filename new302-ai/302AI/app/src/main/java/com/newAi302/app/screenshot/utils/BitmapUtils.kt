@@ -88,7 +88,8 @@ fun savingBitmapIntoFile(context: Context?, bitmap: Bitmap?, callBack: IScreenSh
     }
     Log.e("ceshi","截图测试2")
     val dialog = ProgressDialog(context)
-    dialog.setMessage("正在生成长图···")
+    //dialog.setMessage("正在生成长图···")
+    dialog.setMessage("loading···")
     dialog.show()
     val thread = Thread(Runnable {
         var fileReturnPath = ""

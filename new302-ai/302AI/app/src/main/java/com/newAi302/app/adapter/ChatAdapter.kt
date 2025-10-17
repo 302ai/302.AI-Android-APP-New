@@ -847,7 +847,8 @@ class ChatAdapter(private var messageList: List<ChatMessage>, private val contex
         val holder = hashMapUrlHolder.get(backImage.url)
 
         if (backImage.type == "imageLongClick"){
-            val options = mutableListOf("复制","分享","上传到档案库","添加到知识库")
+            //val options = mutableListOf("复制","分享","上传到档案库","添加到知识库")
+            val options = mutableListOf(ContextCompat.getString(context, R.string.copy_toast_message))
             dialogUtils.setupPopupWindow(options,"imageLine",context)
             imageBack = backImage
             dialogUtils.showPopup(holder?.imageChatLine as View)
