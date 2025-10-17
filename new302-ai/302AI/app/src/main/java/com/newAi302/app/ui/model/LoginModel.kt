@@ -139,6 +139,23 @@ class LoginModel {
                     })
         }
 
+        fun registerEmailCodeNew(
+            hashMap: MutableMap<String, Any>,
+            callback: RequestCallback<BaseResponse<EmailCodeBeanRes>>
+        ) {
+            NetworkUtil.getInstance()
+                .executePostAll(NetConfig.url_USER_REGISTER_EMAIL_CODE_NEW,
+                    hashMap, object : ResponseCallback<BaseResponse<EmailCodeBeanRes>>() {
+                        override fun onSuccess(response: BaseResponse<EmailCodeBeanRes>?) {
+                            callback.onSuccess(response)
+                        }
+
+                        override fun onError(e: NetException?) {
+                            callback.onError(e)
+                        }
+                    })
+        }
+
         /**
          * 邮箱注册
          */
@@ -252,6 +269,25 @@ class LoginModel {
         ) {
             NetworkUtil.getInstance()
                 .executePostAll(NetConfig.URL_USER_RESET_PW_EMAIL,
+                    hashMap,
+                    object : ResponseCallback<BaseResponse<Any>>() {
+                        override fun onSuccess(response: BaseResponse<Any>?) {
+                            callback.onSuccess(response)
+                        }
+
+                        override fun onError(e: NetException?) {
+                            callback.onError(e)
+                        }
+
+                    })
+        }
+
+        fun resetLoginPassWordEmailNew(
+            hashMap: MutableMap<String, Any>,
+            callback: RequestCallback<BaseResponse<Any>>
+        ) {
+            NetworkUtil.getInstance()
+                .executePut(NetConfig.URL_USER_RESET_PW_EMAIL_NEW_EMAIL,
                     hashMap,
                     object : ResponseCallback<BaseResponse<Any>>() {
                         override fun onSuccess(response: BaseResponse<Any>?) {

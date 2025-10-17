@@ -76,6 +76,9 @@ public class NetworkClient {
             case PUT:
                 flowable = service.put(URL, PARAMS);
                 break;
+            case PUT_JSON:
+                flowable = service.putJson(URL, BODY);
+                break;
             case DELETE:
                 flowable = service.delete(URL, PARAMS);
                 break;
@@ -145,6 +148,10 @@ public class NetworkClient {
 
     public final Flowable<ResponseBody> put() {
         return request(HttpMethod.PUT);
+    }
+
+    public final Flowable<ResponseBody> putJson() {
+        return request(HttpMethod.PUT_JSON);
     }
 
     public final Flowable<ResponseBody> delete() {

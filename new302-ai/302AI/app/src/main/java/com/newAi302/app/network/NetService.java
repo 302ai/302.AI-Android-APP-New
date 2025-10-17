@@ -81,6 +81,9 @@ public interface NetService {
     @PUT
     Flowable<ResponseBody> put(@Url String url, @FieldMap Map<String, Object> params);
 
+    @PUT
+    Flowable<ResponseBody> putJson(@Url String url, @Body RequestBody body);
+
     @DELETE
     Flowable<ResponseBody> delete(@Url String url, @QueryMap Map<String, Object> params);
 

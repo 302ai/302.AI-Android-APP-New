@@ -27,6 +27,9 @@ class NetConfig {
         val url_USER_REGISTER_EMAIL_CODE = "/user/register/email/code" //获取邮箱code - 注册时需要用到 注：针对邮箱
 
         @JvmField
+        val url_USER_REGISTER_EMAIL_CODE_NEW = "/user/reset_pw/email/code" //获取邮箱code - 注册时需要用到 注：针对邮箱
+
+        @JvmField
         val URL_USER_REGISTER_EMAIL: String = "/user/v1/register" //注册接口，生产发送邮箱的激活链接
 
         @JvmField
@@ -49,6 +52,9 @@ class NetConfig {
 
         @JvmField
         val URL_USER_RESET_PW_EMAIL: String = "/user/reset_pw" //重置密码，发送邮箱
+
+        @JvmField
+        val URL_USER_RESET_PW_EMAIL_NEW_EMAIL: String = "/user/reset_pw_with_code" //重置密码，发送邮箱,新邮箱
 
         @JvmField
         val URL_USER_RESET_PW_PHONE: String = "/user/reset_pw" //手机号重置密码

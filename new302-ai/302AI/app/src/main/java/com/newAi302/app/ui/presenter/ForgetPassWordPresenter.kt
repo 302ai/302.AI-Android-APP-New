@@ -65,6 +65,48 @@ class ForgetPassWordPresenter : BasePresenter<IForgetPassWordView>() {
         })
     }
 
+    fun resetLoginPassWordEmailNew(email: String, email_code: String, password:String, confirmPassword:String) {
+        if (getView() != null){
+            getView()?.showLoading()
+        }
+        val hashMap: MutableMap<String, Any> = HashMap()
+        hashMap["email"] = email
+        hashMap["email_code"] = email_code
+        hashMap["password"] = password
+        hashMap["confirmPassword"] = confirmPassword
+        hashMap["captcha"] = ""
+        hashMap["code"] = ""
+        hashMap["phone"] = ""
+        LoginModel.resetLoginPassWordEmailNew(hashMap, object : RequestCallback<BaseResponse<Any>>() {
+            override fun onSuccess(data: BaseResponse<Any>?) {
+                ToastUtils.showShort(R.string.change_password_success_phone)
+                if (getView() != null) {
+                    getView()?.hideLoading()
+                    getView()?.onChangePhonePassWordSuccess()
+                }
+            }
+
+            override fun onError(e: NetException?) {
+                if (getView() != null) {
+                    getView()?.hideLoading()
+                    when (e?.code) {
+                        NetException.VERIFICATION_CODE_ERROR -> {
+                            ToastUtils.showShort(R.string.verify_code_error)
+                        }
+
+                        NetException.LOGIN_WRONG_PASSWORD -> {
+                            ToastUtils.showShort(R.string.login_password_error)
+                        }
+
+                        NetException.NO_REGISTER -> {
+                            ToastUtils.showShort(R.string.register_no_email_error)
+                        }
+                    }
+                }
+            }
+        })
+    }
+
     /**
      * 手机号重置密码 phone
      *

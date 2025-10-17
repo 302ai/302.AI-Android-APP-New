@@ -324,6 +324,26 @@ public class NetworkUtil {
         return build.post().compose(getSchedulersTransformerMain()).subscribeWith(new NetAllSubscriber<>(url, finalNeedType, callback));
     }
 
+    public <T> Disposable executePut(final String url, Map<String, Object> params, final ResponseCallback<T> callback) {
+        Type finalNeedType = GenericsUtils.getSuperClassGenricType(callback.getClass());
+        if (finalNeedType == null) {
+            return null;
+        }
+        Log.e("ceshi","0邮箱修改密码："+params.toString());
+        // 将 Map 转为 JSON 字符串（作为请求体）
+        String jsonBody = GsonUtils.toJson(params);
+        Log.e("ceshi","1邮箱修改密码："+jsonBody.toString());
+        NetworkClient build = NetworkClient.create()
+                .raw(jsonBody) // 设置「原始 JSON 字符串」为请求体
+                .url(url)
+                .build();
+
+        // 使用 PUT 方法发起请求
+        return build.putJson()
+                .compose(getSchedulersTransformerMain()) // 线程调度（保持原有逻辑）
+                .subscribeWith(new NetAllSubscriber<>(url, finalNeedType, callback));
+    }
+
 
     public <T> Disposable executePostAsync(final String url, Map<String, Object> parames, final ResponseCallback<T> callback) {
         Type finalNeedType = GenericsUtils.getSuperClassGenricType(callback.getClass());
