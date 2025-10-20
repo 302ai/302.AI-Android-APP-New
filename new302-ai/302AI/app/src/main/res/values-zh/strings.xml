@@ -351,7 +351,7 @@
 
     <string name="change_password_success">密码重置链接已发送至您的邮箱，请查收.</string>
     <string name="change_password_success_phone">密码修改成功.</string>
-    <string name="email_vc_error">请输入正确的是邮箱或者验证码.</string>
+    <string name="email_vc_error">请输入正确的邮箱或验证码</string>
     <string name="no_agree_error">请阅读并同意用户条款及隐私协议。</string>
 
     <string name="version_title">有新版本可用</string>

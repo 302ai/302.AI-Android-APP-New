@@ -5,6 +5,7 @@
     android:orientation="vertical"
     android:padding="0dp">
     <LinearLayout
+        android:id="@+id/imageShowChatLine"
         android:layout_width="56dp"
         android:layout_height="56dp"
         android:orientation="horizontal">
