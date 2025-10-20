@@ -78,6 +78,9 @@ class ModelManagerActivity : BaseActivity(), OnItemClickListener {
                 if (data == "Delete"){
                     options3.removeAt(position)
                     adapter302Ai.notifyItemRemoved(position)
+                    lifecycleScope.launch(Dispatchers.IO) {
+                        dataStoreManager.saveModelList(options3)
+                    }
                 }else{
                     val intent = Intent(this@ModelManagerActivity, ModelAddActivity::class.java)
                     intent.putExtra("model_type", data)

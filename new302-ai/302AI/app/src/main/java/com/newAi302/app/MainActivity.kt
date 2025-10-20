@@ -1551,11 +1551,31 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
             }
 
             it?.let {
-                modelList = it
-                if (it.isNotEmpty()){
-                    modelList.add("gemini-2.5-flash-nothink")
-                }
+                //modelList = it
+
+
                 lifecycleScope.launch(Dispatchers.IO) {
+
+                    var mModelList = dataStoreManager.modelListFlow.first()
+                    Log.e("ceshi","0这里的数据库模型列表:${mModelList}")
+                    if (mModelList.isNotEmpty()){
+                        for (model in it){
+                            if (!mModelList.contains(model)){
+                                mModelList.add(model)
+                            }
+                        }
+                        mModelList.add("gemini-2.5-flash-nothink")
+                        //modelList = mModelList as CopyOnWriteArrayList<String>  这样做闪退
+                        modelList = CopyOnWriteArrayList(mModelList)
+                    }else{
+                        modelList = it
+                        if (it.isNotEmpty()){
+                            modelList.add("gemini-2.5-flash-nothink")
+                        }
+                    }
+                    Log.e("ceshi","这里的数据库模型列表:${modelList}")
+                    removeDuplicates(modelList)
+
                     dataStoreManager.saveModelList(modelList)
 
                     val readUserEmailData = dataStoreManager.readUserEmailData.first()?:""
@@ -3582,6 +3602,16 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
 
 
         }
+    }
+
+    // 假设 modelList 是 CopyOnWriteArrayList<String> 类型
+    fun removeDuplicates(modelList: CopyOnWriteArrayList<String>) {
+        // 1. 将列表转换为 LinkedHashSet（去重且保留顺序）
+        val uniqueSet = LinkedHashSet(modelList)
+        // 2. 清空原列表
+        modelList.clear()
+        // 3. 将去重后的元素添加回原列表（或创建新的 CopyOnWriteArrayList）
+        modelList.addAll(uniqueSet)
     }
 
 

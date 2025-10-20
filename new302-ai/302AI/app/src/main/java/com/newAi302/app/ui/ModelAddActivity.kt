@@ -118,7 +118,8 @@ class ModelAddActivity : BaseActivity() {
                 baseUrl = ""
                 isActionAdd = true
                 val job = lifecycleScope.launch(Dispatchers.IO) {
-                    modelList = dataStoreManager.customizeModelListFlow.first()
+                    //modelList = dataStoreManager.customizeModelListFlow.first()
+                    modelList = dataStoreManager.modelListFlow.first()
                     Log.e("ceshi","0获取自定义模型列表$modelList")
                 }
             }
@@ -220,7 +221,8 @@ class ModelAddActivity : BaseActivity() {
                 if (isActionAdd){
                     lifecycleScope.launch(Dispatchers.IO) {
                         modelList.add(modelType)
-                        dataStoreManager.saveCustomizeModelList(modelList)
+                        //dataStoreManager.saveCustomizeModelList(modelList)
+                        dataStoreManager.saveModelList(modelList)
                     }
                 }
 
