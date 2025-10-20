@@ -230,7 +230,7 @@ class ModelAddActivity : BaseActivity() {
                     finish()
                 }
             }
-        }
+        }//
 
 
         binding.editIdSetting.addTextChangedListener(object : TextWatcher {

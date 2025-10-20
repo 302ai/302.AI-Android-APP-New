@@ -104,7 +104,7 @@ class RemovableImageChatLayout(context: Context, attrs: AttributeSet? = null, pr
                     .into(findViewById<ImageView>(R.id.imageViewMain))
             }else{
                 findViewById<LinearLayout>(R.id.fileLine).visibility = View.GONE
-                findViewById<LinearLayout>(R.id.imageShowChatLine).visibility = View.VISIBLE
+                //findViewById<LinearLayout>(R.id.imageShowChatLine).visibility = View.VISIBLE
                 Glide.with(this@RemovableImageChatLayout)
                     .load(resUrl)
                     .placeholder(android.R.drawable.ic_menu_gallery) // 加载中占位图

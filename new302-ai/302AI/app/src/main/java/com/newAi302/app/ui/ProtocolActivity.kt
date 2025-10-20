@@ -585,64 +585,36 @@ class ProtocolActivity : BaseActivity() {
             "    <meta charset=\"UTF-8\">\n" +
             "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n" +
             "    <title>302.AI 使用条款</title>\n" +
-            "    <style>\n" +
-            "        body {\n" +
-            "            font-family: \"Microsoft YaHei\", sans-serif;\n" +
-            "            font-size: 18px; /* 增加基础字体大小 */\n" +
-            "            line-height: 1.8; /* 增加行高提高可读性 */\n" +
-            "            margin: 20px;\n" +
-            "            max-width: 1200px; /* 限制最大宽度，避免在大屏幕上文字过长 */\n" +
-            "            margin-left: auto;\n" +
-            "            margin-right: auto;\n" +
-            "            color: #333; /* 增加对比度 */\n" +
-            "        }\n" +
-            "        \n" +
-            "        h1 {\n" +
-            "            font-size: 2.5em; /* 增加主标题大小 */\n" +
-            "            text-align: center;\n" +
-            "            margin-bottom: 10px;\n" +
-            "        }\n" +
-            "        \n" +
-            "        h2 {\n" +
-            "            font-size: 2em; /* 增加二级标题大小 */\n" +
-            "            margin-top: 30px;\n" +
-            "            margin-bottom: 15px;\n" +
-            "            text-align: left;\n" +
-            "            border-bottom: 1px solid #eee;\n" +
-            "            padding-bottom: 8px;\n" +
-            "        }\n" +
-            "        \n" +
-            "        h3 {\n" +
-            "            font-size: 1.5em; /* 增加三级标题大小 */\n" +
-            "            margin-top: 25px;\n" +
-            "            margin-bottom: 10px;\n" +
-            "        }\n" +
-            "        \n" +
-            "        p {\n" +
-            "            margin: 15px 0; /* 增加段落间距 */\n" +
-            "            text-align: justify; /* 两端对齐 */\n" +
-            "        }\n" +
-            "        \n" +
-            "        ul {\n" +
-            "            margin: 15px 0 15px 30px; /* 增加列表间距 */\n" +
-            "        }\n" +
-            "        \n" +
-            "        li {\n" +
-            "            margin-bottom: 10px; /* 增加列表项间距 */\n" +
-            "            line-height: 1.6;\n" +
-            "        }\n" +
-            "        \n" +
-            "        .date {\n" +
-            "            text-align: center;\n" +
-            "            font-size: 1.2em;\n" +
-            "            margin-bottom: 30px;\n" +
-            "            color: #666;\n" +
-            "        }\n" +
-            "        \n" +
-            "        .section {\n" +
-            "            margin-bottom: 30px; /* 增加章节间距 */\n" +
-            "        }\n" +
-            "    </style>\n" +
+            "  <style>\n" +
+            "    body {\n" +
+            "      font-family: \"Microsoft YaHei\", sans-serif;\n" +
+            "      line-height: 1.6;\n" +
+            "      margin: 0 auto;\n" +
+            "      max-width: 800px;\n" +
+            "      padding: 20px;\n" +
+            "    }\n" +
+            "\n" +
+            "    h1,\n" +
+            "    h2 {\n" +
+            "      text-align: center;\n" +
+            "    }\n" +
+            "\n" +
+            "    h3 {\n" +
+            "      margin-top: 20px;\n" +
+            "    }\n" +
+            "\n" +
+            "    p {\n" +
+            "      margin: 10px 0;\n" +
+            "    }\n" +
+            "\n" +
+            "    ul {\n" +
+            "      margin: 10px 0 10px 20px;\n" +
+            "    }\n" +
+            "\n" +
+            "    li {\n" +
+            "      margin-bottom: 8px;\n" +
+            "    }\n" +
+            "  </style>\n" +
             "</head>\n" +
             "<body>\n" +
             "    <h1>使用条款</h1>\n" +
@@ -787,64 +759,36 @@ class ProtocolActivity : BaseActivity() {
             "    <meta charset=\"UTF-8\">\n" +
             "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n" +
             "    <title>302.AI Terms of use</title>\n" +
-            "    <style>\n" +
-            "        body {\n" +
-            "            font-family: \"Microsoft YaHei\", sans-serif;\n" +
-            "            font-size: 18px; /* 增加基础字体大小 */\n" +
-            "            line-height: 1.8; /* 增加行高提高可读性 */\n" +
-            "            margin: 20px;\n" +
-            "            max-width: 1200px; /* 限制最大宽度，避免在大屏幕上文字过长 */\n" +
-            "            margin-left: auto;\n" +
-            "            margin-right: auto;\n" +
-            "            color: #333; /* 增加对比度 */\n" +
-            "        }\n" +
-            "        \n" +
-            "        h1 {\n" +
-            "            font-size: 2.5em; /* 增加主标题大小 */\n" +
-            "            text-align: center;\n" +
-            "            margin-bottom: 10px;\n" +
-            "        }\n" +
-            "        \n" +
-            "        h2 {\n" +
-            "            font-size: 2em; /* 增加二级标题大小 */\n" +
-            "            margin-top: 30px;\n" +
-            "            margin-bottom: 15px;\n" +
-            "            text-align: left;\n" +
-            "            border-bottom: 1px solid #eee;\n" +
-            "            padding-bottom: 8px;\n" +
-            "        }\n" +
-            "        \n" +
-            "        h3 {\n" +
-            "            font-size: 1.5em; /* 增加三级标题大小 */\n" +
-            "            margin-top: 25px;\n" +
-            "            margin-bottom: 10px;\n" +
-            "        }\n" +
-            "        \n" +
-            "        p {\n" +
-            "            margin: 15px 0; /* 增加段落间距 */\n" +
-            "            text-align: justify; /* 两端对齐 */\n" +
-            "        }\n" +
-            "        \n" +
-            "        ul {\n" +
-            "            margin: 15px 0 15px 30px; /* 增加列表间距 */\n" +
-            "        }\n" +
-            "        \n" +
-            "        li {\n" +
-            "            margin-bottom: 10px; /* 增加列表项间距 */\n" +
-            "            line-height: 1.6;\n" +
-            "        }\n" +
-            "        \n" +
-            "        .date {\n" +
-            "            text-align: center;\n" +
-            "            font-size: 1.2em;\n" +
-            "            margin-bottom: 30px;\n" +
-            "            color: #666;\n" +
-            "        }\n" +
-            "        \n" +
-            "        .section {\n" +
-            "            margin-bottom: 30px; /* 增加章节间距 */\n" +
-            "        }\n" +
-            "    </style>\n" +
+            "  <style>\n" +
+            "    body {\n" +
+            "      font-family: \"Microsoft YaHei\", sans-serif;\n" +
+            "      line-height: 1.6;\n" +
+            "      margin: 0 auto;\n" +
+            "      max-width: 800px;\n" +
+            "      padding: 20px;\n" +
+            "    }\n" +
+            "\n" +
+            "    h1,\n" +
+            "    h2 {\n" +
+            "      text-align: center;\n" +
+            "    }\n" +
+            "\n" +
+            "    h3 {\n" +
+            "      margin-top: 20px;\n" +
+            "    }\n" +
+            "\n" +
+            "    p {\n" +
+            "      margin: 10px 0;\n" +
+            "    }\n" +
+            "\n" +
+            "    ul {\n" +
+            "      margin: 10px 0 10px 20px;\n" +
+            "    }\n" +
+            "\n" +
+            "    li {\n" +
+            "      margin-bottom: 8px;\n" +
+            "    }\n" +
+            "  </style>\n" +
             "</head>\n" +
             "<body>\n" +
             "    <h1>302.AI Terms of use</h1>\n" +
@@ -989,64 +933,36 @@ class ProtocolActivity : BaseActivity() {
             "    <meta charset=\"UTF-8\">\n" +
             "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n" +
             "    <title>302.AI 利用規約</title>\n" +
-            "    <style>\n" +
-            "        body {\n" +
-            "            font-family: \"Microsoft YaHei\", sans-serif;\n" +
-            "            font-size: 18px; /* 增加基础字体大小 */\n" +
-            "            line-height: 1.8; /* 增加行高提高可读性 */\n" +
-            "            margin: 20px;\n" +
-            "            max-width: 1200px; /* 限制最大宽度，避免在大屏幕上文字过长 */\n" +
-            "            margin-left: auto;\n" +
-            "            margin-right: auto;\n" +
-            "            color: #333; /* 增加对比度 */\n" +
-            "        }\n" +
-            "        \n" +
-            "        h1 {\n" +
-            "            font-size: 2.5em; /* 增加主标题大小 */\n" +
-            "            text-align: center;\n" +
-            "            margin-bottom: 10px;\n" +
-            "        }\n" +
-            "        \n" +
-            "        h2 {\n" +
-            "            font-size: 2em; /* 增加二级标题大小 */\n" +
-            "            margin-top: 30px;\n" +
-            "            margin-bottom: 15px;\n" +
-            "            text-align: left;\n" +
-            "            border-bottom: 1px solid #eee;\n" +
-            "            padding-bottom: 8px;\n" +
-            "        }\n" +
-            "        \n" +
-            "        h3 {\n" +
-            "            font-size: 1.5em; /* 增加三级标题大小 */\n" +
-            "            margin-top: 25px;\n" +
-            "            margin-bottom: 10px;\n" +
-            "        }\n" +
-            "        \n" +
-            "        p {\n" +
-            "            margin: 15px 0; /* 增加段落间距 */\n" +
-            "            text-align: justify; /* 两端对齐 */\n" +
-            "        }\n" +
-            "        \n" +
-            "        ul {\n" +
-            "            margin: 15px 0 15px 30px; /* 增加列表间距 */\n" +
-            "        }\n" +
-            "        \n" +
-            "        li {\n" +
-            "            margin-bottom: 10px; /* 增加列表项间距 */\n" +
-            "            line-height: 1.6;\n" +
-            "        }\n" +
-            "        \n" +
-            "        .date {\n" +
-            "            text-align: center;\n" +
-            "            font-size: 1.2em;\n" +
-            "            margin-bottom: 30px;\n" +
-            "            color: #666;\n" +
-            "        }\n" +
-            "        \n" +
-            "        .section {\n" +
-            "            margin-bottom: 30px; /* 增加章节间距 */\n" +
-            "        }\n" +
-            "    </style>\n" +
+            "  <style>\n" +
+            "    body {\n" +
+            "      font-family: \"Microsoft YaHei\", sans-serif;\n" +
+            "      line-height: 1.6;\n" +
+            "      margin: 0 auto;\n" +
+            "      max-width: 800px;\n" +
+            "      padding: 20px;\n" +
+            "    }\n" +
+            "\n" +
+            "    h1,\n" +
+            "    h2 {\n" +
+            "      text-align: center;\n" +
+            "    }\n" +
+            "\n" +
+            "    h3 {\n" +
+            "      margin-top: 20px;\n" +
+            "    }\n" +
+            "\n" +
+            "    p {\n" +
+            "      margin: 10px 0;\n" +
+            "    }\n" +
+            "\n" +
+            "    ul {\n" +
+            "      margin: 10px 0 10px 20px;\n" +
+            "    }\n" +
+            "\n" +
+            "    li {\n" +
+            "      margin-bottom: 8px;\n" +
+            "    }\n" +
+            "  </style>\n" +
             "</head>\n" +
             "<body>\n" +
             "    <h1>利用規約</h1>\n" +

@@ -211,6 +211,8 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
     private var modelList = CopyOnWriteArrayList<String>()
     private var isTrueApiKey = false
 
+    private var isComeFromSetting = false
+
     private lateinit var dialogUtils: DialogUtils
 
     private var selectedList = mutableListOf<Int>()
@@ -381,6 +383,7 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
         Log.e("ceshi","onResume返回信息$comeFrom")
         if (comeFrom != null){
             if (comeFrom == "setting"){
+                isComeFromSetting = true
                 buildNewChat(false)
             }
         }
@@ -719,7 +722,16 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
 
                        }
                        //Log.e("ceshi","返回的URL${imageUrlServiceResultList.size},,$imageCounter")
-                       messageList.add(ChatMessage("${mImageUrlLocalStrBulder.toString()}<br>$message",true,"chat",false,false))
+                       Log.e("ceshi","文件插入：${isFile},,${fileName},,$fileSize")
+                       if (isFile){
+                           isFile = false
+                           messageList.add(ChatMessage("${mImageUrlLocalStrBulder.toString()}<br>$message",true,"chat",false,false,fileName, fileSize))
+                           fileName = ""
+                           fileSize = ""
+                       }else{
+                           messageList.add(ChatMessage("${mImageUrlLocalStrBulder.toString()}<br>$message",true,"chat",false,false))
+                       }
+
                        messageList.add(ChatMessage("file:///android_asset/loading.html",false,"chat",false,false))
                        mMessageList.add(message)
                        mImageUrlLocalStrBulder.clear()
@@ -1559,12 +1571,12 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
                     var mModelList = dataStoreManager.modelListFlow.first()
                     Log.e("ceshi","0这里的数据库模型列表:${mModelList}")
                     if (mModelList.isNotEmpty()){
-                        for (model in it){
+                        /*for (model in it){
                             if (!mModelList.contains(model)){
                                 mModelList.add(model)
                             }
                         }
-                        mModelList.add("gemini-2.5-flash-nothink")
+                        mModelList.add("gemini-2.5-flash-nothink")*/
                         //modelList = mModelList as CopyOnWriteArrayList<String>  这样做闪退
                         modelList = CopyOnWriteArrayList(mModelList)
                     }else{
@@ -1621,7 +1633,7 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         isToPicture = true
-        isFile = false
+        //isFile = false
         // 处理长截图权限请求结果
         //screenshotManager.onActivityResult(requestCode, resultCode, data)
 
@@ -1737,7 +1749,7 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
 
                 //上传文件
                 isPicture = true
-                isFile = false
+                //isFile = false
                 //上传图片到服务器
                 lifecycleScope.launch(Dispatchers.IO) {
                     chatViewModel.upLoadImage(this@MainActivity,
@@ -1760,7 +1772,12 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
 
     private fun buildNewChat(insert:Boolean){
         if (messageList.isEmpty()){
-            Toast.makeText(this, ContextCompat.getString(this@MainActivity, R.string.already_new_session_toast_message), Toast.LENGTH_SHORT).show()
+            if (!isComeFromSetting){
+                Toast.makeText(this, ContextCompat.getString(this@MainActivity, R.string.already_new_session_toast_message), Toast.LENGTH_SHORT).show()
+            }else{
+                isComeFromSetting = false
+            }
+
         }else{
             performVibration()
             isSendMessage.set(false)

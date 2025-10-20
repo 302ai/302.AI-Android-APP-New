@@ -6,11 +6,12 @@
     android:padding="0dp">
     <LinearLayout
         android:id="@+id/imageShowChatLine"
-        android:layout_width="56dp"
+        android:layout_width="wrap_content"
         android:layout_height="56dp"
+        android:background="@drawable/bottom_shape_select_site_bg_write"
         android:orientation="horizontal">
         <FrameLayout
-            android:layout_width="56dp"
+            android:layout_width="wrap_content"
             android:layout_height="56dp">
 
             <ImageView
@@ -40,7 +41,7 @@
             android:orientation="vertical">
             <TextView
                 android:id="@+id/fileNameTv"
-                android:layout_width="60dp"
+                android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:text="文件名称.pdf"
                 android:maxLines="1"
@@ -49,7 +50,7 @@
                 android:textColor="@color/black"/>
             <TextView
                 android:id="@+id/fileSizeTv"
-                android:layout_width="30dp"
+                android:layout_width="40dp"
                 android:layout_height="wrap_content"
                 android:text="12kb"
                 android:maxLines="1"

@@ -101,7 +101,7 @@ class DataStoreManager(private val context: Context) {
     // 暴露映射关系的Flow，便于观察数据变化
     val modelListFlow: Flow<MutableList<String>> = context.dataStore.data
         .map { preferences ->
-            val jsonString = preferences[MODEL_LIST_KEY] ?: "{}"
+            val jsonString = preferences[MODEL_LIST_KEY] ?: "[]"
             json.decodeFromString<MutableList<String>>(jsonString)
         }
     suspend fun saveModelList(newModelList: MutableList<String>) {

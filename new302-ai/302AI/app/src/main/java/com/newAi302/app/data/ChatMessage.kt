@@ -14,5 +14,7 @@ data class ChatMessage(
     val isMe :Boolean,
     var doType :String,
     var isGood: Boolean,
-    var isBad: Boolean
+    var isBad: Boolean,
+    var fileName:String="",
+    var fileSize:String=""
 ): Serializable

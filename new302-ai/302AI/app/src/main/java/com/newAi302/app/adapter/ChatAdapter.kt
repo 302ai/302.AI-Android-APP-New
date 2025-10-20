@@ -293,6 +293,8 @@ class ChatAdapter(private var messageList: List<ChatMessage>, private val contex
             val urlLists = StringObjectUtils.extractAllImageUrlsNew(chatMessage.message)
             Log.e("ceshi","图片的数量${urlLists}")
             Log.e("chatAdapter","图片信息：${chatMessage.message}")
+            fileName = chatMessage.fileName
+            fileSize = chatMessage.fileSize
             for (url in urlLists){
                 addNewImageView(url,holder, context)
             }
@@ -453,7 +455,15 @@ class ChatAdapter(private var messageList: List<ChatMessage>, private val contex
                         gravity = Gravity.CENTER
                     ).show()
                     chatItem.doType = "chooseText"
-                    chatItem.message = messageList[threePosition].message
+                    val fullText = messageList[position].message.trimIndent()
+                    val mFullText = StringObjectUtils.convertLatexFormat(fullText)
+                    //Log.e("ceshi","选择文本内容:${AfterAmpersand(mFullText)}")
+                    if (messageList[position].message.contains("&&&&&&")){
+                        chatItem.message = AfterAmpersand(mFullText)
+                    }else{
+                        chatItem.message = messageList[threePosition].message
+                    }
+                    //chatItem.message = messageList[threePosition].message
                     listener.onBackFunctionClick(chatItem)
                 }
                 "上传到档案库" -> {
@@ -800,6 +810,7 @@ class ChatAdapter(private var messageList: List<ChatMessage>, private val contex
         }
 
         if (imageUrlLocal.contains("media.documents/")){
+            Log.e("ceshi","文件信息：$fileSize,,$fileSize")
             removableImageChatLayout.setImageResource(imageUrlLocal,0,true,fileName, fileSize)
             // 添加到容器
             holder.fileChatLine.addView(removableImageChatLayout)
