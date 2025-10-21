@@ -38,6 +38,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.RelativeLayout
 import android.widget.SeekBar
 import android.widget.TextView
 import android.widget.Toast
@@ -273,6 +274,9 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
 
     private var mReadImageUrl = ""
 
+    // 保存 chatRecyclerView 的初始布局参数
+    private var initialRecyclerLayoutParams: RelativeLayout.LayoutParams? = null
+
     private val screenReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             when (intent?.action) {
@@ -327,6 +331,7 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
         }
         initData()
         initView()
+        saveInitialRecyclerLayoutParams()
 
     }
 
@@ -1771,6 +1776,8 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
     }
 
     private fun buildNewChat(insert:Boolean){
+        binding.floatingButton.visibility = View.GONE
+        restoreInitialHeight()
         if (messageList.isEmpty()){
             if (!isComeFromSetting){
                 Toast.makeText(this, ContextCompat.getString(this@MainActivity, R.string.already_new_session_toast_message), Toast.LENGTH_SHORT).show()
@@ -3629,6 +3636,36 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
         modelList.clear()
         // 3. 将去重后的元素添加回原列表（或创建新的 CopyOnWriteArrayList）
         modelList.addAll(uniqueSet)
+    }
+
+    /**
+     * 保存 chatRecyclerView 的初始布局参数
+     * 需在视图布局完成后获取（否则参数可能未初始化）
+     */
+    private fun saveInitialRecyclerLayoutParams() {
+        // 监听视图布局完成事件
+        binding.chatRecyclerView.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
+            override fun onGlobalLayout() {
+                // 移除监听器，避免重复调用
+                binding.chatRecyclerView.viewTreeObserver.removeOnGlobalLayoutListener(this)
+
+                // 获取初始布局参数（父布局是RelativeLayout，所以强转为RelativeLayout.LayoutParams）
+                initialRecyclerLayoutParams = binding.chatRecyclerView.layoutParams as RelativeLayout.LayoutParams
+                Log.e("ceshi","初始高度：${initialRecyclerLayoutParams?.height}")
+            }
+        })
+    }
+
+    /**
+     * 恢复 chatRecyclerView 到初始高度
+     */
+    private fun restoreInitialHeight() {
+        initialRecyclerLayoutParams?.let { initialParams ->
+            // 重新设置初始布局参数（包含初始高度）
+            binding.chatRecyclerView.layoutParams.height = -1
+            // 强制刷新布局，确保高度立即生效
+            binding.chatRecyclerView.requestLayout()
+        }
     }
 
 

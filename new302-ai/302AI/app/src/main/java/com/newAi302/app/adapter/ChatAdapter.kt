@@ -298,6 +298,9 @@ class ChatAdapter(private var messageList: List<ChatMessage>, private val contex
             for (url in urlLists){
                 addNewImageView(url,holder, context)
             }
+        }else{
+            holder.fileHorScr.visibility = View.GONE
+            holder.imageHorScr.visibility = View.GONE
         }
 
 

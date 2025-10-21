@@ -43,6 +43,7 @@ class ModelManagerActivity : BaseActivity(), OnItemClickListener {
     //private var options2 = CopyOnWriteArrayList<String>()
     private lateinit var dataStoreManager: DataStoreManager
     private var targetIndex = 0
+    private var targetCustomizeIndex = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -68,6 +69,13 @@ class ModelManagerActivity : BaseActivity(), OnItemClickListener {
             Log.e("ceshi","获取模型列表$options3")
             options2 = dataStoreManager.customizeModelListFlow.first()
             Log.e("ceshi","获取自定义模型列表$options2")
+            /*if (options2.isNotEmpty()){
+                binding.text2.visibility = View.VISIBLE
+                binding.aiUserRecycle.visibility = View.VISIBLE
+            }else{
+                binding.text2.visibility = View.GONE
+                binding.aiUserRecycle.visibility = View.GONE
+            }*/
         }
 
 
@@ -150,6 +158,23 @@ class ModelManagerActivity : BaseActivity(), OnItemClickListener {
                         binding.ai302Recycle.layoutManager?.scrollToPosition(targetIndex)
                         // 3. 刷新目标item（无需获取ViewHolder）
                         adapter302Ai.notifyItemChanged(targetIndex)
+                    }
+
+                }
+
+                val job3 = lifecycleScope.launch(Dispatchers.IO) {
+                    targetCustomizeIndex = options2.indexOfFirst { mModelType ->
+                        // 核心：用 contains() 检查 message 字段是否包含目标链接（而非完全相等）
+                        mModelType.contains(s.toString())
+                    }
+                }
+
+                lifecycleScope.launch(Dispatchers.Main) {
+                    job3.join() // 等待数据库操作完成
+                    if (targetCustomizeIndex != 0){
+                        binding.aiUserRecycle.layoutManager?.scrollToPosition(targetCustomizeIndex)
+                        // 3. 刷新目标item（无需获取ViewHolder）
+                        adapter302Ai.notifyItemChanged(targetCustomizeIndex)
                     }
 
                 }
