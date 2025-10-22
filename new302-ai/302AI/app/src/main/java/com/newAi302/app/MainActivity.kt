@@ -337,7 +337,7 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
 
     override fun onStop() {
         super.onStop()
-        Log.e("ceshi","onStop,,模型：$modelType")
+        Log.e("ceshi","onStop,,模型：$modelType,,$chatTitle")
         isTemporary = true
         isHaveTitle = false
         moreFunctionQuantity = 0
@@ -351,6 +351,8 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
 
             dataStoreManager.saveLastModelType(modelType)
             dataStoreManager.saveTemporaryModelType(modelType)
+            dataStoreManager.saveTemporaryChatTitle(chatTitle)
+
             //Log.e("ceshi", "B插入完成时间：${System.currentTimeMillis()}") // 添加日志
 
         }
@@ -450,9 +452,16 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
             if (isTemporary){
                 val readTemporaryModelType = dataStoreManager.readTemporaryModelType.first()?:"gemini-2.5-flash-nothink"
                 readTemporaryModelType?.let {
-                    Log.e("ceshi","提示词是多少：$it")
+                    Log.e("ceshi","临时保存是多少：$it")
                     modelType = it
                 }
+
+                val readTemporaryChatTitle = dataStoreManager.readTemporaryChatTitle.first()?:""
+                readTemporaryChatTitle?.let {
+                    Log.e("ceshi","临时保存标题是多少：$it")
+                    chatTitle = it
+                }
+
             }
             if (mModelTypeHistory != ""){
                 modelType = mModelTypeHistory
@@ -520,12 +529,26 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
                         chatTitle = hideTitle
                         binding.chatTitleTv.text = hideTitle
                     }else{
-                        isPrivate = false
-                        binding.hideImage.setImageResource(R.drawable.icon_hide)
-                        //binding.hideImage.clearColorFilter()
-                        binding.hideImage.imageTintList = null
-                        chatTitle = ContextCompat.getString(this@MainActivity, R.string.chat_title)
-                        binding.chatTitleTv.text = chatTitle
+                        Log.e("ceshi","6是否息屏$isScreenTurnedOff,,$chatTitle")
+                        if (chatTitle == hideTitle){
+                            isPrivate = true
+                            binding.hideImage.setImageResource(R.drawable.icon_hide)
+                            //binding.hideImage.setColorFilter(ContextCompat.getColor(this@MainActivity, R.color.color302AI), PorterDuff.Mode.SRC_IN)
+                            binding.hideImage.imageTintList = ContextCompat.getColorStateList(
+                                this@MainActivity,
+                                R.color.color302AI
+                            )
+                            chatTitle = hideTitle
+                            binding.chatTitleTv.text = hideTitle
+                        }else{
+                            isPrivate = false
+                            binding.hideImage.setImageResource(R.drawable.icon_hide)
+                            //binding.hideImage.clearColorFilter()
+                            binding.hideImage.imageTintList = null
+                            chatTitle = ContextCompat.getString(this@MainActivity, R.string.chat_title)
+                            binding.chatTitleTv.text = chatTitle
+                        }
+
                     }
                 }
 
@@ -1035,6 +1058,7 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
                 if (!isPrivate){
                     isPrivate = true
                     binding.chatTitleTv.text = hideTitle
+                    chatTitle = hideTitle
                     binding.hideImage.setImageResource(R.drawable.icon_hide)
                     //binding.hideImage.setColorFilter(ContextCompat.getColor(this@MainActivity, R.color.color302AI), PorterDuff.Mode.SRC_IN)
                     binding.hideImage.imageTintList = ContextCompat.getColorStateList(

@@ -59,6 +59,7 @@ class ModelTypeManager302aiAdapter(private val context:Context, private var mode
     private var isDelete = false
 
     private var selectedList = mutableListOf<Int>()
+    private var isShow = false
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChatViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_model_type_manager_select_default, parent, false)
@@ -78,7 +79,11 @@ class ModelTypeManager302aiAdapter(private val context:Context, private var mode
         val modelType = modeTypeList[position]
         Log.e("ceshi","历史列表显示标题：$modelType")
         holder.modelTypeNameTv.text = modelType
-
+        holder.textTitleTv.visibility = View.GONE
+        /*if (true && !isShow){
+            isShow = true
+            holder.textTitleTv.visibility = View.VISIBLE
+        }*/
 
 
 
@@ -124,6 +129,7 @@ class ModelTypeManager302aiAdapter(private val context:Context, private var mode
 
     inner class ChatViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val modelTypeNameTv: TextView = itemView.findViewById(R.id.modelTypeNameTv)
+        val textTitleTv: TextView = itemView.findViewById(R.id.textTitleTv)
         val settingModelTypSelectLine: LinearLayout = itemView.findViewById(R.id.settingModelTypSelectLine)
         val deleteFrame: FrameLayout = itemView.findViewById(R.id.deleteFrame)
         val selectConst: ConstraintLayout = itemView.findViewById(R.id.selectConst)

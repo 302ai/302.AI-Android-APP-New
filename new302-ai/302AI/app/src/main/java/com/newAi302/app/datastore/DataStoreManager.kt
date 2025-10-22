@@ -77,6 +77,7 @@ class DataStoreManager(private val context: Context) {
     private val TEMPERATURE_VALUE = doublePreferencesKey("temperature_value")
 
     private val TEMPORARY_MODEL_TYPE = stringPreferencesKey("temporary_model_type")
+    private val TEMPORARY_CHAT_TITLE = stringPreferencesKey("temporary_chat_title")
 
     // 存储键
     private val MODEL_LIST_KEY = stringPreferencesKey("model_list_key")
@@ -303,6 +304,12 @@ class DataStoreManager(private val context: Context) {
         }
     }
 
+    suspend fun saveTemporaryChatTitle(data: String) {
+        context.dataStore.edit { preferences ->
+            preferences[TEMPORARY_CHAT_TITLE] = data
+        }
+    }
+
     suspend fun saveBuildTitleSwitch(data: Boolean) {
         context.dataStore.edit { preferences ->
             preferences[BUILD_TITLE_SWITCH] = data
@@ -485,6 +492,11 @@ class DataStoreManager(private val context: Context) {
     val readTemporaryModelType: Flow<String?> = context.dataStore.data
         .map { preferences ->
             preferences[TEMPORARY_MODEL_TYPE]
+        }
+
+    val readTemporaryChatTitle: Flow<String?> = context.dataStore.data
+        .map { preferences ->
+            preferences[TEMPORARY_CHAT_TITLE]
         }
 
     val readBuildTitleSwitch: Flow<Boolean?> = context.dataStore.data
