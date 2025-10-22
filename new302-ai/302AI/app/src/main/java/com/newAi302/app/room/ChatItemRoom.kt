@@ -16,7 +16,7 @@ import java.io.Serializable
  */
 @Entity(tableName = "chat_items",
     // 为 title 字段添加唯一索引（全局唯一）
-    indices = [Index(value = ["time"], unique = true),
+    indices = [Index(value = ["title"], unique = true),
             Index(value = ["userId"]) // 新增userId索引，优化查询性能
     ])
 @TypeConverters(MessagesConverter::class)

@@ -1406,7 +1406,7 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
         chatViewModel.questionResult.observeForever { result ->
             Log.e("ceshi","0机器人有回复：$result,,${isSendMessage.get()}")
             isSendMessageAgain.set(true)
-            //chatTime = TimeUtils.getCurrentDateTime()
+            chatTime = TimeUtils.getCurrentDateTime()
             if (isSendMessage.get()){
                 //isSendMessage.set(false)
                 result?.let {
@@ -1474,11 +1474,26 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
             if (isSendMessage.get()){
                 result?.let {
                     Log.e("ceshi", "机器人有回复标题：$it,,")
-                    chatTitle = it
-                    isHaveTitle = true
-                    if (!isPrivate) {
-                        binding.chatTitleTv.text = chatTitle
+                    var chatTitleId = 0
+                    lifecycleScope.launch(Dispatchers.IO) {
+                        if (chatDatabase.chatDao().checkTitleExists(it)){
+                            if (chatDatabase.chatDao().checkTitleExists(chatTitle)){
+                                chatTitle = it+"${chatTitleId++}"
+                            }else{
+                                chatTitle = it+"${chatTitleId}"
+                            }
+                        }else{
+                            chatTitle = it
+                        }
+                        isHaveTitle = true
+                        lifecycleScope.launch(Dispatchers.Main) {
+                            if (!isPrivate) {
+                                binding.chatTitleTv.text = chatTitle
+                            }
+                        }
+
                     }
+
 
                 }
             }
