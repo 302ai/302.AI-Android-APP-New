@@ -112,6 +112,20 @@ class DataStoreManager(private val context: Context) {
         }
     }
 
+    suspend fun deleteFromModelList(target: String) {
+        // 1. 获取当前列表（通过 flow 收集一次当前值）
+        val currentList = modelListFlow.first() // 注意：first() 会挂起并获取当前值
+
+        // 2. 创建新列表（避免直接修改原列表，确保线程安全）
+        val newList = currentList.toMutableList()
+
+        // 3. 移除目标元素（remove 会删除第一个匹配的元素）
+        newList.remove(target)
+
+        // 4. 保存修改后的列表
+        saveModelList(newList)
+    }
+
     val customizeModelListFlow: Flow<MutableList<String>> = context.dataStore.data
         .map { preferences ->
             val jsonString = preferences[CUSTOMIZE_MODEL_LIST_KEY] ?: "[]"

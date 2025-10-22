@@ -11,7 +11,7 @@
         android:id="@+id/content_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="13dp">
+        android:layout_marginBottom="10dp">
 
         <TextView
             android:id="@+id/timeTv"
@@ -21,12 +21,13 @@
             android:visibility="gone"
             android:textColor="@color/textColor1"
             android:textSize="14sp"
-            android:layout_marginBottom="10dp"
             android:layout_marginLeft="10dp"
+            android:paddingBottom="8dp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"/>
 
         <LinearLayout
+            android:id="@+id/chatListLine"
             android:layout_width="match_parent"
             android:layout_height="46dp"
             android:orientation="horizontal"
@@ -35,7 +36,7 @@
             android:background="@drawable/shape_select_site_bg_write_line">
             <TextView
                 android:id="@+id/titleTv"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
                 android:textColor="@color/textColor"
@@ -44,40 +45,38 @@
                 android:ellipsize="middle"
                 android:maxWidth="150dp"
                 android:maxLines="1"
-                android:layout_gravity="center"/>
+                android:layout_gravity="center"
+                android:layout_weight="1"/>
+            <ImageView
+                android:id="@+id/collectImage"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:visibility="gone"
+                android:background="@drawable/icon_collected"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="10dp" />
+
+            <ImageView
+                android:id="@+id/selectImage"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:visibility="gone"
+                android:background="@drawable/icon_left_select"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="10dp"
+                />
+            <ImageView
+                android:id="@+id/selectedImage"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:visibility="gone"
+                android:background="@drawable/icon_left_selected"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="10dp"
+                />
         </LinearLayout>
         
-        <ImageView
-            android:id="@+id/collectImage"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:visibility="gone"
-            android:background="@drawable/icon_collected"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginRight="10dp"
-            app:layout_constraintRight_toRightOf="parent"/>
 
-        <ImageView
-            android:id="@+id/selectImage"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:visibility="gone"
-            android:background="@drawable/icon_left_select"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginRight="10dp"
-            app:layout_constraintRight_toRightOf="parent"/>
-        <ImageView
-            android:id="@+id/selectedImage"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:visibility="gone"
-            android:background="@drawable/icon_left_selected"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginRight="10dp"
-            app:layout_constraintRight_toRightOf="parent"/>
 
 
 

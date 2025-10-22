@@ -16,6 +16,8 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleCoroutineScope
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Database
@@ -45,7 +47,7 @@ import java.io.IOException
  * desc   :
  * version: 1.0
  */
-class ModelTypeManager302aiAdapter(private val context:Context, private var modeTypeList: List<String>,
+class ModelTypeManager302aiAdapter(private val context:Context, private var modeTypeList: List<String>, private var chatDatabase:ChatDatabase, private var lifecycleScope: LifecycleCoroutineScope,
     // 定义函数类型参数（Lambda回调）：参数为位置和数据，无返回值
                                    private val onItemClick: (position: Int, data: String) -> Unit) :
     RecyclerView.Adapter<ModelTypeManager302aiAdapter.ChatViewHolder>() {
@@ -60,6 +62,14 @@ class ModelTypeManager302aiAdapter(private val context:Context, private var mode
 
     private var selectedList = mutableListOf<Int>()
     private var isShow = false
+    // 缓存每个modelType对应的isCustomize状态（key: modelType, value: isCustomize）
+    private val customizeStatusMap = mutableMapOf<String, Boolean>()
+    // 记录第一个isCustomize = true的Item位置（初始为-1，代表无符合条件的Item）
+    private var firstCustomizePosition = -1
+
+    init {
+        loadCustomizeStatus()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChatViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_model_type_manager_select_default, parent, false)
@@ -79,7 +89,39 @@ class ModelTypeManager302aiAdapter(private val context:Context, private var mode
         val modelType = modeTypeList[position]
         Log.e("ceshi","历史列表显示标题：$modelType")
         holder.modelTypeNameTv.text = modelType
+
+        // 默认隐藏，避免复用导致的显示异常
         holder.textTitleTv.visibility = View.GONE
+
+        // 从缓存中获取当前Item的isCustomize状态
+        val isCustomize = customizeStatusMap[modelType] ?: false
+
+        // 仅当：当前位置是第一个符合条件的位置，且状态为true时，才显示标题
+        if (position == firstCustomizePosition && isCustomize) {
+            holder.textTitleTv.visibility = View.VISIBLE
+        } else {
+            holder.textTitleTv.visibility = View.GONE
+        }
+        /*lifecycleScope.launch(Dispatchers.IO) {
+            val modelData = chatDatabase.chatDao().getModelById(modelType)
+            if (modelData != null){
+                val isCustomize = modelData.isCustomize
+                lifecycleScope.launch(Dispatchers.Main) {
+                    if (isCustomize && !isShow){
+                        isShow = true
+                        holder.textTitleTv.visibility = View.VISIBLE
+                    }else{
+                        holder.textTitleTv.visibility = View.GONE
+                    }
+                }
+
+            }else{
+                lifecycleScope.launch(Dispatchers.Main) {
+                    holder.textTitleTv.visibility = View.GONE
+                }
+
+            }
+        }*/
         /*if (true && !isShow){
             isShow = true
             holder.textTitleTv.visibility = View.VISIBLE
@@ -109,8 +151,15 @@ class ModelTypeManager302aiAdapter(private val context:Context, private var mode
         }
 
         holder.deleteFrame.setOnClickListener {
-            // 点击时执行动画效果
-            onItemClick(position, "Delete")
+            if (holder.textTitleTv.visibility == View.VISIBLE){
+                isShow = false
+                // 点击时执行动画效果
+                onItemClick(position, "Delete")
+            }else{
+                // 点击时执行动画效果
+                onItemClick(position, "Delete1")
+            }
+
             ViewAnimationUtils.performClickEffect(it)
             (holder.itemView as SwipeMenuLayout).smoothClose()
         }
@@ -145,5 +194,37 @@ class ModelTypeManager302aiAdapter(private val context:Context, private var mode
 
     fun upDataMoreSelect(isMoreSelect:Boolean){
         this.isMoreSelect = isMoreSelect
+    }
+
+    // 调用时机：Adapter初始化时、modeTypeList数据变化时
+    fun loadCustomizeStatus() {
+        lifecycleScope.launch(Dispatchers.IO) {
+            // 清空缓存和位置记录
+            customizeStatusMap.clear()
+            firstCustomizePosition = -1
+
+            // 遍历所有Item，查询并缓存isCustomize状态
+            for ((index, modelType) in modeTypeList.withIndex()) {
+                val modelData = chatDatabase.chatDao().getModelById(modelType)
+                val isCustomize = modelData?.isCustomize ?: false
+                customizeStatusMap[modelType] = isCustomize
+
+                // 找到第一个isCustomize = true的位置（仅记录一次）
+                if (isCustomize && firstCustomizePosition == -1) {
+                    firstCustomizePosition = index
+                }
+            }
+
+            // 数据准备完成后，刷新列表（在主线程执行）
+            launch(Dispatchers.Main) {
+                notifyDataSetChanged()
+            }
+        }
+    }
+
+    // 新增更新数据的方法
+    fun updateData(newList: List<String>) {
+        modeTypeList = newList
+        loadCustomizeStatus() // 重新计算状态和位置
     }
 }

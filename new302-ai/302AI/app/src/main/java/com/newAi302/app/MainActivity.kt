@@ -828,6 +828,7 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
                         if(chatTitle != ContextCompat.getString(this@MainActivity, R.string.chat_title) && isHaveTitle){
                             //直接插入，做了title唯一性，如果有了就替换成最新的
                             chatDatabase.chatDao().insertChat(ChatItemRoom(0,chatTitle, messageList, chatTime,modelType,isDeepThink,isNetWorkThink,userId,isMe,false,isR1Fusion))
+                            //chatDatabase.chatDao().insertChat(ChatItemRoom(0,chatTitle, messageList, "2025-10-21 16:54:59",modelType,isDeepThink,isNetWorkThink,userId,isMe,false,isR1Fusion))
                         }else if (messageList.size>1){
                             chatDatabase.chatDao().insertChat(ChatItemRoom(0,chatTitle, messageList, chatTime,modelType,isDeepThink,isNetWorkThink,userId,isMe,false,isR1Fusion))
                         }
@@ -1129,21 +1130,56 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
                             "delete" -> {
                                 Log.e("ceshi","是否可以删除${isSendMessageAll.get()}")
                                 if (isSendMessageAll.get()){
-                                    val job1 = lifecycleScope.launch(Dispatchers.IO) {
-                                        if (chatDatabase.chatDao().checkTimeExists(chatListSearch[position].time)){
-                                            //先删除后添加
-                                            chatDatabase.chatDao().deleteChatByTime(chatListSearch[position].time)
-                                        }
-                                    }
-                                    lifecycleScope.launch {
-                                        job1.join()
-                                        if (chatListSearch[position].time == chatTime){
-                                            //leftDelect.set(true)
+                                    lifecycleScope.launch(Dispatchers.Main) {
+                                        //job1.join()
+                                        if (chatListSearch[position].title == chatTitle){
                                             buildNewChat(false)
                                         }
-                                        chatListSearch.removeAt(position)
+                                        val job1 = lifecycleScope.launch(Dispatchers.IO) {
+                                            if (chatDatabase.chatDao().checkTitleExists(chatListSearch[position].title)){
+                                                //先删除后添加
+                                                chatDatabase.chatDao().deleteChatByTitle(chatListSearch[position].title)
+                                            }
+                                            chatListSearch.removeAt(position)
+//                                    chatList = chatDatabase.chatDao().getChatsByUserId(userId).toMutableList()
+//                                    //chatListReversed = chatList.reversed().toMutableList()
+//                                    chatListReversed = chatList.sortedByDescending { it.time }.toMutableList()
+
+                                        }
+//                                adapterHistory.notifyItemRemoved(position)
+//                                adapterHistory.notifyItemRangeChanged(position, chatListReversed.size - position)
+                                        job1.join()
+                                        adapterHistorySearch.updateDataTime(chatListSearch)
+                                        adapterHistorySearch.notifyDataSetChanged()
+                                    }
+                                }else{
+                                    Toast.makeText(this@MainActivity, ContextCompat.getString(this@MainActivity, R.string.plase_wait_back_delect_toast_message), Toast.LENGTH_SHORT).show()
+                                }
+
+                            }
+                            "delete1" -> {
+                                Log.e("ceshi","是否可以删除${isSendMessageAll.get()}")
+                                if (isSendMessageAll.get()){
+                                    lifecycleScope.launch(Dispatchers.Main) {
+                                        //job1.join()
+                                        if (chatListSearch[position].title == chatTitle){
+                                            buildNewChat(false)
+                                        }
+                                        val job1 = lifecycleScope.launch(Dispatchers.IO) {
+                                            if (chatDatabase.chatDao().checkTitleExists(chatListSearch[position].title)){
+                                                //先删除后添加
+                                                chatDatabase.chatDao().deleteChatByTitle(chatListSearch[position].title)
+                                            }
+                                            chatListSearch.removeAt(position)
+//                                    chatList = chatDatabase.chatDao().getChatsByUserId(userId).toMutableList()
+//                                    //chatListReversed = chatList.reversed().toMutableList()
+//                                    chatListReversed = chatList.sortedByDescending { it.time }.toMutableList()
+
+                                        }
+                                        job1.join()
+                                        adapterHistorySearch.updateDataTime(chatListSearch)
                                         adapterHistorySearch.notifyItemRemoved(position)
-                                        adapterHistorySearch.notifyItemRangeChanged(position, chatListSearch.size - position)
+                                        adapterHistorySearch.notifyItemRangeChanged(position, chatListReversed.size - position)
                                     }
                                 }else{
                                     Toast.makeText(this@MainActivity, ContextCompat.getString(this@MainActivity, R.string.plase_wait_back_delect_toast_message), Toast.LENGTH_SHORT).show()
@@ -1615,12 +1651,12 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
                     var mModelList = dataStoreManager.modelListFlow.first()
                     Log.e("ceshi","0这里的数据库模型列表:${mModelList}")
                     if (mModelList.isNotEmpty()){
-                        /*for (model in it){
+                        for (model in it){
                             if (!mModelList.contains(model)){
                                 mModelList.add(model)
                             }
                         }
-                        mModelList.add("gemini-2.5-flash-nothink")*/
+                        mModelList.add("gemini-2.5-flash-nothink")
                         //modelList = mModelList as CopyOnWriteArrayList<String>  这样做闪退
                         modelList = CopyOnWriteArrayList(mModelList)
                     }else{
@@ -1841,6 +1877,7 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
                     }
                     //直接插入，做了title唯一性，如果有了就替换成最新的
                     chatDatabase.chatDao().insertChat(ChatItemRoom(0,chatTitle, messageList, chatTime,modelType,isDeepThink,isNetWorkThink,userId,isMe,false,isR1Fusion))
+                    //chatDatabase.chatDao().insertChat(ChatItemRoom(0,chatTitle, messageList, "2025-10-21 16:54:59",modelType,isDeepThink,isNetWorkThink,userId,isMe,false,isR1Fusion))
                     //Log.e("ceshi", "B插入完成时间：${System.currentTimeMillis()}") // 添加日志
                 }else{
                     //leftDelect.set(false)
@@ -2085,21 +2122,60 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
                     "delete" -> {
                         //Log.e("ceshi","是否可以删除${isSendMessageAll.get()}")
                         if (isSendMessageAll.get()){
-                            val job1 = lifecycleScope.launch(Dispatchers.IO) {
-                                if (chatDatabase.chatDao().checkTimeExists(chatListReversed[position].time)){
-                                    //先删除后添加
-                                    chatDatabase.chatDao().deleteChatByTime(chatListReversed[position].time)
-                                }
-                            }
-                            lifecycleScope.launch {
-                                job1.join()
-                                if (chatListReversed[position].time == chatTime){
+                            lifecycleScope.launch(Dispatchers.Main) {
+                                //job1.join()
+                                if (chatListReversed[position].title == chatTitle){
                                     buildNewChat(false)
                                 }
-                                chatListReversed.removeAt(position)
+                                val job1 = lifecycleScope.launch(Dispatchers.IO) {
+                                    if (chatDatabase.chatDao().checkTitleExists(chatListReversed[position].title)){
+                                        //先删除后添加
+                                        chatDatabase.chatDao().deleteChatByTitle(chatListReversed[position].title)
+                                    }
+                                    chatListReversed.removeAt(position)
+//                                    chatList = chatDatabase.chatDao().getChatsByUserId(userId).toMutableList()
+//                                    //chatListReversed = chatList.reversed().toMutableList()
+//                                    chatListReversed = chatList.sortedByDescending { it.time }.toMutableList()
+
+                                }
+//                                adapterHistory.notifyItemRemoved(position)
+//                                adapterHistory.notifyItemRangeChanged(position, chatListReversed.size - position)
+                                job1.join()
+                                adapterHistory.updateDataTime(chatListReversed)
+                                adapterHistory.notifyDataSetChanged()
+                            }
+
+
+                        }else{
+                            Toast.makeText(this@MainActivity, ContextCompat.getString(this@MainActivity, R.string.plase_wait_back_delect_toast_message), Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                    "delete1" -> {
+                        //Log.e("ceshi","是否可以删除${isSendMessageAll.get()}")
+                        if (isSendMessageAll.get()){
+                            lifecycleScope.launch(Dispatchers.Main) {
+                                //job1.join()
+                                if (chatListReversed[position].title == chatTitle){
+                                    buildNewChat(false)
+                                }
+                                val job1 = lifecycleScope.launch(Dispatchers.IO) {
+                                    if (chatDatabase.chatDao().checkTitleExists(chatListReversed[position].title)){
+                                        //先删除后添加
+                                        chatDatabase.chatDao().deleteChatByTitle(chatListReversed[position].title)
+                                    }
+                                    chatListReversed.removeAt(position)
+//                                    chatList = chatDatabase.chatDao().getChatsByUserId(userId).toMutableList()
+//                                    //chatListReversed = chatList.reversed().toMutableList()
+//                                    chatListReversed = chatList.sortedByDescending { it.time }.toMutableList()
+
+                                }
+                                job1.join()
+                                adapterHistory.updateDataTime(chatListReversed)
                                 adapterHistory.notifyItemRemoved(position)
                                 adapterHistory.notifyItemRangeChanged(position, chatListReversed.size - position)
                             }
+
+
                         }else{
                             Toast.makeText(this@MainActivity, ContextCompat.getString(this@MainActivity, R.string.plase_wait_back_delect_toast_message), Toast.LENGTH_SHORT).show()
                         }

@@ -24,11 +24,13 @@ import com.newAi302.app.databinding.ActivityAnnouncementBinding
 import com.newAi302.app.databinding.ActivityModelManagerBinding
 import com.newAi302.app.datastore.DataStoreManager
 import com.newAi302.app.infa.OnItemClickListener
+import com.newAi302.app.room.ChatDatabase
 import com.newAi302.app.room.ChatItemRoom
 import com.newAi302.app.utils.ViewAnimationUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import okhttp3.internal.notifyAll
 import java.util.concurrent.CopyOnWriteArrayList
 
 class ModelManagerActivity : BaseActivity(), OnItemClickListener {
@@ -44,12 +46,15 @@ class ModelManagerActivity : BaseActivity(), OnItemClickListener {
     private lateinit var dataStoreManager: DataStoreManager
     private var targetIndex = 0
     private var targetCustomizeIndex = 0
+    private lateinit var chatDatabase: ChatDatabase
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         binding = ActivityModelManagerBinding.inflate(layoutInflater)
         setContentView(binding.root)
         dataStoreManager = DataStoreManager(MyApplication.myApplicationContext)
+        // 初始化数据库
+        chatDatabase = ChatDatabase.getInstance(this)
         binding.backImage.setOnClickListener {
             ViewAnimationUtils.performClickEffect(it)
             finish()
@@ -82,8 +87,15 @@ class ModelManagerActivity : BaseActivity(), OnItemClickListener {
         lifecycleScope.launch(Dispatchers.Main) {
             job.join()
             val options = mutableListOf("gemini-2.5-flash-nothink","gpt-4o","gpt4")
-            adapter302Ai = ModelTypeManager302aiAdapter(this@ModelManagerActivity,options3){ position, data ->
+            adapter302Ai = ModelTypeManager302aiAdapter(this@ModelManagerActivity,options3,chatDatabase,lifecycleScope){ position, data ->
                 if (data == "Delete"){
+                    options3.removeAt(position)
+                    //adapter302Ai.notifyItemRemoved(position)
+                    adapter302Ai.notifyDataSetChanged()
+                    lifecycleScope.launch(Dispatchers.IO) {
+                        dataStoreManager.saveModelList(options3)
+                    }
+                }else if (data == "Delete1"){
                     options3.removeAt(position)
                     adapter302Ai.notifyItemRemoved(position)
                     lifecycleScope.launch(Dispatchers.IO) {
@@ -97,7 +109,7 @@ class ModelManagerActivity : BaseActivity(), OnItemClickListener {
             }
 
             val options1 = mutableListOf("gemini-2.5-flash-nothink","gpt-4o","gpt4")
-            adapterUser = ModelTypeManager302aiAdapter(this@ModelManagerActivity,options2){ position, data ->
+            adapterUser = ModelTypeManager302aiAdapter(this@ModelManagerActivity,options2,chatDatabase,lifecycleScope){ position, data ->
                 if (data == "Delete"){
                     Log.e("ceshi","删除后的$position,,$data")
                     options2.removeAt(position)

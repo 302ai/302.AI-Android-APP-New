@@ -64,6 +64,18 @@ class HomeMessageAdapter(private val context:Context,private var chatList: List<
     private var isSelectDelect = false
     private var hashMapUrlHolder = HashMap<Int, HomeMessageAdapter.ChatViewHolder>()
 
+    // 缓存每个位置的时间标签（key: position, value: "昨天"/"更早"/"今日"）
+    private val timeTagMap = mutableMapOf<Int, String>()
+    // 记录“昨天”标签的第一个出现位置（初始为-1，代表无）
+    private var firstYesterdayPosition = -1
+    // 记录“更早”标签的第一个出现位置（初始为-1，代表无）
+    private var firstEarlierPosition = -1
+
+    // 初始化时调用
+    init {
+        loadTimeTagStatus(false)
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChatViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.home_list_item, parent, false)
         //dataStoreManager = DataStoreManager(context)
@@ -83,7 +95,35 @@ class HomeMessageAdapter(private val context:Context,private var chatList: List<
         Log.e("ceshi","历史列表显示：$chatItem")
         Log.e("ceshi","历史列表显示时间：${chatItem.time}")//2025-08-12 16:54:59
         holder.title.text = chatItem.title
-        var timeTag = "今日"
+
+        // 从缓存中获取当前位置的时间标签
+        var timeTag = timeTagMap[position] ?: "今日"
+
+        // 根据时间标签和第一个位置，控制time的显示
+        when (timeTag) {
+            "今日" -> {
+                holder.time.visibility = View.GONE // 今日不显示标签
+            }
+            "昨天" -> {
+                // 仅当当前位置是“昨天”的第一个位置时显示
+                holder.time.visibility = if (position == firstYesterdayPosition) {
+                    holder.time.text = context.getString(R.string.yesterday_message)
+                    View.VISIBLE
+                } else {
+                    View.GONE
+                }
+            }
+            "更早" -> {
+                // 仅当当前位置是“更早”的第一个位置时显示
+                holder.time.visibility = if (position == firstEarlierPosition) {
+                    holder.time.text = context.getString(R.string.earlier_message)
+                    View.VISIBLE
+                } else {
+                    View.GONE
+                }
+            }
+        }
+
         /*if (chatItem.title=="身份揭秘"){
             timeTag = TimeUtils.getTimeTag("2025-08-10 16:54:59",TimeUtils.getCurrentDateTime())
         }else if(chatItem.title == "你"){
@@ -93,7 +133,7 @@ class HomeMessageAdapter(private val context:Context,private var chatList: List<
         }else{
             timeTag = TimeUtils.getTimeTag(chatItem.time,TimeUtils.getCurrentDateTime())
         }*/
-        timeTag = TimeUtils.getTimeTag(chatItem.time,TimeUtils.getCurrentDateTime())
+        /*timeTag = TimeUtils.getTimeTag(chatItem.time,TimeUtils.getCurrentDateTime())
         Log.e("ceshi","显示时间$timeTag,,$isShowTimeTag,,$isShowTimeOneTag")
         when(timeTag){
             "今日" -> {
@@ -115,7 +155,7 @@ class HomeMessageAdapter(private val context:Context,private var chatList: List<
                 }
 
             }
-        }
+        }*/
         //holder.time.text = chatItem.time
 
         if (isMoreSelect){
@@ -325,7 +365,16 @@ class HomeMessageAdapter(private val context:Context,private var chatList: List<
 
                         }
                     }*/
-                    onDeleteClickListener(nowPosition,"delete")
+
+                    // 2. 重新计算时间标签状态（关键：更新firstEarlierPosition等）
+                    loadTimeTagStatus(true)
+
+                    if (mHolder?.time?.visibility == View.VISIBLE){
+                        onDeleteClickListener(nowPosition,"delete")
+                    }else{
+                        onDeleteClickListener(nowPosition,"delete1")
+                    }
+
                 }
             }
         }
@@ -356,5 +405,39 @@ class HomeMessageAdapter(private val context:Context,private var chatList: List<
 
     fun upDataMoreSelect(isMoreSelect:Boolean){
         this.isMoreSelect = isMoreSelect
+    }
+
+    // 计算所有Item的时间标签及第一个出现位置（在主线程调用）
+    private fun loadTimeTagStatus(isDelete:Boolean) {
+        // 清空缓存和位置记录
+        timeTagMap.clear()
+        firstYesterdayPosition = -1
+        firstEarlierPosition = -1
+
+        val currentTime = TimeUtils.getCurrentDateTime() // 获取当前时间（复用现有工具类）
+
+        // 遍历所有Item，计算时间标签并记录第一个位置
+        for (position in chatList.indices) {
+            val chatItem = chatList[position]
+            val timeTag = TimeUtils.getTimeTag(chatItem.time, currentTime)
+            timeTagMap[position] = timeTag
+
+            // 记录“昨天”的第一个位置（仅第一次出现时记录）
+            if (timeTag == "昨天" && firstYesterdayPosition == -1) {
+                firstYesterdayPosition = position
+            }
+            // 记录“更早”的第一个位置（仅第一次出现时记录）
+            if (timeTag == "更早" && firstEarlierPosition == -1) {
+                firstEarlierPosition = position
+            }
+
+        }
+    }
+
+    // 数据更新时调用（覆盖原updateData方法）
+    fun updateDataTime(newChatList: List<ChatItemRoom>) {
+        chatList = newChatList
+        loadTimeTagStatus(false) // 重新计算时间标签状态
+        //notifyDataSetChanged()
     }
 }

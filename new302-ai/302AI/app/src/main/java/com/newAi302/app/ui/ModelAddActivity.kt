@@ -46,6 +46,8 @@ class ModelAddActivity : BaseActivity() {
     private var isSettingDownImage = false
     // 修改后（线程安全）
     //private var modelList = CopyOnWriteArrayList<String>()
+    private var curModelType = ""
+    private var isCustomize = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,8 +65,11 @@ class ModelAddActivity : BaseActivity() {
         val mModelType = intent.getSerializableExtra("model_type") as? String
         if (mModelType != null){
             modelType = mModelType
+            curModelType = mModelType
             binding.editIdSetting.setText(modelType)
             lifecycleScope.launch(Dispatchers.IO) {
+                modelList = dataStoreManager.modelListFlow.first()
+                Log.e("ceshi","01获取自定义模型列表$modelList")
                 val modelData = chatDatabase.chatDao().getModelById(modelType)
                 Log.e("ceshi","模型获取数据库:${modelData}")
                 modelData?.let {
@@ -73,6 +78,7 @@ class ModelAddActivity : BaseActivity() {
                     imageUnderstanding = it.imageUnderstanding
                     baseUrl = it.baseUrl
                     apiKey = it.apiKey
+                    isCustomize = it.isCustomize
 
                     lifecycleScope.launch(Dispatchers.Main) {
                         binding.editRemarkSetting.setText(it.remark)
@@ -208,23 +214,45 @@ class ModelAddActivity : BaseActivity() {
         binding.saveModeTypeBt.setOnClickListener {
 
             lifecycleScope.launch(Dispatchers.IO) {
-                val model = ModelDataRoom(
-                    modelId = modelType,
-                    remark = remark,
-                    reasoning = reasoning,
-                    imageUnderstanding = imageUnderstanding,
-                    baseUrl = baseUrl,
-                    apiKey = apiKey
-                )
-                chatDatabase.chatDao().insertModel(model)
 
                 if (isActionAdd){
+                    val model = ModelDataRoom(
+                        modelId = modelType,
+                        remark = remark,
+                        reasoning = reasoning,
+                        imageUnderstanding = imageUnderstanding,
+                        baseUrl = baseUrl,
+                        apiKey = apiKey,
+                        isCustomize = true
+                    )
+                    chatDatabase.chatDao().insertModel(model)
+                    modelList.add(modelType)
+                    //dataStoreManager.saveCustomizeModelList(modelList)
+                    dataStoreManager.saveModelList(modelList)
+                }else{
+                    val model = ModelDataRoom(
+                        modelId = modelType,
+                        remark = remark,
+                        reasoning = reasoning,
+                        imageUnderstanding = imageUnderstanding,
+                        baseUrl = baseUrl,
+                        apiKey = apiKey,
+                        isCustomize = isCustomize
+                    )
+                    chatDatabase.chatDao().insertModel(model)
+//                        modelList.remove(curModelType)
+//                        modelList.add(modelType)
+                    replaceModelType(curModelType,modelType)
+                    //dataStoreManager.saveCustomizeModelList(modelList)
+                    dataStoreManager.saveModelList(modelList)
+                }
+                /*if (isActionAdd){
                     lifecycleScope.launch(Dispatchers.IO) {
                         modelList.add(modelType)
                         //dataStoreManager.saveCustomizeModelList(modelList)
                         dataStoreManager.saveModelList(modelList)
                     }
-                }
+                }*/
 
                 lifecycleScope.launch(Dispatchers.Main) {
                     finish()
@@ -299,6 +327,26 @@ class ModelAddActivity : BaseActivity() {
 
 
 
+    }
+
+    /**
+     * 在 modelList 中找到 curModelType 的位置，并用 modelType 替换该位置的元素
+     * @param curModelType 要查找的目标元素
+     * @param modelType 要替换成的新元素
+     * @return 是否替换成功（true：找到并替换；false：未找到 curModelType）
+     */
+    fun replaceModelType(curModelType: String, modelType: String): Boolean {
+        // 1. 查找 curModelType 在列表中第一次出现的位置（索引）
+        val index = modelList.indexOf(curModelType)
+
+        // 2. 检查索引是否有效（存在该元素）
+        if (index != -1) {
+            // 3. 替换该位置的元素为 modelType
+            modelList[index] = modelType
+            return true
+        }
+        // 未找到目标元素，返回 false
+        return false
     }
 
 }

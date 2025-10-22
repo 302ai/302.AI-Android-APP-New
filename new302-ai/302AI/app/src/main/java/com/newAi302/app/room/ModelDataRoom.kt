@@ -25,5 +25,6 @@ data class ModelDataRoom(
     val reasoning: Boolean,
     val imageUnderstanding: Boolean,
     val baseUrl: String,
-    val apiKey: String
+    val apiKey: String,
+    val isCustomize: Boolean = false
 ): Serializable
