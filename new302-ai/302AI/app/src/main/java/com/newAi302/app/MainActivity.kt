@@ -44,6 +44,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.annotation.RequiresExtension
@@ -220,6 +222,8 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
 
     private lateinit var screenshotManager: LongScreenshotManager
     private val REQUEST_MEDIA_PROJECTION = 1001
+    // 用于打开文件选择器的请求码
+    private val REQUEST_CODE_OPEN_DOCUMENT = 1002
 
     private var isPrivate = false
 
@@ -1692,10 +1696,18 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
             it.let {
                 apiKey = it.api_key
                 binding.userName.text = it.user_name
+                // 方法1：使用内置的CircleCrop变换
+                Glide.with(this@MainActivity)
+                    .load(it.avatar)
+                    .apply(RequestOptions.circleCropTransform())
+                    .placeholder(android.R.drawable.ic_menu_gallery)
+                    .error(android.R.drawable.stat_notify_error)
+                    .into(binding.userImage)
                 lifecycleScope.launch(Dispatchers.IO) {
                     dataStoreManager.saveData(apiKey)
                     dataStoreManager.saveUserName(it.user_name)
                     dataStoreManager.saveUserBalance(it.balance)
+                    dataStoreManager.saveImageUrl(it.avatar)
                     if (it.email == ""){
                         userId = it.phone
                         insertUserConfiguration(it.phone)
@@ -1842,12 +1854,25 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
                         SystemUtils.uriToTempFile(this@MainActivity, selectedFileUri!!),"imgs",false,apiService)
                 }
             }
-        }else{
+        }else if (requestCode == REQUEST_CODE_OPEN_DOCUMENT && resultCode == RESULT_OK){
+            // 用户选择的文件URI
+            val uri = data?.data
+            if (uri != null) {
+                selectedDocumentUri = uri
+                // 申请持久权限（关键：确保应用重启后仍能访问该URI）
+                takePersistableUriPermission(uri)
+                // 自动打开该文件
+                openDocument(uri)
+            }
+        }
+        else{
             isPicture = false
             isFile = false
         }
 
     }
+    // 保存用户选择的文件URI
+    private var selectedDocumentUri: Uri? = null
 
     // 请求媒体投影权限
     private fun requestMediaProjectionPermission() {
@@ -1857,7 +1882,9 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
     }
 
     private fun buildNewChat(insert:Boolean){
-        binding.floatingButton.visibility = View.GONE
+        lifecycleScope.launch(Dispatchers.Main) {
+            binding.floatingButton.visibility = View.GONE
+        }
         restoreInitialHeight()
         if (messageList.isEmpty()){
             if (!isComeFromSetting){
@@ -2546,10 +2573,55 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
                     permissions.add(Manifest.permission.READ_EXTERNAL_STORAGE)
                 }
                 requestPermissions(permissions.toTypedArray(), 0)
-                showImagePreviewDialog(chatFunction.message)
+                if (chatFunction.message.contains("media.documents/")){
+                    //openDocument(chatFunction.message)
+                    // 启动文件选择器，等待用户选择
+                    openDocumentPicker()
+
+                }else{
+                    showImagePreviewDialog(chatFunction.message)
+                }
+
             }
 
         }
+    }
+
+    // 打开系统文件选择器，让用户选择文件
+    private fun openDocumentPicker() {
+        val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
+            // 指定可选择的文件类型（*/* 表示所有类型，可根据需求限制，如 "application/pdf"）
+            type = "*/*"
+            // 添加类别，确保能被文件选择器处理
+            addCategory(Intent.CATEGORY_OPENABLE)
+        }
+        // 启动文件选择器，等待用户选择
+        startActivityForResult(intent, REQUEST_CODE_OPEN_DOCUMENT)
+    }
+
+    /**
+     * 打开文档的方法
+     */
+    // 打开文档（使用获得权限的URI）
+    private fun openDocument(uri: Uri) {
+        val intent = Intent(Intent.ACTION_VIEW).apply {
+            data = uri
+            // 授予临时访问权限（给打开文件的应用）
+            addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+        }
+
+        if (intent.resolveActivity(packageManager) != null) {
+            startActivity(Intent.createChooser(intent, "选择应用打开文档"))
+        } else {
+            Toast.makeText(this, "没有找到可以打开该文档的应用", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    // 申请持久访问权限
+    private fun takePersistableUriPermission(uri: Uri) {
+        val takeFlags = Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+        // 向系统申请持久权限
+        contentResolver.takePersistableUriPermission(uri, takeFlags)
     }
 
     private fun getChatTitle(message:String):String{
@@ -3015,7 +3087,14 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
     }
 
     override fun onPreImageClick(resUrl: String) {
-        showImagePreviewDialog(resUrl)
+        if (resUrl.contains("media.documents/")){
+            //openDocument(chatFunction.message)
+            // 启动文件选择器，等待用户选择
+            openDocumentPicker()
+
+        }else{
+            showImagePreviewDialog(resUrl)
+        }
     }
 
     override fun onImageBackClick(backImage: ImageBack) {

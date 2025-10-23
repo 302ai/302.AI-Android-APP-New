@@ -476,10 +476,10 @@ class ChatAdapter(private var messageList: List<ChatMessage>, private val contex
                         gravity = Gravity.CENTER
                     ).show()
                     chatItem.doType = "chooseText"
-                    val fullText = messageList[position].message.trimIndent()
+                    val fullText = messageList[threePosition].message.trimIndent()
                     val mFullText = StringObjectUtils.convertLatexFormat(fullText)
-                    //Log.e("ceshi","选择文本内容:${AfterAmpersand(mFullText)}")
-                    if (messageList[position].message.contains("&&&&&&")){
+                    Log.e("ceshi","选择文本内容:${AfterAmpersand(mFullText)}")
+                    if (messageList[threePosition].message.contains("&&&&&&")){
                         chatItem.message = AfterAmpersand(mFullText)
                     }else{
                         chatItem.message = messageList[threePosition].message

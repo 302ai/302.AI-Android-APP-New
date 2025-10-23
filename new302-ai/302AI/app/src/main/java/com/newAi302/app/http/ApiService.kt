@@ -119,6 +119,14 @@ interface ApiService {
         @Part("need_compress") needCompress: Boolean
     ): UploadImageResponse // 返回类型为UploadResponse
 
+    @Multipart
+    @PUT("https://dash-api.302.ai/user/avatar/update") // 硬编码接口路径 //https://dash-api.302.ai/gpt/api/upload/gpt/image//https://test-api2.proxy302.com/gpt/api/upload/gpts/image
+    suspend fun uploadImageUser(
+        @Header("Authorization") authorization: String,
+        @Part file: MultipartBody.Part,
+        @Part("need_compress") needCompress: Boolean
+    ): UploadImageResponseUser // 返回类型为UploadResponse
+
 
 
 }
@@ -142,7 +150,8 @@ data class UserInfo(
     val user_name: String,
     val email: String,
     val phone: String,
-    val balance: Double
+    val balance: Double,
+    val avatar: String
 )
 
 data class ModelList(
@@ -348,8 +357,19 @@ data class UploadImageResponse(
     val data: UploadData?
 )
 
+data class UploadImageResponseUser(
+    val code: Int,
+    val msg: String,
+    val data: UploadDataUser?
+)
+
 data class UploadData(
     val url: String,
+    val encoding: String
+)
+
+data class UploadDataUser(
+    val avatar_url: String,
     val encoding: String
 )
 

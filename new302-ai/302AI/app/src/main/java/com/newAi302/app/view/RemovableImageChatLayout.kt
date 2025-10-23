@@ -97,8 +97,22 @@ class RemovableImageChatLayout(context: Context, attrs: AttributeSet? = null, pr
                 //findViewById<LinearLayout>(R.id.imageShowChatLine).visibility = View.GONE
                 findViewById<TextView>(R.id.fileNameTv).text = fileName
                 findViewById<TextView>(R.id.fileSizeTv).text = fileSize
+                var image = 0
+                if (fileName.contains("pdf")){
+                    image = R.drawable.icon_file_new
+                }else if (fileName.contains("word") || fileName.contains("doc")){
+                    image = R.drawable.icon_file_word
+                }else if (fileName.contains("ppt")){
+                    image = R.drawable.icon_file_ppt
+                }else if (fileName.contains("txt")){
+                    image = R.drawable.icon_file_txt
+                }else if (fileName.contains("excel")){
+                    image = R.drawable.icon_file_excel
+                }else{
+                    image = R.drawable.icon_file_common
+                }
                 Glide.with(this@RemovableImageChatLayout)
-                    .load(R.drawable.icon_file)
+                    .load(image)
                     .placeholder(android.R.drawable.ic_menu_gallery) // 加载中占位图
                     .error(android.R.drawable.stat_notify_error) // 加载失败占位图
                     .into(findViewById<ImageView>(R.id.imageViewMain))

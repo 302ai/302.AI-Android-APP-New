@@ -617,6 +617,57 @@ class ChatViewModel :ViewModel(){
         }
     }
 
+    @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
+    suspend fun upLoadImageUser(context: Context, // 用于获取文件路径或处理UI（可选）
+                            file: File,
+                            prefix: String, // 默认为图片参数
+                            needCompress: Boolean = false, // 默认为不压缩
+                            apiService:ApiService,
+                                token:String
+    ){
+        //val authorizationToken = "Bearer sk-RcnM7qzDdqa3i4mylTGPSl5peJzu8CNMx2pe6cauC0es3JCA"
+        val authorizationToken = "Bearer $token"
+        // 动态获取文件MIME类型（推荐）
+        val mimeType = MimeTypeMap.getSingleton()
+            .getMimeTypeFromExtension(file.extension) ?: "application/octet-stream"
+        val requestBody = file.asRequestBody(mimeType.toMediaTypeOrNull())
+        val filePart = MultipartBody.Part.createFormData("avatar_file", file.name, requestBody)
+
+
+        try {
+            val response = apiService.uploadImageUser(
+                authorizationToken,filePart,  needCompress
+            )
+            // 处理返回的响应数据
+            val assistantMessage = response.data?.avatar_url
+
+            Log.e("ceshi","0返回数据url：${SystemUtils.replaceUrlString(assistantMessage!!)}")//https://api.302.ai/v1/audio/transcriptions
+            viewModelScope.launch(Dispatchers.Main) {
+                // 在主线程更新 UI
+                if (assistantMessage != null) {
+                    // 可以在这里更新 UI 显示结果
+                    imageUrlServiceResult.postValue(SystemUtils.replaceUrlString(assistantMessage))
+                }
+            }
+        }catch (e: SocketTimeoutException) {
+            viewModelScope.launch(Dispatchers.Main) {
+                //questionResult.value = "网络请求超时，请重试"
+            }
+        }
+        catch (e: HttpException) {
+            // 处理 HTTP 错误
+            viewModelScope.launch(Dispatchers.Main) {
+
+            }
+        } catch (e: IOException) {
+            // 处理网络错误
+        } catch (e: retrofit2.HttpException) {
+            viewModelScope.launch(Dispatchers.Main) {
+                Toast.makeText(context, "请求错误，请重试", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
 
     fun String.toRequestBody(): RequestBody {
         return RequestBody.create("text/plain".toMediaTypeOrNull(), this)

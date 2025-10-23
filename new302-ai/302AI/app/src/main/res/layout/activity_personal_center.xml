@@ -69,7 +69,7 @@
             android:layout_height="68dp"
             android:scaleType="centerCrop"
             android:layout_gravity="center"
-            android:background="@color/BgPrimary"/>
+            android:background="@drawable/icon_smile"/>
 
         <ImageView
             android:id="@+id/imageViewDelete"

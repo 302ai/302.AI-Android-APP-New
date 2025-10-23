@@ -161,8 +161,18 @@ class SettingActivity : BaseActivity(), PayDetailsDialog.OnButtonClickListener {
         chatViewModel.userInfoResult.observe(this){
             it.let {
                 binding.userBalanceTv.text = it.balance.toString()
+                lifecycleScope.launch(Dispatchers.Main) {
+                    // 方法1：使用内置的CircleCrop变换
+                    Glide.with(this@SettingActivity)
+                        .load(it.avatar)
+                        .apply(RequestOptions.circleCropTransform())
+                        .placeholder(android.R.drawable.ic_menu_gallery)
+                        .error(android.R.drawable.stat_notify_error)
+                        .into(binding.imageProfile)
+                }
                 lifecycleScope.launch(Dispatchers.IO) {
                     dataStoreManager.saveUserBalance(it.balance)
+                    dataStoreManager.saveImageUrl(it.avatar)
                 }
             }
         }

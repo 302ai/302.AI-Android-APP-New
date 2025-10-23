@@ -220,9 +220,10 @@ class PersonalCenterActivity : AppCompatActivity() {
                 }
 
 
-                chatViewModel.upLoadImage(
+                chatViewModel.upLoadImageUser(
                     this@PersonalCenterActivity,
-                    SystemUtils.uriToTempFile(this@PersonalCenterActivity, selectedImageUri), "imgs", false,apiService
+                    SystemUtils.uriToTempFile(this@PersonalCenterActivity, selectedImageUri), "imgs", false,apiService,
+                    WearData.getInstance().token
                 )
 
             }
@@ -250,8 +251,9 @@ class PersonalCenterActivity : AppCompatActivity() {
                         }
 
 
-                        chatViewModel.upLoadImage(this@PersonalCenterActivity,
-                            SystemUtils.uriToTempFile(this@PersonalCenterActivity, contentUri),"imgs",false,apiService)
+                        chatViewModel.upLoadImageUser(this@PersonalCenterActivity,
+                            SystemUtils.uriToTempFile(this@PersonalCenterActivity, contentUri),"imgs",false,apiService,
+                            WearData.getInstance().token)
                     }
 
                     galleryAddPic()
