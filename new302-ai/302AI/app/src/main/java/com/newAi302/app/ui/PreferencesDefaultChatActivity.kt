@@ -43,7 +43,7 @@ class PreferencesDefaultChatActivity : BaseActivity() , OnItemClickListener {
     private lateinit var dataStoreManager: DataStoreManager
 
     private lateinit var defaultChatAdapter: ModelTypeSelectDefaultTitleAdapter
-    private lateinit var defaultTitleAdapter: ModelTypeSelectDefaultChatAdapter
+    private lateinit var defaultTitleAdapter: ModelTypeSelectDefaultTitleAdapter
     private lateinit var defaultChatCustomizeAdapter: ModelTypeSelectDefaultTitleAdapter
     private lateinit var defaultTitleCustomizeAdapter: ModelTypeSelectDefaultChatAdapter
     private lateinit var options3:MutableList<String>
@@ -140,14 +140,14 @@ class PreferencesDefaultChatActivity : BaseActivity() , OnItemClickListener {
 
         }
         val options = mutableListOf("gemini-2.5-flash-nothink","gpt-4o","gpt4")
-        adapter302Ai = ModelType302aiAdapter(this,options,this,true)
+        adapter302Ai = ModelType302aiAdapter(this,options,this,true,chatDatabase,lifecycleScope)
 
         val options1 = mutableListOf("gemini-2.5-flash-nothink","gpt-4o","gpt4")
-        adapterUser = ModelType302aiAdapter(this,options1,this,true)
+        adapterUser = ModelType302aiAdapter(this,options1,this,true,chatDatabase,lifecycleScope)
 
         lifecycleScope.launch(Dispatchers.Main) {
             job.join()
-            defaultChatAdapter = ModelTypeSelectDefaultTitleAdapter(this@PreferencesDefaultChatActivity,options3,false){ position, data ->
+            defaultChatAdapter = ModelTypeSelectDefaultTitleAdapter(this@PreferencesDefaultChatActivity,options3,false,chatDatabase,lifecycleScope){ position, data ->
                 // 这里处理点击事件（Lambda的具体实现）
                 Log.e("ceshi","点击模型$data")
                 targetIndex = position
@@ -163,7 +163,7 @@ class PreferencesDefaultChatActivity : BaseActivity() , OnItemClickListener {
                 dataStoreManager.saveModelType(data)
                 }
             }
-            defaultTitleAdapter = ModelTypeSelectDefaultChatAdapter(this@PreferencesDefaultChatActivity,options3,false){ position, data ->
+            defaultTitleAdapter = ModelTypeSelectDefaultTitleAdapter(this@PreferencesDefaultChatActivity,options3,false,chatDatabase,lifecycleScope){ position, data ->
                 // 这里处理点击事件（Lambda的具体实现）
                 Log.e("ceshi","1点击模型$data")
                 targetIndex = position
@@ -180,7 +180,7 @@ class PreferencesDefaultChatActivity : BaseActivity() , OnItemClickListener {
                 }
             }
 
-            defaultChatCustomizeAdapter = ModelTypeSelectDefaultTitleAdapter(this@PreferencesDefaultChatActivity,options2,false){ position, data ->
+            defaultChatCustomizeAdapter = ModelTypeSelectDefaultTitleAdapter(this@PreferencesDefaultChatActivity,options2,false,chatDatabase,lifecycleScope){ position, data ->
                 // 这里处理点击事件（Lambda的具体实现）
                 Log.e("ceshi","点击模型$data")
                 //targetIndex = position

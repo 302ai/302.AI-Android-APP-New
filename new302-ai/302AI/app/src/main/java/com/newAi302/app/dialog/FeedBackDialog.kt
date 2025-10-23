@@ -12,6 +12,7 @@ import android.app.Dialog
 import android.content.Context
 import android.content.res.Resources
 import android.os.Bundle
+import android.view.WindowManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
@@ -41,6 +42,20 @@ class FeedBackDialog(context: Context) : Dialog(context) {
         etFeedBck = findViewById(R.id.etFeedBck)
         val btnCancel: ImageView = findViewById(R.id.btnCancel)
         val btnSave: Button = findViewById(R.id.btnSave)
+
+        // 关键：清除Window默认背景，设为透明
+        window?.apply {
+            // 方式1：直接设置透明背景（推荐）
+            setBackgroundDrawableResource(android.R.color.transparent)
+            // 方式2：或用ColorDrawable设置透明（效果一致）
+            // setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+            // 可选：设置窗口宽高（避免布局被压缩，按需调整）
+            val layoutParams = attributes
+            layoutParams.width = WindowManager.LayoutParams.MATCH_PARENT
+            layoutParams.height = WindowManager.LayoutParams.WRAP_CONTENT
+            attributes = layoutParams
+        }
 
         val tvBad1: TextView = findViewById(R.id.tvBad1)
         val tvBad2: TextView = findViewById(R.id.tvBad2)

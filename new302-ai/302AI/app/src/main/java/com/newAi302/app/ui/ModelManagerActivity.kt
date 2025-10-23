@@ -89,16 +89,20 @@ class ModelManagerActivity : BaseActivity(), OnItemClickListener {
             val options = mutableListOf("gemini-2.5-flash-nothink","gpt-4o","gpt4")
             adapter302Ai = ModelTypeManager302aiAdapter(this@ModelManagerActivity,options3,chatDatabase,lifecycleScope){ position, data ->
                 if (data == "Delete"){
+                    val modelId = options3[position]
                     options3.removeAt(position)
                     //adapter302Ai.notifyItemRemoved(position)
                     adapter302Ai.notifyDataSetChanged()
                     lifecycleScope.launch(Dispatchers.IO) {
+                        chatDatabase.chatDao().deleteModelById(modelId)
                         dataStoreManager.saveModelList(options3)
                     }
                 }else if (data == "Delete1"){
+                    val modelId = options3[position]
                     options3.removeAt(position)
                     adapter302Ai.notifyItemRemoved(position)
                     lifecycleScope.launch(Dispatchers.IO) {
+                        chatDatabase.chatDao().deleteModelById(modelId)
                         dataStoreManager.saveModelList(options3)
                     }
                 }else{

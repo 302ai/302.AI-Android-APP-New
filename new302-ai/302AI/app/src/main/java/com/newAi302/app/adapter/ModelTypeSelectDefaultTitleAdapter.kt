@@ -14,6 +14,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.LifecycleCoroutineScope
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Database
@@ -47,6 +48,7 @@ import java.io.IOException
  */
 class ModelTypeSelectDefaultTitleAdapter(private val context:Context, private var modeTypeList: List<String>,
                                          private val isDefault:Boolean,
+                                         private var chatDatabase:ChatDatabase, private var lifecycleScope: LifecycleCoroutineScope,
     // 定义函数类型参数（Lambda回调）：参数为位置和数据，无返回值
                                          private val onItemClick: (position: Int, data: String) -> Unit
                              ) :
@@ -67,6 +69,15 @@ class ModelTypeSelectDefaultTitleAdapter(private val context:Context, private va
     private lateinit var mHolder: ModelTypeSelectDefaultTitleAdapter.ChatViewHolder
     private var hashMapUrlHolder = HashMap<Int, ModelTypeSelectDefaultTitleAdapter.ChatViewHolder>()
 
+    // 缓存每个modelType对应的isCustomize状态（key: modelType, value: isCustomize）
+    private val customizeStatusMap = mutableMapOf<String, Boolean>()
+    // 记录第一个isCustomize = true的Item位置（初始为-1，代表无符合条件的Item）
+    private var firstCustomizePosition = -1
+
+    init {
+        loadCustomizeStatus()
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChatViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_model_type_select_default, parent, false)
         //dataStoreManager = DataStoreManager(context)
@@ -85,6 +96,20 @@ class ModelTypeSelectDefaultTitleAdapter(private val context:Context, private va
         val modelType = modeTypeList[position]
         Log.e("ceshi","模型列表显示模型：$modelType,,选中位置:$selectModelPosition")
         holder.modelTypeNameTv.text = modelType
+
+        // 默认隐藏，避免复用导致的显示异常
+        holder.textTitleTv.visibility = View.GONE
+
+        // 从缓存中获取当前Item的isCustomize状态
+        val isCustomize = customizeStatusMap[modelType] ?: false
+
+        // 仅当：当前位置是第一个符合条件的位置，且状态为true时，才显示标题
+        Log.e("ceshi","显示自定义位置$firstCustomizePosition,,$isCustomize")
+        if (position == firstCustomizePosition && isCustomize) {
+            holder.textTitleTv.visibility = View.VISIBLE
+        } else {
+            holder.textTitleTv.visibility = View.GONE
+        }
 
 
         /*if (selectModelPosition == position ){
@@ -172,13 +197,7 @@ class ModelTypeSelectDefaultTitleAdapter(private val context:Context, private va
         val modelTypeNameTv: TextView = itemView.findViewById(R.id.modelTypeNameTv)
         val settingModelTypSelectImage: ImageView = itemView.findViewById(R.id.settingModelTypSelectImage)
         val settingModelTypSelectedImage: ImageView = itemView.findViewById(R.id.settingModelTypSelectedImage)
-//        val time: TextView = itemView.findViewById(R.id.timeTv)
-//        val btnDelete: Button = itemView.findViewById(R.id.mBtnDelete)
-//        val contentLayout: View = itemView.findViewById(R.id.content_layout)
-//        val btnEdit: Button = itemView.findViewById(R.id.mBtnEdit)
-//        val collectImage: ImageView = itemView.findViewById(R.id.collectImage)
-//        val selectImage: ImageView = itemView.findViewById(R.id.selectImage)
-//        val selectedImage: ImageView = itemView.findViewById(R.id.selectedImage)
+        val textTitleTv: TextView = itemView.findViewById(R.id.textTitleTv)
         val cueWordLeftLayout: View = itemView.findViewById(R.id.selectConst)
     }
 
@@ -189,4 +208,31 @@ class ModelTypeSelectDefaultTitleAdapter(private val context:Context, private va
         this.selectModelPosition = nowPosition
 
     }
+
+    // 调用时机：Adapter初始化时、modeTypeList数据变化时
+    fun loadCustomizeStatus() {
+        lifecycleScope.launch(Dispatchers.IO) {
+            // 清空缓存和位置记录
+            customizeStatusMap.clear()
+            firstCustomizePosition = -1
+
+            // 遍历所有Item，查询并缓存isCustomize状态
+            for ((index, modelType) in modeTypeList.withIndex()) {
+                val modelData = chatDatabase.chatDao().getModelById(modelType)
+                val isCustomize = modelData?.isCustomize ?: false
+                customizeStatusMap[modelType] = isCustomize
+
+                // 找到第一个isCustomize = true的位置（仅记录一次）
+                if (isCustomize && firstCustomizePosition == -1) {
+                    firstCustomizePosition = index
+                }
+            }
+
+            // 数据准备完成后，刷新列表（在主线程执行）
+            launch(Dispatchers.Main) {
+                notifyDataSetChanged()
+            }
+        }
+    }
+
 }

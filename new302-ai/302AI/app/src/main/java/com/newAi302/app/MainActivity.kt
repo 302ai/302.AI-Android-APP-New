@@ -786,11 +786,11 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
 
                        //Log.e("ceshi","现在的聊天数量:${messageList.size}")
                        //标题生成
-                       if (chatTitle.contains(ContextCompat.getString(this@MainActivity, R.string.chat_title))){
+                       if (chatTitle.contains(ContextCompat.getString(this@MainActivity, R.string.chat_title)) && !isPrivate){
                            chatViewModel.sendQuestionGetTitle(this@MainActivity,getChatTitle(message),buildTitleModelType,apiKey,apiService)
-                       }else if (!isBuildTitleFirstTime){
+                       }else if (!isBuildTitleFirstTime && !isPrivate){
                            chatViewModel.sendQuestionGetTitle(this@MainActivity,getChatTitle(message),buildTitleModelType,apiKey,apiService)
-                       }else if (isBuildTitleFirstTime && messageList.size ==2 ){
+                       }else if (isBuildTitleFirstTime && messageList.size ==2 && !isPrivate ){
                            chatViewModel.sendQuestionGetTitle(this@MainActivity,getChatTitle(message),buildTitleModelType,apiKey,apiService)
                        }
 
@@ -1659,13 +1659,39 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
                     var mModelList = dataStoreManager.modelListFlow.first()
                     Log.e("ceshi","0这里的数据库模型列表:${mModelList}")
                     if (mModelList.isNotEmpty()){
-                        for (model in it){
-                            if (!mModelList.contains(model)){
-                                mModelList.add(model)
+                        // 1. 先找到当前列表中 isCustomize == false 的最后一个元素的索引
+                        var lastFalseIndex = -1 // 初始值：-1 表示没有找到符合条件的元素
+                        for (i in mModelList.indices) {
+                            val existingModel = mModelList[i]
+                            val existingModelData = chatDatabase.chatDao().getModelById(existingModel)
+                            if (existingModelData?.isCustomize == false) {
+                                lastFalseIndex = i // 更新最后一个符合条件的索引
                             }
                         }
+
+                        // 2. 遍历需要插入的 model，按规则插入到目标位置
+                        for (model in it) {
+                            val modelData = chatDatabase.chatDao().getModelById(model)
+                            if (!mModelList.contains(model)) { // 仅插入不存在的 model
+                                // 计算插入位置：
+                                // - 如果存在 isCustomize == false 的元素，插入到其最后一位的后面（lastFalseIndex + 1）
+                                // - 如果不存在，插入到列表开头（0）
+                                val insertIndex = if (lastFalseIndex != -1) lastFalseIndex + 1 else 0
+
+                                // 插入元素（该方法会自动将 insertIndex 及之后的元素后移）
+                                mModelList.add(insertIndex, model)
+
+                                // 3. 如果新插入的 model 本身 isCustomize == false，更新 lastFalseIndex（它成为新的“最后一位”）
+                                if (modelData?.isCustomize == false) {
+                                    lastFalseIndex = insertIndex // 插入位置就是新的最后一位索引
+                                }
+                            }
+                        }
+
+                        // 4. 保留原逻辑：添加固定元素
                         mModelList.add("gemini-2.5-flash-nothink")
-                        //modelList = mModelList as CopyOnWriteArrayList<String>  这样做闪退
+
+                        // 5. 转换为 CopyOnWriteArrayList
                         modelList = CopyOnWriteArrayList(mModelList)
                     }else{
                         modelList = it
@@ -1940,19 +1966,32 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
 //                    binding.hideImage.setImageResource(R.drawable.icon_hide)
 //                    binding.hideImage.clearColorFilter()
 
-                    isDeepThink = false
-                    isNetWorkThink = false
-                    isR1Fusion = false
+                    //isDeepThink = false
+                    //isNetWorkThink = false
+                    //isR1Fusion = false
                     //binding.chatTitleTv.text = ContextCompat.getString(this@MainActivity, R.string.chat_title)
                     chatTime = TimeUtils.getCurrentDateTime()
 
-                    moreFunctionQuantity = 0
+                    //moreFunctionQuantity = 0
                     binding.moreFunctionLine.visibility = View.GONE
                     binding.moreFrame.setBackgroundResource(R.drawable.shape_select_site_bg_write)
                     binding.moreImage.setImageResource(R.drawable.icon_new_more1)
                     binding.moreImage.clearColorFilter()
 
                     binding.modeTypeTv.text = modelType
+                    //不清空功能状态集成上一会话
+                    if (moreFunctionQuantity>0){
+                        binding.moreFrame.setBackgroundResource(R.drawable.shape_select_site_bg_purple_more_function_line)
+                        binding.moreFunctionLine.visibility = View.VISIBLE
+                        binding.moreIdTv.text = moreFunctionQuantity.toString()
+                        binding.moreImage.setImageResource(R.drawable.icon_new_more1)
+                        binding.moreImage.setColorFilter(ContextCompat.getColor(this@MainActivity, R.color.color302AI), PorterDuff.Mode.SRC_IN)
+                    }else{
+                        binding.moreFunctionLine.visibility = View.GONE
+                        binding.moreFrame.setBackgroundResource(R.drawable.shape_select_site_bg_write)
+                        binding.moreImage.setImageResource(R.drawable.icon_new_more1)
+                        binding.moreImage.clearColorFilter()
+                    }
 
                     if (isUseTracelessSwitch){
                         isPrivate = true
@@ -2067,9 +2106,9 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
                             apiService,false,mMessageList,"302.AI",prompt,temperature,searchServiceType,isDeepThink)
 
                         //标题生成
-                        if (chatTitle.contains(ContextCompat.getString(this@MainActivity, R.string.chat_title))){
+                        if (chatTitle.contains(ContextCompat.getString(this@MainActivity, R.string.chat_title)) && !isPrivate){
                             chatViewModel.sendQuestionGetTitle(this@MainActivity,getChatTitle(message),buildTitleModelType,apiKey,apiService)
-                        }else if (!isBuildTitleFirstTime){
+                        }else if (!isBuildTitleFirstTime && !isPrivate){
                             chatViewModel.sendQuestionGetTitle(this@MainActivity,getChatTitle(message),buildTitleModelType,apiKey,apiService)
                         }
 
@@ -2456,9 +2495,9 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
                         false,apiKey,false,apiService,false,mMessageList,"302.AI",prompt,temperature,searchServiceType,isDeepThink)
 
                     //标题生成
-                    if (chatTitle.contains(ContextCompat.getString(this@MainActivity, R.string.chat_title))){
+                    if (chatTitle.contains(ContextCompat.getString(this@MainActivity, R.string.chat_title)) && !isPrivate){
                         chatViewModel.sendQuestionGetTitle(this@MainActivity,getChatTitle(sendMessage),buildTitleModelType,apiKey,apiService)
-                    }else if (!isBuildTitleFirstTime){
+                    }else if (!isBuildTitleFirstTime && !isPrivate){
                         chatViewModel.sendQuestionGetTitle(this@MainActivity,getChatTitle(sendMessage),buildTitleModelType,apiKey,apiService)
                     }
                 }
@@ -2523,9 +2562,9 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
                             false,apiKey,false,apiService,false,mMessageList,"302.AI",prompt,temperature,searchServiceType,isDeepThink)
 
                         //标题生成
-                        if (chatTitle.contains(ContextCompat.getString(this@MainActivity, R.string.chat_title))){
+                        if (chatTitle.contains(ContextCompat.getString(this@MainActivity, R.string.chat_title)) && !isPrivate){
                             chatViewModel.sendQuestionGetTitle(this@MainActivity,getChatTitle(sendMessage),buildTitleModelType,apiKey,apiService)
-                        }else if (!isBuildTitleFirstTime){
+                        }else if (!isBuildTitleFirstTime && !isPrivate){
                             chatViewModel.sendQuestionGetTitle(this@MainActivity,getChatTitle(sendMessage),buildTitleModelType,apiKey,apiService)
                         }
                     }
@@ -3680,9 +3719,9 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
                 false,apiKey,false,apiService,false,mMessageList,"302.AI",prompt,temperature,searchServiceType,isDeepThink)
 
             //标题生成
-            if (chatTitle.contains(ContextCompat.getString(this@MainActivity, R.string.chat_title))){
+            if (chatTitle.contains(ContextCompat.getString(this@MainActivity, R.string.chat_title)) && !isPrivate){
                 chatViewModel.sendQuestionGetTitle(this@MainActivity,getChatTitle(sendMessage),buildTitleModelType,apiKey,apiService)
-            }else if (!isBuildTitleFirstTime){
+            }else if (!isBuildTitleFirstTime && !isPrivate){
                 chatViewModel.sendQuestionGetTitle(this@MainActivity,getChatTitle(sendMessage),buildTitleModelType,apiKey,apiService)
             }
         }

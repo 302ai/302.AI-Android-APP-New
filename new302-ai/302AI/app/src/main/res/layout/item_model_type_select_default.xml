@@ -1,67 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="48dp"
+    android:layout_height="wrap_content"
     android:id="@+id/selectConst"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/shape_select_site_bg_write"
     android:layout_marginBottom="10dp">
-    <ImageView
-        android:id="@+id/kbImage"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:visibility="gone"
-        android:layout_marginLeft="15dp"
-        android:background="@drawable/icon_kb"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
-
     <TextView
-        android:id="@+id/modelTypeNameTv"
-        android:layout_width="240dp"
-        android:maxLines="1"
-        android:ellipsize="middle"
-        android:layout_height="wrap_content"
-        android:text="默认聊天模型"
-        android:layout_marginLeft="10dp"
-        android:textSize="16sp"
-        android:textColor="@color/black"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toRightOf="@+id/kbImage"/>
-
-
-    <LinearLayout
+        android:id="@+id/textTitleTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="10dp"
-        app:layout_constraintRight_toRightOf="parent"
+        android:text="@string/setting_add_model_manager_custom_model_message"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:paddingBottom="8dp"
+        android:textColor="@color/textSettingColor1"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintLeft_toLeftOf="parent"/>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@drawable/shape_select_site_bg_write"
+        app:layout_constraintTop_toBottomOf="@+id/textTitleTv"
+        app:layout_constraintLeft_toLeftOf="parent">
+        <ImageView
+            android:id="@+id/kbImage"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:visibility="gone"
+            android:layout_marginLeft="15dp"
+            android:background="@drawable/icon_kb"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
         <TextView
-            android:id="@+id/settingModelTypeTV"
+            android:id="@+id/modelTypeNameTv"
+            android:layout_width="240dp"
+            android:maxLines="1"
+            android:ellipsize="middle"
+            android:layout_height="wrap_content"
+            android:text="默认聊天模型"
+            android:layout_marginLeft="10dp"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/kbImage"/>
+
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="gemini-2.5-flash-nothink"
-            android:visibility="gone"
-            android:textSize="16sp"
-            android:textColor="@color/textSettingColor"/>
+            android:layout_marginRight="10dp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+            <TextView
+                android:id="@+id/settingModelTypeTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="gemini-2.5-flash-nothink"
+                android:visibility="gone"
+                android:textSize="16sp"
+                android:textColor="@color/textSettingColor"/>
 
-        <ImageView
-            android:id="@+id/settingModelTypSelectImage"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:background="@drawable/icon_left_select"
-            android:layout_marginLeft="10dp" />
-        <ImageView
-            android:id="@+id/settingModelTypSelectedImage"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:visibility="gone"
-            android:background="@drawable/icon_selected"
-            android:layout_marginLeft="10dp" />
+            <ImageView
+                android:id="@+id/settingModelTypSelectImage"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:background="@drawable/icon_left_select"
+                android:layout_marginLeft="10dp" />
+            <ImageView
+                android:id="@+id/settingModelTypSelectedImage"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:visibility="gone"
+                android:background="@drawable/icon_selected"
+                android:layout_marginLeft="10dp" />
 
-    </LinearLayout>
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
