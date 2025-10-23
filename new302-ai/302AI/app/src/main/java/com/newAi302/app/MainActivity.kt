@@ -237,6 +237,8 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
     private var mPicFileUri: Uri? = null
     private var fileName = ""
     private var fileSize = ""
+    private var fileNameList: MutableList<String> = mutableListOf()
+    private var fileSizeList: MutableList<String> = mutableListOf()
 
     private var prompt = "这是删除过的内容变为空白"
     private var temperature:Double = 0.5
@@ -340,6 +342,7 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
         Log.e("ceshi","onStop,,模型：$modelType,,$chatTitle")
         isTemporary = true
         isHaveTitle = false
+        isSendMessage.set(false)
         moreFunctionQuantity = 0
         lifecycleScope.launch(Dispatchers.IO) {
 
@@ -753,7 +756,7 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
                        Log.e("ceshi","文件插入：${isFile},,${fileName},,$fileSize")
                        if (isFile){
                            isFile = false
-                           messageList.add(ChatMessage("${mImageUrlLocalStrBulder.toString()}<br>$message",true,"chat",false,false,fileName, fileSize))
+                           messageList.add(ChatMessage("${mImageUrlLocalStrBulder.toString()}<br>$message",true,"chat",false,false,fileNameList, fileSizeList))
                            fileName = ""
                            fileSize = ""
                        }else{
@@ -829,7 +832,8 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
                             //直接插入，做了title唯一性，如果有了就替换成最新的
                             chatDatabase.chatDao().insertChat(ChatItemRoom(0,chatTitle, messageList, chatTime,modelType,isDeepThink,isNetWorkThink,userId,isMe,false,isR1Fusion))
                             //chatDatabase.chatDao().insertChat(ChatItemRoom(0,chatTitle, messageList, "2025-10-21 16:54:59",modelType,isDeepThink,isNetWorkThink,userId,isMe,false,isR1Fusion))
-                        }else if (messageList.size>1){
+                        }
+                        else if (messageList.size>1){
                             chatDatabase.chatDao().insertChat(ChatItemRoom(0,chatTitle, messageList, chatTime,modelType,isDeepThink,isNetWorkThink,userId,isMe,false,isR1Fusion))
                         }
                     }
@@ -1821,6 +1825,8 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
                         //mPicFileUri = imageUri
                         this.fileName = fileName
                         this.fileSize = fileSize
+                        fileNameList.add(fileName)
+                        fileSizeList.add(fileSize)
                         Log.e("ceshi","文件的URL：${selectedFileUri}")
                         addNewImageView(selectedFileUri.toString())
                         Log.e("ceshi","文件名: $fileName\\n大小: $fileSize\\n格式: $fileExtension")
@@ -2262,6 +2268,7 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
     override fun onItemClick(chatItem: ChatItemRoom) {
         Log.e("ceshi","点击聊天历史列表：$chatItem")
         moreFunctionQuantity = 0
+        isSendMessage.set(false)
         binding.hideImage.visibility = View.GONE
         messageList.clear()
         mMessageList.clear()

@@ -138,6 +138,7 @@
     <string name="setting_add_model_reasoning_message">推理</string>
     <string name="setting_add_model_image_understanding_message">图像理解</string>
     <string name="setting_add_model_advanced_settings_message">高级设置</string>
+    <string name="setting_add_model_no_id_message">请填写模型ID</string>
 
     <string name="setting_add_model_manager_title_message">模型管理</string>
     <string name="setting_add_model_manager_add_message">添加</string>

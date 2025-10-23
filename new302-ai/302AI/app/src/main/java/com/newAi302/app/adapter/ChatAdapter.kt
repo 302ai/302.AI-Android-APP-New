@@ -141,6 +141,8 @@ class ChatAdapter(private var messageList: List<ChatMessage>, private val contex
     private var imageUrlLocalList = CopyOnWriteArrayList<String>()
     private var fileName = ""
     private var fileSize = ""
+    private var fileNameList: MutableList<String> = mutableListOf()
+    private var fileSizeList: MutableList<String> = mutableListOf()
 
     private var isGood = false
     private lateinit var mHolder: ChatViewHolder
@@ -293,10 +295,26 @@ class ChatAdapter(private var messageList: List<ChatMessage>, private val contex
             val urlLists = StringObjectUtils.extractAllImageUrlsNew(chatMessage.message)
             Log.e("ceshi","图片的数量${urlLists}")
             Log.e("chatAdapter","图片信息：${chatMessage.message}")
-            fileName = chatMessage.fileName
-            fileSize = chatMessage.fileSize
-            for (url in urlLists){
-                addNewImageView(url,holder, context)
+//            fileName = chatMessage.fileName
+//            fileSize = chatMessage.fileSize
+            fileNameList = chatMessage.fileName
+            fileSizeList = chatMessage.fileSize
+            var number = fileNameList.size-1
+            // 按索引遍历，每个索引对应一组 url、fileName、fileSize
+            for (i in 0 until urlLists.size) {
+                val url = urlLists[i]
+
+
+                if (url.contains("media.documents/")) {
+                    // 传递对应索引的 fileName 和 fileSize
+                    val fileName = fileNameList[number]
+                    val fileSize = fileSizeList[number]
+                    number--
+                    addNewImageView(url, holder, context, fileName, fileSize)
+                } else {
+                    // 不传递 fileName 和 fileSize
+                    addNewImageView(url, holder, context, "", "")
+                }
             }
         }else{
             holder.fileHorScr.visibility = View.GONE
@@ -788,13 +806,13 @@ class ChatAdapter(private var messageList: List<ChatMessage>, private val contex
     fun upDateIsNewChat(isNew:Boolean){
         isChatNew = isNew
     }
-    fun upDataFileImage(fileName:String,fileSize:String,imageUrlLocalList:CopyOnWriteArrayList<String>){
-        this.fileName = fileName
-        this.fileSize = fileSize
-        this.imageUrlLocalList = imageUrlLocalList
-    }
+//    fun upDataFileImage(fileName:String,fileSize:String,imageUrlLocalList:CopyOnWriteArrayList<String>){
+//        this.fileName = fileName
+//        this.fileSize = fileSize
+//        this.imageUrlLocalList = imageUrlLocalList
+//    }
 
-    private fun addNewImageView(imageUrlLocal:String,holder: ChatViewHolder,context: Context) {
+    private fun addNewImageView(imageUrlLocal:String,holder: ChatViewHolder,context: Context,mFileName:String,mFileSize:String) {
         Log.e("ceshi","添加视图")
         hashMapUrlHolder.put(imageUrlLocal,holder)
         //mHolder = holder
@@ -814,12 +832,12 @@ class ChatAdapter(private var messageList: List<ChatMessage>, private val contex
 
         if (imageUrlLocal.contains("media.documents/")){
             Log.e("ceshi","文件信息：$fileSize,,$fileSize")
-            removableImageChatLayout.setImageResource(imageUrlLocal,0,true,fileName, fileSize)
+            removableImageChatLayout.setImageResource(imageUrlLocal,0,true,mFileName, mFileSize)
             // 添加到容器
             holder.fileChatLine.addView(removableImageChatLayout)
             isImageChatLine = false
         }else{
-            removableImageChatLayout.setImageResource(imageUrlLocal,0,false,fileName, fileSize)
+            removableImageChatLayout.setImageResource(imageUrlLocal,0,false,mFileName, mFileSize)
             // 添加到容器
             holder.imageChatLine.addView(removableImageChatLayout)
             isImageChatLine = true

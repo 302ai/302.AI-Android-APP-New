@@ -15,6 +15,6 @@ data class ChatMessage(
     var doType :String,
     var isGood: Boolean,
     var isBad: Boolean,
-    var fileName:String="",
-    var fileSize:String=""
+    var fileName: MutableList<String> = mutableListOf(), // 默认值：空列表
+    var fileSize: MutableList<String> = mutableListOf()
 ): Serializable

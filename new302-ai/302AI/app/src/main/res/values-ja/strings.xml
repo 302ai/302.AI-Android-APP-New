@@ -137,6 +137,7 @@
     <string name="setting_add_model_reasoning_message">推論</string>
     <string name="setting_add_model_image_understanding_message">画像理解</string>
     <string name="setting_add_model_advanced_settings_message">詳細設定</string>
+    <string name="setting_add_model_no_id_message">モデルIDを入力してください</string>
 
     <string name="setting_add_model_manager_title_message">モデル管理</string>
     <string name="setting_add_model_manager_add_message">追加</string>

@@ -138,6 +138,7 @@
     <string name="setting_add_model_reasoning_message">Reasoning</string>
     <string name="setting_add_model_image_understanding_message">Image understanding</string>
     <string name="setting_add_model_advanced_settings_message">Advanced settings</string>
+    <string name="setting_add_model_no_id_message">Please fill in the model ID</string>
 
     <string name="setting_add_model_manager_title_message">Model management</string>
     <string name="setting_add_model_manager_add_message">Add</string>

@@ -5,8 +5,10 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
@@ -213,51 +215,57 @@ class ModelAddActivity : BaseActivity() {
 
         binding.saveModeTypeBt.setOnClickListener {
 
-            lifecycleScope.launch(Dispatchers.IO) {
+            if (modelType == ""){
+                Toast.makeText(this, ContextCompat.getString(this@ModelAddActivity, R.string.setting_add_model_no_id_message), Toast.LENGTH_SHORT).show()
+            }else{
+                lifecycleScope.launch(Dispatchers.IO) {
 
-                if (isActionAdd){
-                    val model = ModelDataRoom(
-                        modelId = modelType,
-                        remark = remark,
-                        reasoning = reasoning,
-                        imageUnderstanding = imageUnderstanding,
-                        baseUrl = baseUrl,
-                        apiKey = apiKey,
-                        isCustomize = true
-                    )
-                    chatDatabase.chatDao().insertModel(model)
-                    modelList.add(modelType)
-                    //dataStoreManager.saveCustomizeModelList(modelList)
-                    dataStoreManager.saveModelList(modelList)
-                }else{
-                    val model = ModelDataRoom(
-                        modelId = modelType,
-                        remark = remark,
-                        reasoning = reasoning,
-                        imageUnderstanding = imageUnderstanding,
-                        baseUrl = baseUrl,
-                        apiKey = apiKey,
-                        isCustomize = isCustomize
-                    )
-                    chatDatabase.chatDao().insertModel(model)
-//                        modelList.remove(curModelType)
-//                        modelList.add(modelType)
-                    replaceModelType(curModelType,modelType)
-                    //dataStoreManager.saveCustomizeModelList(modelList)
-                    dataStoreManager.saveModelList(modelList)
-                }
-                /*if (isActionAdd){
-                    lifecycleScope.launch(Dispatchers.IO) {
+                    if (isActionAdd){
+                        val model = ModelDataRoom(
+                            modelId = modelType,
+                            remark = remark,
+                            reasoning = reasoning,
+                            imageUnderstanding = imageUnderstanding,
+                            baseUrl = baseUrl,
+                            apiKey = apiKey,
+                            isCustomize = true
+                        )
+                        chatDatabase.chatDao().insertModel(model)
                         modelList.add(modelType)
                         //dataStoreManager.saveCustomizeModelList(modelList)
                         dataStoreManager.saveModelList(modelList)
+                    }else{
+                        val model = ModelDataRoom(
+                            modelId = modelType,
+                            remark = remark,
+                            reasoning = reasoning,
+                            imageUnderstanding = imageUnderstanding,
+                            baseUrl = baseUrl,
+                            apiKey = apiKey,
+                            isCustomize = isCustomize
+                        )
+                        chatDatabase.chatDao().insertModel(model)
+//                        modelList.remove(curModelType)
+//                        modelList.add(modelType)
+                        replaceModelType(curModelType,modelType)
+                        //dataStoreManager.saveCustomizeModelList(modelList)
+                        dataStoreManager.saveModelList(modelList)
                     }
-                }*/
+                    /*if (isActionAdd){
+                        lifecycleScope.launch(Dispatchers.IO) {
+                            modelList.add(modelType)
+                            //dataStoreManager.saveCustomizeModelList(modelList)
+                            dataStoreManager.saveModelList(modelList)
+                        }
+                    }*/
 
-                lifecycleScope.launch(Dispatchers.Main) {
-                    finish()
+                    lifecycleScope.launch(Dispatchers.Main) {
+                        finish()
+                    }
                 }
             }
+
+
         }//
 
 
