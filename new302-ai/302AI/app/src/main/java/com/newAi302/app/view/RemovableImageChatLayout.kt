@@ -106,7 +106,7 @@ class RemovableImageChatLayout(context: Context, attrs: AttributeSet? = null, pr
                     image = R.drawable.icon_file_ppt
                 }else if (fileName.contains("txt")){
                     image = R.drawable.icon_file_txt
-                }else if (fileName.contains("excel")){
+                }else if (fileName.contains("xls")){
                     image = R.drawable.icon_file_excel
                 }else{
                     image = R.drawable.icon_file_common

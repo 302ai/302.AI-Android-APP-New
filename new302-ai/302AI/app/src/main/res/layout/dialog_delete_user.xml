@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="16dp"
-    android:background="@drawable/shape_select_site_bg_write"> <!-- 可自定义背景形状、颜色 -->
+    android:background="@drawable/shape_select_site_bg_write_new"> <!-- 可自定义背景形状、颜色 -->
 
     <LinearLayout
         android:id="@+id/titleTv"

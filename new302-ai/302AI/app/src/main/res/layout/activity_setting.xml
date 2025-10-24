@@ -71,7 +71,7 @@
                 android:id="@+id/cons0"
                 android:layout_width="match_parent"
                 android:layout_height="64dp"
-                android:background="@drawable/shape_select_site_bg_write">
+                android:background="@drawable/shape_select_site_bg_write_new">
 <!--                <ImageView-->
 <!--                    android:id="@+id/userSettingImage"-->
 <!--                    android:layout_width="20dp"-->
@@ -164,7 +164,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginTop="15dp"
-                android:background="@drawable/shape_select_site_bg_write">
+                android:background="@drawable/shape_select_site_bg_write_new">
                <LinearLayout
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
@@ -297,7 +297,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="108dp"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/shape_select_site_bg_write">
+                android:background="@drawable/shape_select_site_bg_write_new">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/systemLanguageCons"
@@ -470,7 +470,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="54dp"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/shape_select_site_bg_write">
+                android:background="@drawable/shape_select_site_bg_write_new">
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/toModelManagerConst"
                     android:layout_width="match_parent"
@@ -680,7 +680,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="216dp"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/shape_select_site_bg_write">
+                android:background="@drawable/shape_select_site_bg_write_new">
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/toServiceConst"
                     android:layout_width="match_parent"
@@ -891,7 +891,7 @@
                 android:id="@+id/clearChatConst"
                 android:layout_width="match_parent"
                 android:layout_height="54dp"
-                android:background="@drawable/shape_select_site_bg_write"
+                android:background="@drawable/shape_select_site_bg_write_new"
                 android:layout_marginTop="10dp">
                 <TextView
                     android:layout_width="wrap_content"
@@ -916,7 +916,7 @@
                 android:textStyle="bold"
                 android:textSize="16sp"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/shape_select_site_bg_write"/>
+                android:background="@drawable/shape_select_site_bg_write_new"/>
 
 
 

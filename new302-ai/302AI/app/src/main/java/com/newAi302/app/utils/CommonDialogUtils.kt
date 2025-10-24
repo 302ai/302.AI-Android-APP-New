@@ -42,6 +42,7 @@ import com.newAi302.app.room.SelectModelData
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.newAi302.app.adapter.EmojiAdapter
+import com.newAi302.app.adapter.ModelTypeSelectChatAdapter
 import io.noties.markwon.Markwon
 import io.noties.markwon.core.CorePlugin
 import io.noties.markwon.ext.strikethrough.StrikethroughPlugin
@@ -55,7 +56,7 @@ import kotlinx.coroutines.launch
 
 object CommonDialogUtils {
 
-    private lateinit var adapterSelectModel: ModelTypeSelectAdapter
+    private lateinit var adapterSelectModel: ModelTypeSelectChatAdapter
 
 
     @SuppressLint("MissingInflatedId")
@@ -579,7 +580,7 @@ object CommonDialogUtils {
 
     @SuppressLint("MissingInflatedId")
     fun showBottomSheetSelectModelDialog(context: Context,options1: MutableList<String>,dataStoreManager: DataStoreManager,lifecycleScope: LifecycleCoroutineScope,modelType:String,listener: OnItemSelectModelClickListener) {
-        adapterSelectModel = ModelTypeSelectAdapter(context,options1,false){ position, data ->
+        adapterSelectModel = ModelTypeSelectChatAdapter(context,options1,false){ position, data ->
             // 这里处理点击事件（Lambda的具体实现）
             listener.onItemClick(SelectModelData(position,data))
             /*lifecycleScope.launch(Dispatchers.IO) {

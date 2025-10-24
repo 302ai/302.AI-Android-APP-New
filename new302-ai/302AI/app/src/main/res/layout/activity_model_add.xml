@@ -50,7 +50,7 @@
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:layout_gravity="center"
-                android:textColor="@color/textColor"/>
+                android:textColor="@color/black"/>
         </LinearLayout>
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/saveModeTypeBt"
@@ -88,7 +88,7 @@
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:orientation="horizontal"
-        android:background="@drawable/shape_select_site_bg_write_line"
+        android:background="@drawable/shape_select_site_bg_write_new"
         app:layout_constraintTop_toBottomOf="@+id/text1"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent">
@@ -145,7 +145,7 @@
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:orientation="horizontal"
-        android:background="@drawable/shape_select_site_bg_write_line"
+        android:background="@drawable/shape_select_site_bg_write_new"
         app:layout_constraintTop_toBottomOf="@+id/text3"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent">
@@ -203,7 +203,7 @@
         app:layout_constraintTop_toBottomOf="@+id/text5"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:background="@drawable/shape_select_site_bg_write">
+        android:background="@drawable/shape_select_site_bg_write_new">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/reasonConst"
@@ -310,7 +310,7 @@
         app:layout_constraintTop_toBottomOf="@+id/cons1"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:background="@drawable/shape_select_site_bg_write">
+        android:background="@drawable/shape_select_site_bg_write_new">
 
         <TextView
             android:layout_width="wrap_content"

@@ -3,7 +3,7 @@
     <!-- 阴影层 -->
     <item>
         <shape android:shape="rectangle">
-            <solid android:color="#FFFFFFFF"/>
+            <solid android:color="@color/itemBgColor"/>
             <!-- 只设置底部两个角为圆角，顶部两个角为直角 -->
             <corners
                 android:topLeftRadius="0dp"
@@ -19,7 +19,7 @@
         android:right="0dp"
         android:top="0dp">
         <shape android:shape="rectangle">
-            <solid android:color="#FFFFFFFF"/>
+            <solid android:color="@color/itemBgColor"/>
             <!-- 同样设置底部两个角为圆角 -->
             <corners
                 android:topLeftRadius="0dp"

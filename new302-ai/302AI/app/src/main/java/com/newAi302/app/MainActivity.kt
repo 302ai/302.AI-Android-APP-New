@@ -423,7 +423,7 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
             binding.moreImage.setColorFilter(ContextCompat.getColor(this, R.color.color302AI), PorterDuff.Mode.SRC_IN)
         }else{
             binding.moreFunctionLine.visibility = View.GONE
-            binding.moreFrame.setBackgroundResource(R.drawable.shape_select_site_bg_write)
+            binding.moreFrame.setBackgroundResource(R.drawable.shape_select_site_chat_edit_bg_write)
             binding.moreImage.setImageResource(R.drawable.icon_new_more1)
             binding.moreImage.clearColorFilter()
         }
@@ -743,7 +743,7 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
                if (message.isNotEmpty()) {
                    //发送消息后隐私按钮消失
                    binding.hideImage.visibility = View.GONE
-                   if (isPicture){
+                   if (isPicture || isFile){
                        if (imageCounter != imageUrlServiceResultList.size && imageUrlServiceResultList.isEmpty()){//imageUrlServiceResult == "" || imageUrlServiceResultList.isEmpty() || (imageUrlServiceResultList.size-1) != imageCounter
                            Toast.makeText(this, ContextCompat.getString(this@MainActivity, R.string.parsing_image_toast_message), Toast.LENGTH_SHORT).show()
                            return@setOnClickListener
@@ -1385,7 +1385,7 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
                 binding.moreImage.setColorFilter(ContextCompat.getColor(this, R.color.color302AI), PorterDuff.Mode.SRC_IN)
             }else{
                 binding.moreFunctionLine.visibility = View.GONE
-                binding.moreFrame.setBackgroundResource(R.drawable.shape_select_site_bg_write)
+                binding.moreFrame.setBackgroundResource(R.drawable.shape_select_site_chat_edit_bg_write)
                 binding.moreImage.setImageResource(R.drawable.icon_new_more1)
                 binding.moreImage.clearColorFilter()
             }
@@ -1426,7 +1426,7 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
                 binding.moreImage.setColorFilter(ContextCompat.getColor(this, R.color.color302AI), PorterDuff.Mode.SRC_IN)
             }else{
                 binding.moreFunctionLine.visibility = View.GONE
-                binding.moreFrame.setBackgroundResource(R.drawable.shape_select_site_bg_write)
+                binding.moreFrame.setBackgroundResource(R.drawable.shape_select_site_chat_edit_bg_write)
                 binding.moreImage.setImageResource(R.drawable.icon_new_more1)
                 binding.moreImage.clearColorFilter()
             }
@@ -1787,7 +1787,7 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
                     SystemUtils.uriToTempFile(this@MainActivity, selectedImageUri),"imgs",false,apiService)
             }
 
-            addNewImageView(imageUrlLocal)
+            addNewImageView(imageUrlLocal,false)
 
             Log.e("ceshi","1图片地址$imageUrlLocal")
 
@@ -1810,7 +1810,7 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
 
                     galleryAddPic()
                     //Log.e("ceshi","2图片地址$imageUrlLocal")
-                    addNewImageView(imageUrlLocal)
+                    addNewImageView(imageUrlLocal,false)
                 } else {
                     Log.e("Camera", "图片文件不存在: $path")
                 }
@@ -1840,7 +1840,10 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
                         val fileSizeIndex = it.getColumnIndex(OpenableColumns.SIZE)
                         val fileSize = if (!it.isNull(fileSizeIndex)) {
                             //it.getLong(fileSizeIndex).toString() + " bytes"
-                            (it.getFloat(fileSizeIndex)/1024f).toString() + " kb"
+                            //(it.getFloat(fileSizeIndex)/1024f).toString() + " kb"
+                            // 保留两位小数（四舍五入）
+                            //String.format("%.2f", it.getFloat(fileSizeIndex) / 1024f) + " kb"
+                            formatFileSize(it.getFloat(fileSizeIndex))
                         } else {
                             "未知大小"
                         }
@@ -1866,7 +1869,7 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
                         fileNameList.add(fileName)
                         fileSizeList.add(fileSize)
                         Log.e("ceshi","文件的URL：${selectedFileUri}")
-                        addNewImageView(selectedFileUri.toString())
+                        addNewImageView(selectedFileUri.toString(),true)
                         Log.e("ceshi","文件名: $fileName\\n大小: $fileSize\\n格式: $fileExtension")
                     }
                 }
@@ -1905,6 +1908,27 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
         val mediaProjectionManager = getSystemService(MEDIA_PROJECTION_SERVICE) as MediaProjectionManager
         val intent = mediaProjectionManager.createScreenCaptureIntent()
         startActivityForResult(intent, REQUEST_MEDIA_PROJECTION)
+    }
+
+    /**
+     * 格式化文件大小（自动转换单位：B、KB、MB、GB）
+     * @param bytes 原始字节数
+     * @return 格式化后的字符串（如 "2.56 KB"、"1.45 MB"）
+     */
+    fun formatFileSize(bytes: Float): String {
+        // 定义单位数组（按从小到大顺序）
+        val units = arrayOf("B", "KB", "MB", "GB")
+        var size = bytes // 初始值为字节数
+        var unitIndex = 0 // 初始单位索引（0对应B）
+
+        // 循环判断是否需要进位到更大单位（1024倍递进）
+        while (size >= 1024 && unitIndex < units.lastIndex) {
+            size /= 1024f // 转换到更大单位
+            unitIndex++ // 单位索引+1（切换到下一个单位）
+        }
+
+        // 保留两位小数并拼接单位（自动四舍五入进位）
+        return String.format("%.2f %s", size, units[unitIndex])
     }
 
     private fun buildNewChat(insert:Boolean){
@@ -1974,7 +1998,7 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
 
                     //moreFunctionQuantity = 0
                     binding.moreFunctionLine.visibility = View.GONE
-                    binding.moreFrame.setBackgroundResource(R.drawable.shape_select_site_bg_write)
+                    binding.moreFrame.setBackgroundResource(R.drawable.shape_select_site_chat_edit_bg_write)
                     binding.moreImage.setImageResource(R.drawable.icon_new_more1)
                     binding.moreImage.clearColorFilter()
 
@@ -1988,7 +2012,7 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
                         binding.moreImage.setColorFilter(ContextCompat.getColor(this@MainActivity, R.color.color302AI), PorterDuff.Mode.SRC_IN)
                     }else{
                         binding.moreFunctionLine.visibility = View.GONE
-                        binding.moreFrame.setBackgroundResource(R.drawable.shape_select_site_bg_write)
+                        binding.moreFrame.setBackgroundResource(R.drawable.shape_select_site_chat_edit_bg_write)
                         binding.moreImage.setImageResource(R.drawable.icon_new_more1)
                         binding.moreImage.clearColorFilter()
                     }
@@ -2384,7 +2408,7 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
             binding.moreImage.setColorFilter(ContextCompat.getColor(this, R.color.color302AI), PorterDuff.Mode.SRC_IN)
         }else{
             binding.moreFunctionLine.visibility = View.GONE
-            binding.moreFrame.setBackgroundResource(R.drawable.shape_select_site_bg_write)
+            binding.moreFrame.setBackgroundResource(R.drawable.shape_select_site_chat_edit_bg_write)
             binding.moreImage.setImageResource(R.drawable.icon_new_more1)
             binding.moreImage.clearColorFilter()
         }
@@ -2481,7 +2505,8 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
                 performVibration()
                 val sendMessage = chatFunction.message
                 Log.e("ceshi","位置：${chatFunction.position}信息：${sendMessage}")
-                messageList.add(ChatMessage(sendMessage,true,"chat",false,false))
+                messageList.add(ChatMessage(sendMessage,true,"chat",false,false,
+                    chatFunction.fileName,chatFunction.fileSize))
                 mMessageList.add(sendMessage)
                 messageList.add(ChatMessage("file:///android_asset/loading.html",false,"chat",false,false))
                 messageList[chatFunction.position].message = "这是删除过的内容变为空白"
@@ -2548,7 +2573,9 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
                 if (messageList.size == mMessageList.size){
                     performVibration()
                     val sendMessage = messageList[chatFunction.position-1].message
-                    messageList.add(ChatMessage(sendMessage,true,"chat",false,false))
+                    messageList.add(ChatMessage(sendMessage,true,"chat",false,false,
+                        messageList[chatFunction.position-1].fileName,messageList[chatFunction.position-1].fileSize))
+
                     mMessageList.add(sendMessage)
                     messageList.add(ChatMessage("file:///android_asset/loading.html",false,"chat",false,false))
                     messageList[chatFunction.position].message = "这是删除过的内容变为空白"
@@ -2650,9 +2677,9 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
         }
 
         if (intent.resolveActivity(packageManager) != null) {
-            startActivity(Intent.createChooser(intent, "选择应用打开文档"))
+            startActivity(Intent.createChooser(intent, ContextCompat.getString(this, R.string.open_file_toast_message)))
         } else {
-            Toast.makeText(this, "没有找到可以打开该文档的应用", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this,  ContextCompat.getString(this, R.string.open_file_fail_toast_message), Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -2802,7 +2829,7 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
                 binding.moreImage.setColorFilter(ContextCompat.getColor(this, R.color.color302AI), PorterDuff.Mode.SRC_IN)
             }else{
                 binding.moreFunctionLine.visibility = View.GONE
-                binding.moreFrame.setBackgroundResource(R.drawable.shape_select_site_bg_write)
+                binding.moreFrame.setBackgroundResource(R.drawable.shape_select_site_chat_edit_bg_write)
                 binding.moreImage.setImageResource(R.drawable.icon_new_more1)
                 binding.moreImage.clearColorFilter()
             }
@@ -3004,7 +3031,7 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
         }
     }
 
-    private fun addNewImageView(imageUrlLocal:String) {
+    private fun addNewImageView(imageUrlLocal:String,mIsfile:Boolean) {
         Log.e("ceshi","添加视图")
         binding.imageLineHorScroll.visibility = View.VISIBLE
         imageUrlLocalList.add(imageUrlLocal)
@@ -3019,7 +3046,7 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
         }
 
         // 设置图片（示例：加载随机图片）
-        removableLayout.setImageResource(imageUrlLocal,imageCounter,isFile,fileName, fileSize)
+        removableLayout.setImageResource(imageUrlLocal,imageCounter,mIsfile,fileName, fileSize)
 
         // 添加到容器
         binding.imageLine.addView(removableLayout)

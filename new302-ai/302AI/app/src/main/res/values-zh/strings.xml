@@ -51,6 +51,9 @@
     <string name="copy_toast_message">复制</string>
     <string name="user_edit_toast_message">编辑</string>
 
+    <string name="open_file_fail_toast_message">没有找到可以打开该文档的应用</string>
+    <string name="open_file_toast_message">选择应用打开文档</string>
+
 
     <string name="select_file_dialog_title">请选择文件</string>
     <string name="archive_dialog_message">从档案库选择</string>

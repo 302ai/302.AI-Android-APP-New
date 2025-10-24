@@ -52,6 +52,8 @@
     <string name="copy_toast_message">Copy</string>
     <string name="user_edit_toast_message">Edit</string>
 
+    <string name="open_file_fail_toast_message">No application found to open this document</string>
+    <string name="open_file_toast_message">Select an application to open the document</string>
 
     <string name="select_file_dialog_title">Please select file</string>
     <string name="archive_dialog_message">from the archive</string>

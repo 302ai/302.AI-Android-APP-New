@@ -19,7 +19,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:background="@drawable/shape_select_site_bg_write"
+        android:background="@drawable/shape_select_site_bg_write_new"
         app:layout_constraintTop_toBottomOf="@+id/textTitleTv"
         app:layout_constraintLeft_toLeftOf="parent">
         <ImageView

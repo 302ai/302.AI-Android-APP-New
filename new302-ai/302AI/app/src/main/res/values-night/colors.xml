@@ -13,16 +13,34 @@
     <color name="textDialogColor">#747177</color>
 
     <color name="backgroundChat">#000000</color>
-    <color name="backgroundSetting">#333333</color>
-    <color name="backgroundGreen">#DEF3E4</color>
+    <color name="backgroundSetting">#000000</color>
+    <color name="backgroundBottomDialog">#242424</color>
+    <color name="backgroundGreen">#242424</color>
+    <color name="backgroundLogin">#000000</color>
+
+    <color name="backgroundChatEdit">#242424</color>
+    <color name="backgroundChatFun">#00000000</color>
+
+    <color name="textLoginColor">#929292</color>
+
+    <color name="toolDialogBgColor">#242424</color>
+
+    <color name="voiceDialogBgColor">#191919</color>
+
+    <color name="itemBgColor">#242424</color>
+
+    <color name="grayBgColor">#242424</color>
+
+    <color name="blackBtnBgColor">#FFFFFF</color>
+
+    <color name="funBtnBgColor">#17141C</color>
 
 
-
-    <color name="lineSetting">#F6F6F6</color>
+    <color name="lineSetting">#3A3A3A</color>
 
     <color name="leftDialogLine">#EBEBEB</color>
 
-    <color name="backWhite">#F9F9F9</color>
+    <color name="backWhite">#000000</color>
     <color name="BgPrimary">#F7F8F9</color>
     <color name="BgChat">#f5f5f5</color>
     <color name="dividing_line">#E5E6E8</color> <!--分割线-->
@@ -55,18 +73,21 @@
     <color name="colorLightPurple">#DB70DB</color>
     <color name="color302AI">#8e47f0</color>
 
+    <color name="colorFeedBack">#242424</color>
+
     <color name="StaticWhite">#FFFFFF</color>
 
     <color name="un_selected">#929292</color> <!--登录 未选中-->
     <color name="selected">#3756CA</color> <!--登录 已选中-->
     <color name="underline">#375CAC</color>  <!--登录 下划线-->
-    <color name="input_bg">#000000</color> <!--输入框背景-->
+    <color name="input_bg">#242424</color> <!--输入框背景-->
+    <color name="input_model_bg">#000000</color> <!--输入框背景-->
     <color name="input_hint">#9CA6B0</color> <!--输入框提示颜色-->
     <color name="verification_bg">#FFECE8</color> <!--验证码背景颜色-->
     <color name="empty_tip">#F53F3F</color> <!--验证码为空提示-->
     <color name="forget_password">#7664DD</color> <!--忘记密码-->
     <color name="login_bg">#5848D5</color><!--登录按钮颜色-->
-    <color name="frame_bg">#BBBBBB</color><!--边框-->
+    <color name="frame_bg">#242424</color><!--边框-->
     <color name="register_btn">#02BD7E</color>
     <color name="transparent">#00000000</color>
     <color name="Static1D">#FF1D1D1D</color>

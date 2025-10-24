@@ -71,7 +71,7 @@
             app:layout_constraintTop_toBottomOf="@+id/btnMoreClose"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            android:background="@drawable/shape_select_site_bg_write">
+            android:background="@drawable/shape_select_site_bg_write_new">
             <ImageView
                 android:id="@+id/kbImage"
                 android:layout_width="20dp"
@@ -133,7 +133,7 @@
             app:layout_constraintTop_toBottomOf="@+id/btnMoreClose"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            android:background="@drawable/shape_select_site_bg_write">
+            android:background="@drawable/shape_select_site_bg_write_new">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -182,7 +182,7 @@
             app:layout_constraintTop_toBottomOf="@+id/btnMoreClose"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            android:background="@drawable/shape_select_site_bg_write">
+            android:background="@drawable/shape_select_site_bg_write_new">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -233,7 +233,7 @@
             app:layout_constraintTop_toBottomOf="@+id/btnMoreClose"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            android:background="@drawable/shape_select_site_bg_write">
+            android:background="@drawable/shape_select_site_bg_write_new">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -268,7 +268,7 @@
             app:layout_constraintTop_toBottomOf="@+id/btnMoreClose"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            android:background="@drawable/shape_select_site_bg_write">
+            android:background="@drawable/shape_select_site_bg_write_new">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -304,7 +304,7 @@
             app:layout_constraintTop_toBottomOf="@+id/btnMoreClose"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            android:background="@drawable/shape_select_site_bg_write">
+            android:background="@drawable/shape_select_site_bg_write_new">
 
             <TextView
                 android:layout_width="wrap_content"

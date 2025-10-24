@@ -16,7 +16,26 @@
 
     <color name="backgroundChat">#F9F9F9</color>
     <color name="backgroundSetting">#F5F5F5</color>
+    <color name="backgroundBottomDialog">#F5F5F5</color>
     <color name="backgroundGreen">#DEF3E4</color>
+    <color name="backgroundLogin">#FFFFFFFF</color>
+
+    <color name="backgroundChatEdit">#FFFFFFFF</color>
+    <color name="backgroundChatFun">#FFFFFFFF</color>
+
+    <color name="textLoginColor">#FF000000</color>
+
+    <color name="toolDialogBgColor">#aaa</color>
+
+    <color name="voiceDialogBgColor">#7D7D7D</color>
+
+    <color name="itemBgColor">#FFFFFFFF</color>
+
+    <color name="grayBgColor">#F5F5F5</color>
+
+    <color name="blackBtnBgColor">#131111</color>
+
+    <color name="funBtnBgColor">#F4EDFE</color>
 
 
 
@@ -71,6 +90,7 @@
     <color name="selected">#3756CA</color> <!--登录 已选中-->
     <color name="underline">#375CAC</color>  <!--登录 下划线-->
     <color name="input_bg">#F2F3F5</color> <!--输入框背景-->
+    <color name="input_model_bg">#F2F3F5</color> <!--输入框背景-->
     <color name="input_hint">#9CA6B0</color> <!--输入框提示颜色-->
     <color name="verification_bg">#FFECE8</color> <!--验证码背景颜色-->
     <color name="empty_tip">#F53F3F</color> <!--验证码为空提示-->

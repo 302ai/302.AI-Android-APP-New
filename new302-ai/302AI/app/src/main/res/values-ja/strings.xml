@@ -51,6 +51,9 @@
     <string name="copy_toast_message">コピー</string>
     <string name="user_edit_toast_message">編集</string>
 
+    <string name="open_file_fail_toast_message">このドキュメントを開くためのアプリケーションが見つかりません</string>
+    <string name="open_file_toast_message">ドキュメントを開くためのアプリケーションを選択してください</string>
+
 
     <string name="select_file_dialog_title">ファイルを選択してください</string>
     <string name="archive_dialog_message">アーカイブから選択</string>

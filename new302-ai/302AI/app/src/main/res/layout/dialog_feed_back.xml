@@ -17,7 +17,7 @@
         android:text="@string/feed_back_title_message"
         android:textSize="16sp"
         android:textStyle="bold"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:textColor="@color/black"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>

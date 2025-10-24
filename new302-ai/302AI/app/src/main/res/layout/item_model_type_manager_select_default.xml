@@ -22,7 +22,7 @@
             android:layout_height="48dp"
             android:id="@+id/selectConst"
             xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:background="@drawable/shape_select_site_bg_write">
+            android:background="@drawable/shape_select_site_bg_write_new">
             <ImageView
                 android:id="@+id/kbImage"
                 android:layout_width="20dp"

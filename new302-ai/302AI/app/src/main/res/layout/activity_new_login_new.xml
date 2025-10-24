@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/icon_feed_back_bg"
+    android:background="@color/backgroundLogin"
     android:paddingTop="40dp">
     
     <TextView

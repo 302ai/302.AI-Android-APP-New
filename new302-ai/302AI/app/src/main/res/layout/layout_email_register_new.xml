@@ -5,7 +5,7 @@
     android:id="@+id/ll_email_register"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white"
+    android:background="@color/backgroundLogin"
     android:orientation="vertical">
 
     <LinearLayout
@@ -18,7 +18,7 @@
             android:text="@string/personal_user_name_message"
             android:textSize="14sp"
             android:layout_marginTop="20dp"
-            android:textColor="@color/black"/>
+            android:textColor="@color/textLoginColor"/>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -102,7 +102,7 @@
         android:text="@string/email_new_name"
         android:textSize="14sp"
         android:layout_marginTop="18dp"
-        android:textColor="@color/black"/>
+        android:textColor="@color/textLoginColor"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -156,7 +156,7 @@
         android:text="@string/verification_new"
         android:textSize="14sp"
         android:layout_marginTop="18dp"
-        android:textColor="@color/black"/>
+        android:textColor="@color/textLoginColor"/>
 
     <RelativeLayout
         android:id="@+id/rl_verify_code"
@@ -186,7 +186,7 @@
         android:text="@string/email_verify_code_new"
         android:textSize="14sp"
         android:layout_marginTop="18dp"
-        android:textColor="@color/black"/>
+        android:textColor="@color/textLoginColor"/>
 
     <RelativeLayout
         android:layout_width="match_parent"

@@ -36,6 +36,7 @@
             android:id="@+id/fileLine"
             android:layout_gravity="center"
             android:visibility="gone"
+            android:layout_marginLeft="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -50,7 +51,7 @@
                 android:textColor="@color/black"/>
             <TextView
                 android:id="@+id/fileSizeTv"
-                android:layout_width="40dp"
+                android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:text="12kb"
                 android:maxLines="1"

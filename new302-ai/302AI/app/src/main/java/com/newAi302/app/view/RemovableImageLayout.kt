@@ -57,8 +57,22 @@ class RemovableImageLayout(context: Context, attrs: AttributeSet? = null,private
             findViewById<TextView>(R.id.fileNameTv).text = fileName
             findViewById<TextView>(R.id.fileSizeTv).text = fileSize
             findViewById<ImageView>(R.id.imageViewDelete).visibility = View.GONE
+            var image = 0
+            if (fileName.contains("pdf")){
+                image = R.drawable.icon_file_new
+            }else if (fileName.contains("word") || fileName.contains("doc")){
+                image = R.drawable.icon_file_word
+            }else if (fileName.contains("ppt")){
+                image = R.drawable.icon_file_ppt
+            }else if (fileName.contains("txt")){
+                image = R.drawable.icon_file_txt
+            }else if (fileName.contains("xls")){
+                image = R.drawable.icon_file_excel
+            }else{
+                image = R.drawable.icon_file_common
+            }
             Glide.with(this)
-                .load(R.drawable.icon_file)
+                .load(image)
                 .placeholder(android.R.drawable.ic_menu_gallery) // 加载中占位图
                 .error(android.R.drawable.stat_notify_error) // 加载失败占位图
                 .into(findViewById<ImageView>(R.id.imageViewMain))

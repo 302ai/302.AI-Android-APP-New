@@ -33,7 +33,7 @@
             android:orientation="horizontal"
             app:layout_constraintTop_toBottomOf="@+id/timeTv"
             app:layout_constraintLeft_toLeftOf="parent"
-            android:background="@drawable/shape_select_site_bg_write_line">
+            android:background="@drawable/shape_select_site_bg_write_new">
             <TextView
                 android:id="@+id/titleTv"
                 android:layout_width="0dp"

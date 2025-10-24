@@ -18,7 +18,7 @@
             android:text="@string/personal_user_name_message"
             android:textSize="14sp"
             android:layout_marginTop="20dp"
-            android:textColor="@color/black"/>
+            android:textColor="@color/textLoginColor"/>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -104,7 +104,7 @@
         android:text="@string/verification_new"
         android:textSize="14sp"
         android:layout_marginTop="18dp"
-        android:textColor="@color/black"/>
+        android:textColor="@color/textLoginColor"/>
 
     <RelativeLayout
         android:id="@+id/rl_verify_code"
@@ -135,7 +135,7 @@
         android:text="@string/vc_msg"
         android:textSize="14sp"
         android:layout_marginTop="18dp"
-        android:textColor="@color/black"/>
+        android:textColor="@color/textLoginColor"/>
 
     <RelativeLayout
         android:layout_width="wrap_content"

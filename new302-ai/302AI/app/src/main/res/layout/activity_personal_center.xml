@@ -90,7 +90,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/userImageFrame"
-        android:background="@drawable/shape_select_site_bg_write">
+        android:background="@drawable/shape_select_site_bg_write_new">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/personalChangeNameCons"
@@ -209,7 +209,7 @@
         android:id="@+id/deleteUserConst"
         android:layout_width="match_parent"
         android:layout_height="54dp"
-        android:background="@drawable/shape_select_site_bg_write"
+        android:background="@drawable/shape_select_site_bg_write_new"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:layout_marginTop="30dp"

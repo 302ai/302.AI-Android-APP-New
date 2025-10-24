@@ -288,10 +288,13 @@ class ChatAdapter(private var messageList: List<ChatMessage>, private val contex
         if (chatMessage.message.contains(".jpg") && chatMessage.isMe){
             holder.imageHorScr.visibility = View.VISIBLE
         }
+        if (chatMessage.message.contains(".png") && chatMessage.isMe){
+            holder.imageHorScr.visibility = View.VISIBLE
+        }
         if (chatMessage.message.contains("media.documents/") && chatMessage.isMe){
             holder.fileHorScr.visibility = View.VISIBLE
         }
-        if (chatMessage.message.contains(".jpg") || chatMessage.message.contains("media.documents/")){
+        if (chatMessage.message.contains(".jpg") || chatMessage.message.contains("media.documents/") || chatMessage.message.contains(".png")){
             val urlLists = StringObjectUtils.extractAllImageUrlsNew(chatMessage.message)
             Log.e("ceshi","图片的数量${urlLists}")
             Log.e("chatAdapter","图片信息：${chatMessage.message}")
@@ -299,6 +302,7 @@ class ChatAdapter(private var messageList: List<ChatMessage>, private val contex
 //            fileSize = chatMessage.fileSize
             fileNameList = chatMessage.fileName
             fileSizeList = chatMessage.fileSize
+            Log.e("ceshi","文件名字的数量${fileNameList}")
             var number = fileNameList.size-1
             // 按索引遍历，每个索引对应一组 url、fileName、fileSize
             for (i in 0 until urlLists.size) {
@@ -331,7 +335,7 @@ class ChatAdapter(private var messageList: List<ChatMessage>, private val contex
             dialogUtils.setupPopupWindow(options,"moreLine",context)
             dialogUtils.showPopup(it)
         }
-        var chatToolItem = ChatBackMessage(chatMessage.message,chatMessage.isMe,"",position,codeNameStr)
+        var chatToolItem = ChatBackMessage(chatMessage.message,chatMessage.isMe,"",position,codeNameStr,chatMessage.fileName,chatMessage.fileSize)
         holder.copyLine.setOnClickListener {
             val fullText = messageList[position].message.trimIndent()
             val mFullText = StringObjectUtils.convertLatexFormat(fullText)
@@ -452,7 +456,7 @@ class ChatAdapter(private var messageList: List<ChatMessage>, private val contex
 
         dialogUtils = DialogUtils {
             Log.e("ceshi","弹窗返回$it")
-            var chatItem = ChatBackMessage(chatMessage.message,chatMessage.isMe,"",position,codeNameStr)
+            var chatItem = ChatBackMessage(chatMessage.message,chatMessage.isMe,"",position,codeNameStr,chatMessage.fileName,chatMessage.fileSize)
             when(it){
                 "分享" -> {
                     chatItem.doType = "share"
@@ -528,6 +532,8 @@ class ChatAdapter(private var messageList: List<ChatMessage>, private val contex
                     chatItem.doType = "userAgain"
                     chatItem.position = nowPosition
                     chatItem.message = messageList[nowPosition].message
+                    chatItem.fileName = messageList[nowPosition].fileName
+                    chatItem.fileSize = messageList[nowPosition].fileSize
                     listener.onBackFunctionClick(chatItem)
                 }
 
@@ -631,7 +637,7 @@ class ChatAdapter(private var messageList: List<ChatMessage>, private val contex
             holder.deepTextView.visibility = View.GONE
         }
 
-        if (chatMessage.message.contains(".jpg") || chatMessage.message.contains("media.documents/")){
+        if (chatMessage.message.contains(".jpg") || chatMessage.message.contains("media.documents/") || chatMessage.message.contains(".png")){
             setMessageUi(holder,StringObjectUtils.extractInfoFromString(chatMessage.message))
         }else{
             setMessageUi(holder,chatMessage.message)
