@@ -26,6 +26,7 @@
     <color name="textLoginColor">#FF000000</color>
 
     <color name="toolDialogBgColor">#aaa</color>
+    <color name="toolDialogBg1Color">#F6F6F6</color>
 
     <color name="voiceDialogBgColor">#7D7D7D</color>
 

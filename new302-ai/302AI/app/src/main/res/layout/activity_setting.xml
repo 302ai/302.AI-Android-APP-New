@@ -295,7 +295,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cons2"
                 android:layout_width="match_parent"
-                android:layout_height="108dp"
+                android:layout_height="162dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/shape_select_site_bg_write_new">
 
@@ -361,7 +361,7 @@
                     android:id="@+id/systemThemeCons"
                     android:layout_width="match_parent"
                     android:layout_height="54dp"
-                    android:visibility="gone"
+
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="@id/view3"
                     app:layout_constraintBottom_toBottomOf="@id/view4"
@@ -421,7 +421,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="54dp"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/view3"
+                    app:layout_constraintTop_toTopOf="@id/view4"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintRight_toRightOf="parent">
                     <TextView

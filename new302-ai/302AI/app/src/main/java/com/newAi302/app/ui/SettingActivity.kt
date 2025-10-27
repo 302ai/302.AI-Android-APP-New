@@ -78,6 +78,7 @@ import com.newAi302.app.utils.LanguageUtil
 import com.newAi302.app.utils.LanguageUtil.saveLanguageSetting
 import com.newAi302.app.utils.LogUtils
 import com.newAi302.app.utils.SystemUtils
+import com.newAi302.app.utils.ThemeUtil
 import com.newAi302.app.utils.ToastUtils
 import com.newAi302.app.utils.ViewAnimationUtils
 import com.newAi302.app.utils.base.WearData
@@ -256,6 +257,28 @@ class SettingActivity : BaseActivity(), PayDetailsDialog.OnButtonClickListener {
                     defaultSystemLanguage = "ja"
                 }
 
+                "light" -> {
+                    binding.systemThemeTv.text = "light"
+                    ThemeUtil.saveThemeSetting(this,ThemeUtil.THEME_LIGHT)
+                    ThemeUtil.changeTheme(this,ThemeUtil.THEME_LIGHT)
+                    // 2. 重启当前Activity，使新上下文生效
+                    val intent = intent // 获取当前Activity的启动意图
+                    finish() // 销毁当前Activity
+                    startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)) // 重建Activity
+                    overridePendingTransition(0, 0) // 可选：去除切换动画
+                }
+
+                "night" -> {
+                    binding.systemThemeTv.text = "night"
+                    ThemeUtil.saveThemeSetting(this,ThemeUtil.THEME_NIGHT)
+                    ThemeUtil.changeTheme(this,ThemeUtil.THEME_NIGHT)
+                    // 2. 重启当前Activity，使新上下文生效
+                    val intent = intent // 获取当前Activity的启动意图
+                    finish() // 销毁当前Activity
+                    startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)) // 重建Activity
+                    overridePendingTransition(0, 0) // 可选：去除切换动画
+                }
+
 
             }
         }
@@ -325,11 +348,20 @@ class SettingActivity : BaseActivity(), PayDetailsDialog.OnButtonClickListener {
             LanguageUtil.LANGUAGE_JA -> binding.systemLanguageTV.text = "日本語"
             else -> binding.systemLanguageTV.text = "English"
         }
-        if (systemThem == "浅色模式"){
+        /*if (systemThem == "浅色模式"){
             binding.systemThemeTv.text = "light"
         }else if (systemThem == "深色模式"){
             binding.systemThemeTv.text = "night"
+        }*/
+        val customizeTheme = ThemeUtil.getSavedTheme(this)
+        Log.e("ceshi","获取的主题是:$customizeTheme")
+        if (customizeTheme == ThemeUtil.THEME_LIGHT){
+            binding.systemThemeTv.text = "light"
+        }else{
+            binding.systemThemeTv.text = "night"
         }
+
+
         binding.systemLanguageCons.setOnClickListener {
             //SystemUtils.openLanguageSettings(this)
             /*val options = mutableListOf(ContextCompat.getString(this@SettingActivity, R.string.language_ch_message),
@@ -340,7 +372,10 @@ class SettingActivity : BaseActivity(), PayDetailsDialog.OnButtonClickListener {
             dialogUtils.showPopup(binding.systemLanguageLine)
         }
         binding.systemThemeCons.setOnClickListener {
-            SystemUtils.openThemeSettings(this)
+            //SystemUtils.openThemeSettings(this)
+            val options = mutableListOf("light","night")
+            dialogUtils.setupPopupWindow(options,"systemThemeList",this)
+            dialogUtils.showPopup(binding.systemThemeLine)
         }
 
         binding.toPreferencesCons.setOnClickListener {

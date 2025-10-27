@@ -209,6 +209,19 @@ class DialogUtils(private val onDeleteClickListener: (String) -> Unit) {
                             }
                         }
                     }
+                    "systemThemeList" -> {
+                        when(position){
+                            0 -> {
+                                onDeleteClickListener("light")
+                                //onDeleteClickListener(ContextCompat.getString(context, R.string.language_ch_message))
+                            }
+                            1 -> {
+                                onDeleteClickListener("night")
+                                //onDeleteClickListener(ContextCompat.getString(context, R.string.language_en_message))
+                            }
+
+                        }
+                    }
                     "ResourceActivity" -> {
                         when(position){
                             0 -> {
@@ -284,6 +297,13 @@ class DialogUtils(private val onDeleteClickListener: (String) -> Unit) {
                 )
             }
             "languageTypeList" -> {
+                popupWindow.showAsDropDown(
+                    anchorView,
+                    -(anchorView.width - popupWindow.width) / 2,
+                    8
+                )
+            }
+            "systemThemeList" -> {
                 popupWindow.showAsDropDown(
                     anchorView,
                     -(anchorView.width - popupWindow.width) / 2,

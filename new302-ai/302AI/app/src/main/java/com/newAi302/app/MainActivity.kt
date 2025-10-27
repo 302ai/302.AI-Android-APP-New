@@ -3226,6 +3226,10 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
             titleTv.visibility = View.GONE
             cons1.visibility = View.GONE
 
+        }else{
+            editTitle.isEnabled = false
+            titleTv.visibility = View.GONE
+            cons1.visibility = View.GONE
         }
 
         cueWordDialogConst.setOnClickListener {
