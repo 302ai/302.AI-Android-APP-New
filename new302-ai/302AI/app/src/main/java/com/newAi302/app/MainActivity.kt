@@ -115,12 +115,14 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.newAi302.app.MyApplication.Companion.myApplicationContext
 import com.newAi302.app.base.BaseActivity
 import com.newAi302.app.data.MainMessage
+import com.newAi302.app.datastore.ImageUrlMapper
 import com.newAi302.app.room.ChatRepository
 import com.newAi302.app.room.UserConfigurationRoom
 import com.newAi302.app.screenshot.model.config.PermissionConst
 import com.newAi302.app.ui.login.LoginOneActivity
 import com.newAi302.app.utils.ActivityManager
 import com.newAi302.app.utils.DeviceDetector
+import com.newAi302.app.utils.ImageToGalleryUtil
 import com.newAi302.app.utils.LanguageUtil
 import com.newAi302.app.utils.PermissionUtils
 import com.newAi302.app.utils.ScreenUtils.getScreenHeight
@@ -196,6 +198,7 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
     private lateinit var currentPhotoPath: String
     private var isPicture = false
     private var imageUrlLocal = ""
+    private var urlLocal = ""
     private var isToPicture = false
     private var imageUrlLocalList = CopyOnWriteArrayList<String>()
     private var imageUrlServiceResult = ""
@@ -206,6 +209,8 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
     private var imageCounter = 0
     private var modelTypeHistory = ""
     private var mModelTypeHistory = ""
+
+    private var netUrlResultList = mutableListOf<String>()//CopyOnWriteArrayList
 
     private lateinit var dataStoreManager: DataStoreManager
 
@@ -279,6 +284,8 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
     private var hideTitle = ""
 
     private var mReadImageUrl = ""
+
+    private val urlMapper = ImageUrlMapper(myApplicationContext)
 
     // 保存 chatRecyclerView 的初始布局参数
     private var initialRecyclerLayoutParams: RelativeLayout.LayoutParams? = null
@@ -760,7 +767,7 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
                        Log.e("ceshi","文件插入：${isFile},,${fileName},,$fileSize")
                        if (isFile){
                            isFile = false
-                           messageList.add(ChatMessage("${mImageUrlLocalStrBulder.toString()}<br>$message",true,"chat",false,false,fileNameList, fileSizeList))
+                           messageList.add(ChatMessage("${mImageUrlLocalStrBulder.toString()}<br>$message",true,"chat",false,false,fileNameList.toMutableList(), fileSizeList.toMutableList()))
                            fileName = ""
                            fileSize = ""
                        }else{
@@ -784,6 +791,8 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
                        chatViewModel.sendQuestion(message,modelType,isNetWorkThink,isDeepThink,this@MainActivity,userId,imageUrlServiceResultList,false,apiKey,false,
                            apiService,false,mMessageList,"302.AI",prompt,temperature,searchServiceType,isDeepThink)
 
+                           fileNameList.clear()
+                           fileSizeList.clear()
                        //Log.e("ceshi","现在的聊天数量:${messageList.size}")
                        //标题生成
                        if (chatTitle.contains(ContextCompat.getString(this@MainActivity, R.string.chat_title)) && !isPrivate){
@@ -799,6 +808,9 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
                        imageUrlLocalList.clear()
                        imageUrlServiceResultList.clear()
                        imageCounter = 0
+//                       delay(3000)
+//                       fileNameList.clear()
+//                       fileSizeList.clear()
 
                    }
                    binding.newChatCon.visibility = View.GONE
@@ -1576,6 +1588,9 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
             it?.let {
                 imageUrlServiceResultList.add(it)
                 mImageUrlServiceResultList.add(it)
+                CoroutineScope(Dispatchers.IO).launch {
+                    urlMapper.saveUrlMapping(it, urlLocal)
+                }
             }
         }
 
@@ -1633,6 +1648,7 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
             Toast.makeText(this, "${ContextCompat.getString(this@MainActivity, R.string.network_error_toast_message)}$message", Toast.LENGTH_SHORT).show()
             messageList.removeLast()
             messageList.add(ChatMessage("网络超时",false,"chat",false,false))
+            mMessageList.add("网络超时")
             //adapter.upDatePosition(messageList.size-1)
             Log.e("ceshi","模拟机器人回复，添加链表")
             // 通知适配器数据已更改
@@ -1780,7 +1796,7 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
             val selectedImageUri: Uri = data.data!!
             isPicture = true
             imageUrlLocal = "$selectedImageUri"
-
+            urlLocal = "$selectedImageUri"
             //上传图片到服务器
             lifecycleScope.launch(Dispatchers.IO) {
                 chatViewModel.upLoadImage(this@MainActivity,
@@ -1802,6 +1818,7 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
                 if (imageFile.exists()) {
                     val contentUri = Uri.fromFile(imageFile)
                     imageUrlLocal = "$contentUri"
+                    urlLocal = "$contentUri"
                     //上传图片到服务器
                     lifecycleScope.launch(Dispatchers.IO) {
                         chatViewModel.upLoadImage(this@MainActivity,
@@ -1827,7 +1844,7 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
             isFile = true
             data?.data?.let { uri ->
                 selectedFileUri = uri
-
+                urlLocal = "$uri"
                 // 获取文件信息
                 val cursor = contentResolver.query(uri, null, null, null, null)
                 cursor?.use {
@@ -2508,7 +2525,7 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
                 messageList.add(ChatMessage(sendMessage,true,"chat",false,false,
                     chatFunction.fileName,chatFunction.fileSize))
                 mMessageList.add(sendMessage)
-                messageList.add(ChatMessage("file:///android_asset/loading.html",false,"chat",false,false))
+                messageList.add(ChatMessage("file:///android_asset/loading.html",false,"chat",false,false,chatFunction.fileName,chatFunction.fileSize))
                 messageList[chatFunction.position].message = "这是删除过的内容变为空白"
                 messageList[chatFunction.position+1].message = "这是删除过的内容变为空白"
 
@@ -2516,8 +2533,19 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
                 mMessageList[chatFunction.position+1] = "这是删除过的内容变为空白"
                 lifecycleScope.launch(Dispatchers.IO) {
                     isSendMessage.set(true)
-                    chatViewModel.sendQuestion(sendMessage,modelType,isNetWorkThink,isDeepThink,this@MainActivity,userId,imageUrlServiceResultList,
-                        false,apiKey,false,apiService,false,mMessageList,"302.AI",prompt,temperature,searchServiceType,isDeepThink)
+                    if (sendMessage.contains("jpg") || sendMessage.contains("png") || sendMessage.contains("documents")){
+                        val urlLists = StringObjectUtils.extractAllImageUrlsNew(sendMessage)
+                        for (url in urlLists){
+                            netUrlResultList.add(urlMapper.getNetworkUrl(url)!!)
+                        }
+                        chatViewModel.sendQuestion(sendMessage,modelType,isNetWorkThink,isDeepThink,this@MainActivity,userId,netUrlResultList,
+                            false,apiKey,false,apiService,false,mMessageList,"302.AI",prompt,temperature,searchServiceType,isDeepThink)
+                        netUrlResultList.clear()
+                    }else{
+                        chatViewModel.sendQuestion(sendMessage,modelType,isNetWorkThink,isDeepThink,this@MainActivity,userId,imageUrlServiceResultList,
+                            false,apiKey,false,apiService,false,mMessageList,"302.AI",prompt,temperature,searchServiceType,isDeepThink)
+                    }
+
 
                     //标题生成
                     if (chatTitle.contains(ContextCompat.getString(this@MainActivity, R.string.chat_title)) && !isPrivate){
@@ -2577,7 +2605,7 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
                         messageList[chatFunction.position-1].fileName,messageList[chatFunction.position-1].fileSize))
 
                     mMessageList.add(sendMessage)
-                    messageList.add(ChatMessage("file:///android_asset/loading.html",false,"chat",false,false))
+                    messageList.add(ChatMessage("file:///android_asset/loading.html",false,"chat",false,false,chatFunction.fileName,chatFunction.fileSize))
                     messageList[chatFunction.position].message = "这是删除过的内容变为空白"
                     messageList[chatFunction.position-1].message = "这是删除过的内容变为空白"
 
@@ -2585,8 +2613,19 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
                     mMessageList[chatFunction.position-1] = "这是删除过的内容变为空白"
                     lifecycleScope.launch(Dispatchers.IO) {
                         isSendMessage.set(true)
-                        chatViewModel.sendQuestion(sendMessage,modelType,isNetWorkThink,isDeepThink,this@MainActivity,userId,imageUrlServiceResultList,
-                            false,apiKey,false,apiService,false,mMessageList,"302.AI",prompt,temperature,searchServiceType,isDeepThink)
+                        if (sendMessage.contains("jpg") || sendMessage.contains("png") || sendMessage.contains("documents")){
+                            val urlLists = StringObjectUtils.extractAllImageUrlsNew(sendMessage)
+                            for (url in urlLists){
+                                netUrlResultList.add(urlMapper.getNetworkUrl(url)!!)
+                            }
+                            chatViewModel.sendQuestion(sendMessage,modelType,isNetWorkThink,isDeepThink,this@MainActivity,userId,netUrlResultList,
+                                false,apiKey,false,apiService,false,mMessageList,"302.AI",prompt,temperature,searchServiceType,isDeepThink)
+                            netUrlResultList.clear()
+                        }else{
+                            chatViewModel.sendQuestion(sendMessage,modelType,isNetWorkThink,isDeepThink,this@MainActivity,userId,imageUrlServiceResultList,
+                                false,apiKey,false,apiService,false,mMessageList,"302.AI",prompt,temperature,searchServiceType,isDeepThink)
+                        }
+
 
                         //标题生成
                         if (chatTitle.contains(ContextCompat.getString(this@MainActivity, R.string.chat_title)) && !isPrivate){
@@ -3746,6 +3785,21 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
     private fun againSendQuestion(sendMessage:String){
         lifecycleScope.launch(Dispatchers.IO) {
             isSendMessage.set(true)
+
+            if (sendMessage.contains("jpg") || sendMessage.contains("png") || sendMessage.contains("documents")){
+                val urlLists = StringObjectUtils.extractAllImageUrlsNew(sendMessage)
+                for (url in urlLists){
+                    netUrlResultList.add(urlMapper.getNetworkUrl(url)!!)
+                }
+                chatViewModel.sendQuestion(sendMessage,modelType,isNetWorkThink,isDeepThink,this@MainActivity,userId,netUrlResultList,
+                    false,apiKey,false,apiService,false,mMessageList,"302.AI",prompt,temperature,searchServiceType,isDeepThink)
+                netUrlResultList.clear()
+            }else{
+                chatViewModel.sendQuestion(sendMessage,modelType,isNetWorkThink,isDeepThink,this@MainActivity,userId,imageUrlServiceResultList,
+                    false,apiKey,false,apiService,false,mMessageList,"302.AI",prompt,temperature,searchServiceType,isDeepThink)
+            }
+
+
             chatViewModel.sendQuestion(sendMessage,modelType,isNetWorkThink,isDeepThink,this@MainActivity,userId,imageUrlServiceResultList,
                 false,apiKey,false,apiService,false,mMessageList,"302.AI",prompt,temperature,searchServiceType,isDeepThink)
 

@@ -158,7 +158,7 @@ class HomeMessageAdapter(private val context:Context,private var chatList: List<
         }*/
         //holder.time.text = chatItem.time
 
-        if (isMoreSelect){
+        /*if (isMoreSelect){
             holder.collectImage.visibility = View.GONE
             holder.selectImage.visibility = View.VISIBLE
         }else{
@@ -167,6 +167,29 @@ class HomeMessageAdapter(private val context:Context,private var chatList: List<
             if (chatItem.isCollected){
                 holder.collectImage.visibility = View.VISIBLE
             }else{
+                holder.collectImage.visibility = View.GONE
+            }
+        }*/
+
+        if (isMoreSelect) {
+            holder.collectImage.visibility = View.GONE
+            // 关键修改：根据当前position是否在selectedList中，同步选中状态
+            if (selectedList.contains(position)) {
+                // 已选中：显示selectedImage，隐藏selectImage
+                holder.selectImage.visibility = View.GONE
+                holder.selectedImage.visibility = View.VISIBLE
+            } else {
+                // 未选中：显示selectImage，隐藏selectedImage
+                holder.selectImage.visibility = View.VISIBLE
+                holder.selectedImage.visibility = View.GONE
+            }
+        } else {
+            // 非多选模式：隐藏选中相关Image，恢复收藏Image逻辑
+            holder.selectImage.visibility = View.GONE
+            holder.selectedImage.visibility = View.GONE
+            if (chatItem.isCollected) {
+                holder.collectImage.visibility = View.VISIBLE
+            } else {
                 holder.collectImage.visibility = View.GONE
             }
         }
@@ -228,7 +251,7 @@ class HomeMessageAdapter(private val context:Context,private var chatList: List<
                 MotionEvent.ACTION_UP -> {
                     // 抬起时记录日志（仅触发1次）
                     Log.e("ceshi", "WebView抬起事件$isMoreSelect,,$isLongPressed,,$isSelectDelect")
-                    if (!isMoreSelect){
+                    /*if (!isMoreSelect){
                         if (!isLongPressed){
                             // 保存上一次点击的位置
                             val previousClickedPosition = lastSelectedPosition
@@ -258,6 +281,39 @@ class HomeMessageAdapter(private val context:Context,private var chatList: List<
                             holder.selectedImage.visibility = View.GONE
                             selectedList.remove(currentPos)
                             listener.onDeleteClick(selectedList)
+                        }
+                    }*/
+                    if (!isMoreSelect) {
+                        if (!isLongPressed){
+                            // 保存上一次点击的位置
+                            val previousClickedPosition = lastSelectedPosition
+                            // 更新当前点击的位置
+                            lastSelectedPosition = position
+
+                            // 通知 RecyclerView 更新之前点击的 item 和当前点击的 item
+                            if (previousClickedPosition != -1 && previousClickedPosition<chatList.size-1) {
+                                notifyItemChanged(previousClickedPosition)
+                            }
+                            notifyItemChanged(position)
+
+                            listener.onItemClick(chatItem)
+                        }
+                    } else {
+                        val currentPos = holder.adapterPosition // 必须用adapterPosition获取实时位置
+                        if (currentPos != RecyclerView.NO_POSITION) { // 防止位置无效
+                            if (holder.selectImage.visibility == View.VISIBLE) {
+                                // 选中：加入selectedList，刷新视图
+                                isSelectDelect = true
+                                selectedList.add(currentPos)
+                                listener.onDeleteClick(selectedList)
+                                notifyItemChanged(currentPos) // 关键：刷新当前Item，同步状态
+                            } else {
+                                // 取消选中：从selectedList移除，刷新视图
+                                isSelectDelect = false
+                                selectedList.remove(currentPos)
+                                listener.onDeleteClick(selectedList)
+                                notifyItemChanged(currentPos) // 关键：刷新当前Item，同步状态
+                            }
                         }
                     }
 
@@ -405,6 +461,11 @@ class HomeMessageAdapter(private val context:Context,private var chatList: List<
 
     fun upDataMoreSelect(isMoreSelect:Boolean){
         this.isMoreSelect = isMoreSelect
+        if (!isMoreSelect) {
+            // 退出多选模式：清空选中列表，刷新所有Item
+            selectedList.clear()
+            notifyDataSetChanged() // 或用notifyItemRangeChanged(0, itemCount)更高效
+        }
     }
 
     // 计算所有Item的时间标签及第一个出现位置（在主线程调用）

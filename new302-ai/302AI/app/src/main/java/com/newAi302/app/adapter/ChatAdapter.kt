@@ -228,6 +228,7 @@ class ChatAdapter(private var messageList: List<ChatMessage>, private val contex
     @SuppressLint("ResourceAsColor", "ClickableViewAccessibility", "SetTextI18n")
     override fun onBindViewHolder(holder: ChatViewHolder, position: Int) {
         val chatMessage = messageList[position]
+        Log.e("ceshi","是否变了：${chatMessage}")
         curPosition = position
         //holder.messageText.text = chatMessage.message
         if (chatMessage.message.contains("file:///android_asset/loading.html")){
@@ -298,28 +299,36 @@ class ChatAdapter(private var messageList: List<ChatMessage>, private val contex
             val urlLists = StringObjectUtils.extractAllImageUrlsNew(chatMessage.message)
             Log.e("ceshi","图片的数量${urlLists}")
             Log.e("chatAdapter","图片信息：${chatMessage.message}")
+            Log.e("chatAdapter","0图片信息：${chatMessage.fileName}")
 //            fileName = chatMessage.fileName
 //            fileSize = chatMessage.fileSize
-            fileNameList = chatMessage.fileName
-            fileSizeList = chatMessage.fileSize
-            Log.e("ceshi","文件名字的数量${fileNameList}")
-            var number = fileNameList.size-1
-            // 按索引遍历，每个索引对应一组 url、fileName、fileSize
-            for (i in 0 until urlLists.size) {
-                val url = urlLists[i]
+            if (chatMessage.fileName.size > 0){
+                Log.e("ceshi","文件名字的数量${chatMessage.fileName}")
+                var number = chatMessage.fileName.size-1
+                // 按索引遍历，每个索引对应一组 url、fileName、fileSize
+                for (i in 0 until urlLists.size) {
+                    val url = urlLists[i]
 
 
-                if (url.contains("media.documents/")) {
-                    // 传递对应索引的 fileName 和 fileSize
-                    val fileName = fileNameList[number]
-                    val fileSize = fileSizeList[number]
-                    number--
-                    addNewImageView(url, holder, context, fileName, fileSize)
-                } else {
-                    // 不传递 fileName 和 fileSize
+                    if (url.contains("media.documents/")) {
+                        // 传递对应索引的 fileName 和 fileSize
+                        val fileName = chatMessage.fileName[number]
+                        val fileSize = chatMessage.fileSize[number]
+                        number--
+                        addNewImageView(url, holder, context, fileName, fileSize)
+                    } else {
+                        // 不传递 fileName 和 fileSize
+                        addNewImageView(url, holder, context, "", "")
+                    }
+                }
+            }else{
+                for (i in 0 until urlLists.size) {
+                    val url = urlLists[i]
                     addNewImageView(url, holder, context, "", "")
                 }
+
             }
+
         }else{
             holder.fileHorScr.visibility = View.GONE
             holder.imageHorScr.visibility = View.GONE
@@ -429,6 +438,9 @@ class ChatAdapter(private var messageList: List<ChatMessage>, private val contex
             ViewAnimationUtils.performClickEffect(it)
             //Toast.makeText(context, "复制", Toast.LENGTH_SHORT).show()
             chatToolItem.doType = "againRobot"
+            chatToolItem.fileName = messageList[position].fileName
+            chatToolItem.fileSize = messageList[position].fileSize
+            Log.e("ceshi","点击重试文件:${ messageList[position].fileName}")
             listener.onBackFunctionClick(chatToolItem)
             // 使用自定义 Toast
             CustomToast.makeText(
