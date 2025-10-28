@@ -91,6 +91,9 @@
     <string name="setting_service_agreement_message">サービス規約</string>
     <string name="setting_log_out_message">ログアウト</string>
     <string name="setting_clear_chat_message">すべてのセッションログをクリアする</string>
+    <string name="setting_light_message">浅色</string>
+    <string name="setting_night_message">深色</string>
+    <string name="setting_system_message">跟随システム统</string>
 
     <string name="announcement_details_title_message">発表内容</string>
     <string name="announcement_details_one_message">302.AIは、AI技術交流グループへの参加を心からお誘いいたします。</string>

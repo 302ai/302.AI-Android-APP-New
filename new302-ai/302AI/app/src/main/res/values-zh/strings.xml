@@ -91,6 +91,9 @@
     <string name="setting_service_agreement_message">服务协议</string>
     <string name="setting_log_out_message">退出登录</string>
     <string name="setting_clear_chat_message">清空所有会话记录</string>
+    <string name="setting_light_message">浅色</string>
+    <string name="setting_night_message">深色</string>
+    <string name="setting_system_message">跟随系统</string>
 
     <string name="announcement_details_title_message">公告详情</string>
     <string name="announcement_details_one_message">302.AI诚邀您加入AI技术交流群</string>

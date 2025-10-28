@@ -258,7 +258,7 @@ class SettingActivity : BaseActivity(), PayDetailsDialog.OnButtonClickListener {
                 }
 
                 "light" -> {
-                    binding.systemThemeTv.text = "light"
+                    binding.systemThemeTv.text = getString(R.string.setting_light_message)
                     ThemeUtil.saveThemeSetting(this,ThemeUtil.THEME_LIGHT)
                     ThemeUtil.changeTheme(this,ThemeUtil.THEME_LIGHT)
                     // 2. 重启当前Activity，使新上下文生效
@@ -269,9 +269,20 @@ class SettingActivity : BaseActivity(), PayDetailsDialog.OnButtonClickListener {
                 }
 
                 "night" -> {
-                    binding.systemThemeTv.text = "night"
+                    binding.systemThemeTv.text = getString(R.string.setting_night_message)
                     ThemeUtil.saveThemeSetting(this,ThemeUtil.THEME_NIGHT)
                     ThemeUtil.changeTheme(this,ThemeUtil.THEME_NIGHT)
+                    // 2. 重启当前Activity，使新上下文生效
+                    val intent = intent // 获取当前Activity的启动意图
+                    finish() // 销毁当前Activity
+                    startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)) // 重建Activity
+                    overridePendingTransition(0, 0) // 可选：去除切换动画
+                }
+
+                "follow_system" -> {
+                    binding.systemThemeTv.text = getString(R.string.setting_system_message)
+                    ThemeUtil.saveThemeSetting(this,ThemeUtil.THEME_FOLLOW_SYSTEM)
+                    ThemeUtil.changeTheme(this,ThemeUtil.THEME_FOLLOW_SYSTEM)
                     // 2. 重启当前Activity，使新上下文生效
                     val intent = intent // 获取当前Activity的启动意图
                     finish() // 销毁当前Activity
@@ -356,9 +367,11 @@ class SettingActivity : BaseActivity(), PayDetailsDialog.OnButtonClickListener {
         val customizeTheme = ThemeUtil.getSavedTheme(this)
         Log.e("ceshi","获取的主题是:$customizeTheme")
         if (customizeTheme == ThemeUtil.THEME_LIGHT){
-            binding.systemThemeTv.text = "light"
+            binding.systemThemeTv.text = getString(R.string.setting_light_message)
+        }else if (customizeTheme == ThemeUtil.THEME_NIGHT){
+            binding.systemThemeTv.text = getString(R.string.setting_night_message)
         }else{
-            binding.systemThemeTv.text = "night"
+            binding.systemThemeTv.text = getString(R.string.setting_system_message)
         }
 
 
@@ -373,7 +386,9 @@ class SettingActivity : BaseActivity(), PayDetailsDialog.OnButtonClickListener {
         }
         binding.systemThemeCons.setOnClickListener {
             //SystemUtils.openThemeSettings(this)
-            val options = mutableListOf("light","night")
+            val options = mutableListOf(getString(R.string.setting_light_message),
+                getString(R.string.setting_night_message),
+                getString(R.string.setting_system_message))
             dialogUtils.setupPopupWindow(options,"systemThemeList",this)
             dialogUtils.showPopup(binding.systemThemeLine)
         }
@@ -622,13 +637,13 @@ class SettingActivity : BaseActivity(), PayDetailsDialog.OnButtonClickListener {
 
     override fun onResume() {
         super.onResume()
-        val systemThem = SystemUtils.getSystemTheme(this)
+        /*val systemThem = SystemUtils.getSystemTheme(this)
         Log.e("ceshi","系统主题,$systemThem")
         if (systemThem == "浅色模式"){
             binding.systemThemeTv.text = "light"
         }else if (systemThem == "深色模式"){
             binding.systemThemeTv.text = "night"
-        }
+        }*/
 
         lifecycleScope.launch((Dispatchers.IO)) {
 

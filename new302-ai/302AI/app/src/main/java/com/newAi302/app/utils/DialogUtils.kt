@@ -220,6 +220,11 @@ class DialogUtils(private val onDeleteClickListener: (String) -> Unit) {
                                 //onDeleteClickListener(ContextCompat.getString(context, R.string.language_en_message))
                             }
 
+                            2 -> {
+                                onDeleteClickListener("follow_system")
+                                //onDeleteClickListener(ContextCompat.getString(context, R.string.language_en_message))
+                            }
+
                         }
                     }
                     "ResourceActivity" -> {
