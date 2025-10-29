@@ -287,6 +287,8 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
 
     private val urlMapper = ImageUrlMapper(myApplicationContext)
 
+    private var isOpenFile = false
+
     // 保存 chatRecyclerView 的初始布局参数
     private var initialRecyclerLayoutParams: RelativeLayout.LayoutParams? = null
 
@@ -314,6 +316,7 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
         setTheme(R.style.Theme_Ai302)
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        Log.e("ceshi","onCreate")
         //setContentView(R.layout.activity_main)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -382,6 +385,12 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
 
 
         Log.e("ceshi","0是否息屏$isScreenTurnedOff")
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        Log.e("ceshi","onRestart")
+
     }
 
     @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
@@ -1792,6 +1801,16 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
             }
         }*/
         Log.e("ceshi","回调返回值：$requestCode,,$resultCode,,$data")
+        if (requestCode == 1002 && resultCode == 0 && data == null){
+            if (imageUrlLocalList.isNotEmpty()){
+                for (url in imageUrlLocalList){
+                    if (url.contains("documents")){
+                        showFileImageView(url,true)
+                    }
+                }
+
+            }
+        }
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null) {
             val selectedImageUri: Uri = data.data!!
             isPicture = true
@@ -1842,6 +1861,7 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
         }else if (requestCode == FILE_IMAGE_REQUEST && resultCode == RESULT_OK){
             isPicture = false
             isFile = true
+            isOpenFile = false
             data?.data?.let { uri ->
                 selectedFileUri = uri
                 urlLocal = "$uri"
@@ -2001,6 +2021,7 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
                     messageList.clear()
                     mMessageList.clear()
                     isHaveTitle = false
+                    imageCounter = 0
 
                     binding.hideImage.visibility = View.VISIBLE
                     //isPrivate = false
@@ -2375,6 +2396,7 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
     override fun onItemClick(chatItem: ChatItemRoom) {
         Log.e("ceshi","点击聊天历史列表：$chatItem")
         moreFunctionQuantity = 0
+        imageCounter = 0
         isSendMessage.set(false)
         binding.hideImage.visibility = View.GONE
         messageList.clear()
@@ -2803,6 +2825,7 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
 
     // 打开文件选择器
     private fun openFilePicker() {
+        isOpenFile = true
         val intent = Intent(Intent.ACTION_GET_CONTENT)
         intent.type = "*/*" // 所有类型的文件
         intent.addCategory(Intent.CATEGORY_OPENABLE)
@@ -3093,6 +3116,27 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
 
     }
 
+    private fun showFileImageView(imageUrlLocal:String,mIsfile:Boolean) {
+        Log.e("ceshi","文件添加视图$imageCounter")
+        imageCounter--
+        binding.imageLineHorScroll.visibility = View.VISIBLE
+        val removableLayout = RemovableImageLayout(this,listenerOver=this).apply {
+            layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            ).apply {
+                bottomMargin = 4.dpToPx()
+            }
+        }
+
+        // 设置图片（示例：加载随机图片）
+        removableLayout.setImageResource(imageUrlLocal,imageCounter,mIsfile,fileName, fileSize)
+
+        // 添加到容器
+        binding.imageLine.addView(removableLayout)
+
+    }
+
     private fun addNewImageViewShow(imageUrlLocal:String,count:Int) {
         Log.e("ceshi","0添加视图")
         binding.imageLineHorScroll.visibility = View.VISIBLE
@@ -3176,6 +3220,7 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
     }
 
     override fun onDeleteImagePosition(position: Int) {
+        Log.e("ceshi","删除显示：${imageUrlLocalList},,${imageUrlServiceResultList},,${mImageUrlServiceResultList},,$position")
         if (imageUrlLocalList.size == imageUrlServiceResultList.size){
             imageUrlServiceResultList.remove(mImageUrlServiceResultList[position])
         }

@@ -102,6 +102,19 @@ class ModelTypeManager302aiAdapter(private val context:Context, private var mode
         } else {
             holder.textTitleTv.visibility = View.GONE
         }
+
+
+        // 关键：强制刷新ItemView的布局，解决高度计算错误  处理更新数据时会出现空白区域
+        holder.swipeLayout.post {
+            try {
+                val field = SwipeMenuLayout::class.java.getDeclaredField("mHeight")
+                field.isAccessible = true
+                field.set(holder.swipeLayout, 0) // 重置缓存高度为0
+                holder.swipeLayout.requestLayout() // 重新测量
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
         /*lifecycleScope.launch(Dispatchers.IO) {
             val modelData = chatDatabase.chatDao().getModelById(modelType)
             if (modelData != null){
@@ -190,6 +203,7 @@ class ModelTypeManager302aiAdapter(private val context:Context, private var mode
 //        val collectImage: ImageView = itemView.findViewById(R.id.collectImage)
 //        val selectImage: ImageView = itemView.findViewById(R.id.selectImage)
 //        val selectedImage: ImageView = itemView.findViewById(R.id.selectedImage)
+        val swipeLayout: SwipeMenuLayout = itemView.findViewById(R.id.swipeLayout)
     }
 
     fun upDataMoreSelect(isMoreSelect:Boolean){

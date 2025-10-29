@@ -189,7 +189,7 @@
                         android:text="@string/voice_mike_message"
                         android:textSize="14sp"
                         android:textStyle="bold"
-                        android:textColor="@color/white"
+                        android:textColor="@color/white1"
                         android:layout_marginLeft="6dp"
                         android:layout_gravity="center"/>
                 </LinearLayout>
@@ -231,7 +231,6 @@
                 android:id="@+id/bottomConst"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
                 android:background="@drawable/shape_select_site_chat_edit_bg_write"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -448,6 +447,7 @@
                     android:textSize="12sp"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
+                    android:layout_marginBottom="16dp"
                     android:textColor="@color/textColor2"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
