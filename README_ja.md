@@ -9,7 +9,7 @@
 <em>302.AIは、強力なAIチャットアプリであり、あなたに新しい会話体験を提供します。Deepseek・Qwen・ChatGPTなど、市場を代表する各種先端AIモデルを集約し、最先端AI技術の魅力をワンストップでお楽しみいただけます。</em>
 </p>
 
-<p align="center"><a href="https://github.com/302ai/302.AI-Android-APP-New/releases/download/v1.0.0/302.AI_Android_New_v1.0.0.apk" target="blank"><img src="https://file.302.ai/gpt/imgs/20250725/f79719888cf74f9c935432b7f882af93.jpg" width="20%"/></a></p >
+<p align="center"><a href="https://github.com/302ai/302.AI-Android-APP-New/releases" target="blank"><img src="https://file.302.ai/gpt/imgs/20250725/f79719888cf74f9c935432b7f882af93.jpg" width="20%"/></a></p >
 
 <div align="center">
 
@@ -64,7 +64,7 @@
 
 #### 方法1：GitHubよりダウンロード
 
-[ダウンロードする](https://github.com/302ai/302.AI-Android-APP-New/releases/download/v1.0.0/302.AI_Android_New_v1.0.0.apk)
+[ダウンロードする](https://github.com/302ai/302.AI-Android-APP-New/releases)
 
 #### 方法2：開発者のインストール
 ```bash

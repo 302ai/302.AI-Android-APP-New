@@ -9,7 +9,7 @@
 <em>302.AI is a powerful AI smart chat application, bringing you a new conversation experience. We integrate various top mainstream AI models on the market, including Deepseek, Qwen, ChatGPT, etc., allowing you to enjoy cutting-edge AI technology in one place.</em>
 </p>
 
-<p align="center"><a href="https://github.com/302ai/302.AI-Android-APP-New/releases/download/v1.0.0/302.AI_Android_New_v1.0.0.apk" target="blank"><img src="https://file.302.ai/gpt/imgs/20250725/f79719888cf74f9c935432b7f882af93.jpg" width="20%"/></a></p >
+<p align="center"><a href="https://github.com/302ai/302.AI-Android-APP-New/releases" target="blank"><img src="https://file.302.ai/gpt/imgs/20250725/f79719888cf74f9c935432b7f882af93.jpg" width="20%"/></a></p >
 
 <div align="center">
 
@@ -65,7 +65,7 @@ In the new version of the 302.AI App, we have comprehensively upgraded the inter
 
 #### Method 1: Download via GitHub
 
-[Click to Download](https://github.com/302ai/302.AI-Android-APP-New/releases/download/v1.0.0/302.AI_Android_New_v1.0.0.apk)
+[Click to Download](https://github.com/302ai/302.AI-Android-APP-New/releases)
 
 #### Method 2: Developer Installation
 ```bash
