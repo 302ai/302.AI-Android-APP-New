@@ -5,6 +5,7 @@ import android.app.Dialog
 import android.content.res.Configuration
 import android.content.res.Resources
 import android.os.Bundle
+import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.widget.TextView
@@ -18,6 +19,7 @@ import com.newAi302.app.widget.dialog.base.DialogFactory
 import com.google.android.material.snackbar.Snackbar
 import com.newAi302.app.utils.ActivityManager
 import com.newAi302.app.utils.LanguageUtil
+import com.newAi302.app.utils.ThemeUtil
 
 
 /**
@@ -35,6 +37,17 @@ abstract class BaseActivity<B : ViewBinding?> : AppCompatActivity(), BaseIView {
     private var loadingDialog: Dialog? = null
     private var mStartTime: Long = 0
     override fun onCreate(savedInstanceState: Bundle?) {
+        val customizeTheme = ThemeUtil.getSavedTheme(this)
+        // 初始化SharedPreferences
+        //sharedPreferences = getSharedPreferences("AppPrefs", MODE_PRIVATE)
+        Log.e("ceshi","获取的主题是:$customizeTheme")
+        if (customizeTheme == ThemeUtil.THEME_LIGHT){
+            ThemeUtil.changeTheme(this, ThemeUtil.THEME_LIGHT)
+        }else if (customizeTheme == ThemeUtil.THEME_NIGHT){
+            ThemeUtil.changeTheme(this, ThemeUtil.THEME_NIGHT)
+        }else{
+            ThemeUtil.changeTheme(this, ThemeUtil.THEME_FOLLOW_SYSTEM)
+        }
         // 在 onCreate 前应用语言设置
         applyLanguage()
         // 将当前Activity添加到管理器

@@ -1029,7 +1029,8 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
         binding.leftDeleteImage.setOnClickListener {
             ViewAnimationUtils.performClickEffect(it)
             if (isSendMessageAll.get()){
-                adapterHistory.upDataMoreSelect(false)
+                //adapterHistory.upDataMoreSelect(false)
+                Log.e("ceshi","要删除的多个位置${selectedList}")
                 // 1. 降序排序选中的位置（保证从后往前删，减少位置偏移影响，但仍需后续优化）
                 val sortedPositions = selectedList.sortedDescending()
 
@@ -1932,8 +1933,8 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
             }
         }
         else{
-            isPicture = false
-            isFile = false
+//            isPicture = false
+//            isFile = false
         }
 
     }

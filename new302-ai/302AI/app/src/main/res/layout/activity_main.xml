@@ -92,7 +92,7 @@
             android:layout_marginRight="15dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/topTitleConst"
-            app:layout_constraintBottom_toTopOf="@+id/bottomConst">
+            app:layout_constraintBottom_toTopOf="@+id/imageLineHorScroll">
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/chatRecyclerView"
                 android:layout_width="match_parent"

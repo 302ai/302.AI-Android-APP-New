@@ -35,6 +35,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <View
+        android:id="@+id/dialogLine"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginLeft="12dp"

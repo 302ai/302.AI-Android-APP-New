@@ -56,6 +56,11 @@ class DialogUtils(private val onDeleteClickListener: (String) -> Unit) {
                 when(type){
                     "leftHistory" -> {
                         holder.getView<ImageView>(R.id.chatListToolImage).visibility = View.GONE
+                        when(holder.position){
+                            3 -> {
+                                holder.getView<View>(R.id.dialogLine).visibility = View.GONE
+                            }
+                        }
                     }
                     "moreLine" -> {
                         when(holder.position){
@@ -79,6 +84,7 @@ class DialogUtils(private val onDeleteClickListener: (String) -> Unit) {
                             }
                             1 -> {
                                 holder.getView<ImageView>(R.id.chatListToolImage).setImageResource(R.drawable.icon_choose_text)
+                                holder.getView<View>(R.id.dialogLine).visibility = View.GONE
                             }
 
                         }
@@ -95,6 +101,7 @@ class DialogUtils(private val onDeleteClickListener: (String) -> Unit) {
                             }
                             2 -> {
                                 holder.getView<ImageView>(R.id.chatListToolImage).setImageResource(R.drawable.icon_new_again1)
+                                holder.getView<View>(R.id.dialogLine).visibility = View.GONE
                             }
                         }
                     }
@@ -114,6 +121,29 @@ class DialogUtils(private val onDeleteClickListener: (String) -> Unit) {
                             }
                             3 -> {
                                 holder.getView<ImageView>(R.id.chatListToolImage).setImageResource(R.drawable.icon_chat_add_kb)
+                                holder.getView<View>(R.id.dialogLine).visibility = View.GONE
+                            }
+                        }
+                    }
+
+                    "settingTitleGetModelTypeList" -> {
+                        when(holder.position){
+                            1 -> {
+                                holder.getView<View>(R.id.dialogLine).visibility = View.GONE
+                            }
+                        }
+                    }
+                    "languageTypeList" -> {
+                        when(holder.position){
+                            2 -> {
+                                holder.getView<View>(R.id.dialogLine).visibility = View.GONE
+                            }
+                        }
+                    }
+                    "systemThemeList" -> {
+                        when(holder.position){
+                            2 -> {
+                                holder.getView<View>(R.id.dialogLine).visibility = View.GONE
                             }
                         }
                     }

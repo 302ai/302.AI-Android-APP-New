@@ -2,12 +2,16 @@ package com.newAi302.app.base
 
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import com.newAi302.app.MyApplication
 import com.newAi302.app.R
 import com.newAi302.app.utils.ActivityManager
 import com.newAi302.app.utils.LanguageUtil
+import com.newAi302.app.utils.ThemeUtil
 
 /**
  * author : lzh
@@ -18,7 +22,21 @@ import com.newAi302.app.utils.LanguageUtil
  */
 open class BaseActivity: AppCompatActivity() {
     private var currentLanguage: String? = null
+    lateinit var sharedPreferences: SharedPreferences
+    private  var isFirst = true
     override fun onCreate(savedInstanceState: Bundle?) {
+        val customizeTheme = ThemeUtil.getSavedTheme(this)
+        // 初始化SharedPreferences
+        //sharedPreferences = getSharedPreferences("AppPrefs", MODE_PRIVATE)
+        Log.e("ceshi","获取的主题是:$customizeTheme")
+        if (customizeTheme == ThemeUtil.THEME_LIGHT){
+            ThemeUtil.changeTheme(this, ThemeUtil.THEME_LIGHT)
+        }else if (customizeTheme == ThemeUtil.THEME_NIGHT){
+            ThemeUtil.changeTheme(this, ThemeUtil.THEME_NIGHT)
+        }else{
+            ThemeUtil.changeTheme(this, ThemeUtil.THEME_FOLLOW_SYSTEM)
+        }
+
         setTheme(R.style.Theme_Ai302)
         // 在 onCreate 前应用语言设置
         applyLanguage()

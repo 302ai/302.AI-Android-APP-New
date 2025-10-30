@@ -15,6 +15,9 @@ object ThemeUtil {
     const val THEME_NIGHT = "night" //
     const val THEME_FOLLOW_SYSTEM = "follow_system" // 跟随系统模式
 
+    // 保存当前主题的缓存（避免每次都重建）
+    private var currentTheme: String = THEME_FOLLOW_SYSTEM
+
     // ======================== 新增：深色模式相关方法 ========================
     /**
      * 1. 保存用户选择的主题模式（到 SharedPreferences）
@@ -53,6 +56,12 @@ object ThemeUtil {
      * 4. 切换主题模式（并重启当前Activity使生效）
      */
     fun changeTheme(activity: Activity, themeMode: String) {
+        // 关键：如果目标主题与当前主题一致，直接返回，不做任何操作
+        if (themeMode == currentTheme) {
+            return
+        }
+        // 否则，更新缓存并重建 Activity
+        currentTheme = themeMode
         // 1. 保存主题设置
         saveThemeSetting(activity, themeMode)
         // 2. 应用主题

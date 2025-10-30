@@ -205,6 +205,8 @@ class ProtocolActivity : BaseActivity() {
             "      margin: 0 auto;\n" +
             "      max-width: 800px;\n" +
             "      padding: 20px;\n" +
+            "      background-color: #FFFFFF\n;" +
+            "      color: #000000;\n;" +
             "    }\n" +
             "\n" +
             "    h1,\n" +
@@ -227,6 +229,15 @@ class ProtocolActivity : BaseActivity() {
             "    li {\n" +
             "      margin-bottom: 8px;\n" +
             "    }\n" +
+            "    @media (prefers-color-scheme: dark) {\n" +
+            "body {\n" +
+            "background-color: #121212; \n" +
+            "color: #FFFFFF; \n" +
+            "}\n" +
+            "h1, h2, h3 {\n" +
+            "color: #FFFFFF;\n" +
+            "}\n" +
+            "}\n" +
             "  </style>\n" +
             "</head>\n" +
             "\n" +
@@ -333,6 +344,8 @@ class ProtocolActivity : BaseActivity() {
             "      margin: 0 auto;\n" +
             "      max-width: 800px;\n" +
             "      padding: 20px;\n" +
+            "      background-color: #FFFFFF\n;" +
+            "      color: #000000;\n;" +
             "    }\n" +
             "\n" +
             "    h1,\n" +
@@ -355,6 +368,15 @@ class ProtocolActivity : BaseActivity() {
             "    li {\n" +
             "      margin-bottom: 8px;\n" +
             "    }\n" +
+            "    @media (prefers-color-scheme: dark) {\n" +
+            "body {\n" +
+            "background-color: #121212; \n" +
+            "color: #FFFFFF; \n" +
+            "}\n" +
+            "h1, h2, h3 {\n" +
+            "color: #FFFFFF;\n" +
+            "}\n" +
+            "}\n" +
             "  </style>\n" +
             "</head>\n" +
             "\n" +
@@ -463,6 +485,8 @@ class ProtocolActivity : BaseActivity() {
             "      margin: 0 auto;\n" +
             "      max-width: 800px;\n" +
             "      padding: 20px;\n" +
+            "      background-color: #FFFFFF\n;" +
+            "      color: #000000;\n;" +
             "    }\n" +
             "\n" +
             "    h1,\n" +
@@ -485,6 +509,15 @@ class ProtocolActivity : BaseActivity() {
             "    li {\n" +
             "      margin-bottom: 8px;\n" +
             "    }\n" +
+            "    @media (prefers-color-scheme: dark) {\n" +
+            "body {\n" +
+            "background-color: #121212; \n" +
+            "color: #FFFFFF; \n" +
+            "}\n" +
+            "h1, h2, h3 {\n" +
+            "color: #FFFFFF;\n" +
+            "}\n" +
+            "}\n" +
             "  </style>\n" +
             "</head>\n" +
             "\n" +
@@ -592,6 +625,8 @@ class ProtocolActivity : BaseActivity() {
             "      margin: 0 auto;\n" +
             "      max-width: 800px;\n" +
             "      padding: 20px;\n" +
+            "      background-color: #FFFFFF\n;" +
+            "      color: #000000;\n;" +
             "    }\n" +
             "\n" +
             "    h1,\n" +
@@ -614,6 +649,15 @@ class ProtocolActivity : BaseActivity() {
             "    li {\n" +
             "      margin-bottom: 8px;\n" +
             "    }\n" +
+            "    @media (prefers-color-scheme: dark) {\n" +
+            "body {\n" +
+            "background-color: #121212; \n" +
+            "color: #FFFFFF; \n" +
+            "}\n" +
+            "h1, h2, h3 {\n" +
+            "color: #FFFFFF;\n" +
+            "}\n" +
+            "}\n" +
             "  </style>\n" +
             "</head>\n" +
             "<body>\n" +
@@ -766,6 +810,8 @@ class ProtocolActivity : BaseActivity() {
             "      margin: 0 auto;\n" +
             "      max-width: 800px;\n" +
             "      padding: 20px;\n" +
+            "      background-color: #FFFFFF\n;" +
+            "      color: #000000;\n;" +
             "    }\n" +
             "\n" +
             "    h1,\n" +
@@ -788,6 +834,15 @@ class ProtocolActivity : BaseActivity() {
             "    li {\n" +
             "      margin-bottom: 8px;\n" +
             "    }\n" +
+            "    @media (prefers-color-scheme: dark) {\n" +
+            "body {\n" +
+            "background-color: #121212; \n" +
+            "color: #FFFFFF; \n" +
+            "}\n" +
+            "h1, h2, h3 {\n" +
+            "color: #FFFFFF;\n" +
+            "}\n" +
+            "}\n" +
             "  </style>\n" +
             "</head>\n" +
             "<body>\n" +
@@ -940,6 +995,8 @@ class ProtocolActivity : BaseActivity() {
             "      margin: 0 auto;\n" +
             "      max-width: 800px;\n" +
             "      padding: 20px;\n" +
+            "      background-color: #FFFFFF\n;" +
+            "      color: #000000;\n;" +
             "    }\n" +
             "\n" +
             "    h1,\n" +
@@ -962,6 +1019,15 @@ class ProtocolActivity : BaseActivity() {
             "    li {\n" +
             "      margin-bottom: 8px;\n" +
             "    }\n" +
+            "    @media (prefers-color-scheme: dark) {\n" +
+            "body {\n" +
+            "background-color: #121212; \n" +
+            "color: #FFFFFF; \n" +
+            "}\n" +
+            "h1, h2, h3 {\n" +
+            "color: #FFFFFF;\n" +
+            "}\n" +
+            "}\n" +
             "  </style>\n" +
             "</head>\n" +
             "<body>\n" +

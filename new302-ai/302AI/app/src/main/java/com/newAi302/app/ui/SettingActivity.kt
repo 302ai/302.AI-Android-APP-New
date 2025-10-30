@@ -1762,6 +1762,7 @@ class SettingActivity : BaseActivity(), PayDetailsDialog.OnButtonClickListener {
             "            line-height: 1.6;\n" +
             "            margin: 20px;\n" +
             "            color: #333;\n" +
+            "      background-color: #f5f5f5\n;" +
             "        }\n" +
             "        .container {\n" +
             "            max-width: 800px;\n" +
@@ -1795,6 +1796,21 @@ class SettingActivity : BaseActivity(), PayDetailsDialog.OnButtonClickListener {
             "        .highlight {\n" +
             "            font-weight: bold;\n" +
             "        }\n" +
+            "    @media (prefers-color-scheme: dark) {\n" +
+            "body {\n" +
+            "background-color: #FFFFFF; \n" +
+            "color: #FFFFFF; \n" +
+            "}\n" +
+            ".container {\n" +
+    "background-color: #1e1e1e; \n" +
+    "border: 1px solid #333;\n" +
+    "box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); \n" +
+            "}\n" +
+            "h1, h2,h3 {\n" +
+            "color: #FFFFFF;\n" +
+            "}\n" +
+
+            "}\n" +
             "    </style>\n" +
             "</head>\n" +
             "<body>\n" +
@@ -1875,6 +1891,7 @@ class SettingActivity : BaseActivity(), PayDetailsDialog.OnButtonClickListener {
             "            line-height: 1.6;\n" +
             "            margin: 20px;\n" +
             "            color: #333;\n" +
+            "      background-color: #f5f5f5\n;" +
             "        }\n" +
             "        .container {\n" +
             "            max-width: 800px;\n" +
@@ -1908,6 +1925,21 @@ class SettingActivity : BaseActivity(), PayDetailsDialog.OnButtonClickListener {
             "        .highlight {\n" +
             "            font-weight: bold;\n" +
             "        }\n" +
+            "    @media (prefers-color-scheme: dark) {\n" +
+            "body {\n" +
+            "background-color: #FFFFFF; \n" +
+            "color: #FFFFFF; \n" +
+            "}\n" +
+            ".container {\n" +
+            "background-color: #1e1e1e; \n" +
+            "border: 1px solid #333;\n" +
+            "box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); \n" +
+            "}\n" +
+            "h1, h2,h3 {\n" +
+            "color: #FFFFFF;\n" +
+            "}\n" +
+
+            "}\n" +
             "    </style>\n" +
             "</head>\n" +
             "<body>\n" +
@@ -1988,6 +2020,7 @@ class SettingActivity : BaseActivity(), PayDetailsDialog.OnButtonClickListener {
             "            line-height: 1.6;\n" +
             "            margin: 20px;\n" +
             "            color: #333;\n" +
+            "      background-color: #f5f5f5\n;" +
             "        }\n" +
             "        .container {\n" +
             "            max-width: 800px;\n" +
@@ -2021,6 +2054,21 @@ class SettingActivity : BaseActivity(), PayDetailsDialog.OnButtonClickListener {
             "        .highlight {\n" +
             "            font-weight: bold;\n" +
             "        }\n" +
+            "    @media (prefers-color-scheme: dark) {\n" +
+            "body {\n" +
+            "background-color: #FFFFFF; \n" +
+            "color: #FFFFFF; \n" +
+            "}\n" +
+            ".container {\n" +
+            "background-color: #1e1e1e; \n" +
+            "border: 1px solid #333;\n" +
+            "box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); \n" +
+            "}\n" +
+            "h1, h2,h3 {\n" +
+            "color: #FFFFFF;\n" +
+            "}\n" +
+
+            "}\n" +
             "    </style>\n" +
             "</head>\n" +
             "<body>\n" +

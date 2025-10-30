@@ -116,7 +116,7 @@
                     android:id="@+id/versionNowTV"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="1.0.0"
+                    android:text="1.0.1"
                     android:textSize="16sp"
                     android:textColor="@color/textSettingColor"/>
 
@@ -190,7 +190,7 @@
                     android:id="@+id/versionNewTV"
                     android:layout_width="70dp"
                     android:layout_height="wrap_content"
-                    android:text="1.0.0"
+                    android:text="1.0.1"
                     android:textAlignment="center"
                     android:background="@drawable/shape_select_site_bg_red_setting_line"
                     android:textSize="16sp"

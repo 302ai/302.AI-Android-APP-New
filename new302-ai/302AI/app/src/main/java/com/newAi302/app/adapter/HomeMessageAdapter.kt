@@ -300,6 +300,7 @@ class HomeMessageAdapter(private val context:Context,private var chatList: List<
                         }
                     } else {
                         val currentPos = holder.adapterPosition // 必须用adapterPosition获取实时位置
+                        Log.e("ceshi","防止位置无效：$currentPos")
                         if (currentPos != RecyclerView.NO_POSITION) { // 防止位置无效
                             if (holder.selectImage.visibility == View.VISIBLE) {
                                 // 选中：加入selectedList，刷新视图
