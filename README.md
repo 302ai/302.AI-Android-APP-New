@@ -58,6 +58,9 @@ In the new version of the 302.AI App, we have comprehensively upgraded the inter
 - 🔍 "Thinking" mode
 - 📝 Markdown rendering
 
+### 🎨 User Experience
+- 🌙 Light and Dark Theme Switching
+- 🌍 Multi-Language Support
 
 ## 🚀 Quick Start
 
