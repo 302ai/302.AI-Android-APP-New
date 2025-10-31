@@ -9,6 +9,7 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.webkit.SslErrorHandler
 import android.webkit.WebResourceError
@@ -143,7 +144,7 @@ class ProtocolActivity : BaseActivity() {
     }
 
 
-    @SuppressLint("MissingInflatedId")
+    @SuppressLint("MissingInflatedId", "ClickableViewAccessibility")
     private fun showBottomPayProtocolDialog(context: Context, isUse:Boolean){
         // 使用 requireContext() 获取正确的 Context
         val bottomSheetDialog = BottomSheetDialog(context)
@@ -160,6 +161,38 @@ class ProtocolActivity : BaseActivity() {
         val titleProtocolTv = view.findViewById<TextView>(R.id.titleProtocolTv)
         titleProtocolTv.text = ""
         val payDialogSomeBackLine = view.findViewById<LinearLayout>(R.id.payDialogSomeBackLine)
+
+        // 处理WebView滑动与BottomSheet关闭的冲突
+        var startY = 0f // 记录触摸起始Y坐标
+        payProtocolWeb.setOnTouchListener { v, event ->
+            when (event.action) {
+                MotionEvent.ACTION_DOWN -> {
+                    // 记录触摸起始位置
+                    startY = event.y
+                }
+                MotionEvent.ACTION_MOVE -> {
+                    val currentY = event.y
+                    val dy = currentY - startY // 滑动距离（正数表示向下滑动）
+
+                    // 核心逻辑：判断是否需要阻止父容器（BottomSheet）拦截事件
+                    if (dy > 0 && payProtocolWeb.scrollY > 0) {
+                        // 向下滑动，且WebView未滑到顶部 → 阻止BottomSheet拦截事件（让WebView自己滚动）
+                        v.parent.requestDisallowInterceptTouchEvent(true)
+                    } else {
+                        // 其他情况（向上滑动、WebView已在顶部）→ 允许BottomSheet拦截事件
+                        v.parent.requestDisallowInterceptTouchEvent(false)
+                    }
+                    // 更新起始位置
+                    startY = currentY
+                }
+                MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
+                    // 触摸结束，恢复父容器拦截权限
+                    v.parent.requestDisallowInterceptTouchEvent(false)
+                }
+            }
+            false // 不消费事件，让WebView正常处理滚动
+        }
+
         if (isUse){
             when (defaultSystemLanguage) {
                 LanguageUtil.LANGUAGE_ZH -> payProtocolWeb.loadDataWithBaseURL(null, useMsg, "text/html", "utf-8", null)

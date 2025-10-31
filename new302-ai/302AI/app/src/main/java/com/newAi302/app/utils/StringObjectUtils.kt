@@ -247,6 +247,36 @@ object StringObjectUtils {
         }
     }
 
+    fun convertLatexFormat1(text: String): String {
+        // 精准匹配 LaTeX 语法：
+        // 1. \( 行内公式 \)  2. \[ 块级公式 \]  3. $ 行内公式 $
+        val latexRegex = Regex(
+            // 匹配 \(...\)（非贪婪，不跨换行）
+            "\\\\ \\( (.*?) \\\\ \\) | " +
+                    // 匹配 \[...\]（非贪婪，可跨换行）
+                    "\\\\ \\[ ([\\s\\S]*?) \\\\ \\] | " +
+                    // 匹配 $...$（非贪婪，不跨换行）
+                    "\\$ (.*?) \\$",
+            RegexOption.COMMENTS // 忽略正则中的空格，提高可读性
+        )
+
+        return text.replace(latexRegex) { match ->
+            val group1 = match.groupValues[1] // \(...\) 内容
+            val group2 = match.groupValues[2] // \[...\] 内容
+            val group3 = match.groupValues[3] // $...$ 内容
+
+            when {
+                // 处理 \[...\]（块级公式，保留内部换行）
+                group2.isNotEmpty() -> "$$${group2}$$"
+                // 处理 \(...\) 或 $...$（行内公式，去除内部换行，避免影响布局）
+                group1.isNotEmpty() -> "$$${group1.replace("\n", "")}$$"
+                group3.isNotEmpty() -> "$$${group3.replace("\n", "")}$$"
+                // 无匹配项（理论上不会走到这里）
+                else -> match.value
+            }
+        }
+    }
+
 
     /**
      * 自动识别并转换公式格式

@@ -856,7 +856,7 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
                         if(chatTitle != ContextCompat.getString(this@MainActivity, R.string.chat_title) && isHaveTitle){
                             //直接插入，做了title唯一性，如果有了就替换成最新的
                             chatDatabase.chatDao().insertChat(ChatItemRoom(0,chatTitle, messageList, chatTime,modelType,isDeepThink,isNetWorkThink,userId,isMe,false,isR1Fusion))
-                            //chatDatabase.chatDao().insertChat(ChatItemRoom(0,chatTitle, messageList, "2025-10-21 16:54:59",modelType,isDeepThink,isNetWorkThink,userId,isMe,false,isR1Fusion))
+                            //chatDatabase.chatDao().insertChat(ChatItemRoom(0,chatTitle, messageList, "2025-10-30 16:54:59",modelType,isDeepThink,isNetWorkThink,userId,isMe,false,isR1Fusion))
                         }
                         else if (messageList.size>1){
                             chatDatabase.chatDao().insertChat(ChatItemRoom(0,chatTitle, messageList, chatTime,modelType,isDeepThink,isNetWorkThink,userId,isMe,false,isR1Fusion))
@@ -1063,6 +1063,10 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
                                 adapterHistory.notifyItemRangeChanged(index, chatListReversed.size - index)
                             }
                         }
+
+                        // 关键：删除后调用updateDataTime，传入最新列表并重新计算时间标签
+                        adapterHistory.updateDataTime(chatListReversed)
+
                         if (countList == deleteCounts){
                             buildNewChat(false)
                         }
@@ -1998,7 +2002,7 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
                     }
                     //直接插入，做了title唯一性，如果有了就替换成最新的
                     chatDatabase.chatDao().insertChat(ChatItemRoom(0,chatTitle, messageList, chatTime,modelType,isDeepThink,isNetWorkThink,userId,isMe,false,isR1Fusion))
-                    //chatDatabase.chatDao().insertChat(ChatItemRoom(0,chatTitle, messageList, "2025-10-21 16:54:59",modelType,isDeepThink,isNetWorkThink,userId,isMe,false,isR1Fusion))
+                    //chatDatabase.chatDao().insertChat(ChatItemRoom(0,chatTitle, messageList, "2025-10-30 16:54:59",modelType,isDeepThink,isNetWorkThink,userId,isMe,false,isR1Fusion))
                     //Log.e("ceshi", "B插入完成时间：${System.currentTimeMillis()}") // 添加日志
                 }else{
                     //leftDelect.set(false)

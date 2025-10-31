@@ -500,6 +500,6 @@ class HomeMessageAdapter(private val context:Context,private var chatList: List<
     fun updateDataTime(newChatList: List<ChatItemRoom>) {
         chatList = newChatList
         loadTimeTagStatus(false) // 重新计算时间标签状态
-        //notifyDataSetChanged()
+        notifyDataSetChanged()
     }
 }
