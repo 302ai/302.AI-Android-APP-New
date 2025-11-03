@@ -4,7 +4,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="16dp"
+    android:paddingTop="16dp"
+    android:paddingBottom="10dp"
+    android:layout_marginLeft="12dp"
+    android:layout_marginRight="12dp"
     android:background="@drawable/shape_select_site_bg_write_new"> <!-- 可自定义背景形状、颜色 -->
 
     <LinearLayout
@@ -50,6 +53,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         />
 
+    <View
+        android:id="@+id/line1"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/lineDialog"
+        app:layout_constraintTop_toBottomOf="@+id/etName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="15dp"/>
     <!-- 按钮容器，用于放“取消”“保存” -->
     <LinearLayout
         android:id="@+id/llButtons"
@@ -57,29 +69,38 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="end"
-        app:layout_constraintTop_toBottomOf="@+id/etName"
+        app:layout_constraintTop_toBottomOf="@+id/line1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="15dp">
+        >
 
-        <androidx.appcompat.widget.AppCompatButton
+        <TextView
             android:id="@+id/btnCancel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="54dp"
             android:text="@string/cancel_message"
-            android:textColor="@color/white"
+            android:gravity="center"
+            android:textColor="@color/black"
             android:textSize="16sp"
-            android:background="@drawable/shape_select_site_bg_purple_line"
+            android:background="@color/itemBgColor"
             android:layout_weight="1"
-            android:layout_marginEnd="8dp"/>
+            />
 
-        <androidx.appcompat.widget.AppCompatButton
+        <View
+            android:id="@+id/line2"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/lineDialog"
+            android:layout_gravity="center"/>
+
+        <TextView
             android:id="@+id/btnSave"
-            android:background="@drawable/shape_select_site_bg_purple_line"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:background="@color/itemBgColor"
+            android:layout_width="0dp"
+            android:layout_height="54dp"
+            android:gravity="center"
             android:layout_weight="1"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="16sp"
             android:text="@string/sure" />
     </LinearLayout>

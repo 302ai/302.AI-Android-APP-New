@@ -56,12 +56,13 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="650dp"
+        android:layout_height="0dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:layout_marginTop="10dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/topTitleConst">
+        app:layout_constraintTop_toBottomOf="@+id/topTitleConst"
+        app:layout_constraintBottom_toBottomOf="parent">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -206,7 +207,7 @@
                     android:layout_height="34dp"
                     android:layout_marginRight="10dp"
                     android:text="@string/setting_top_up_message"
-                    android:textColor="@color/white"
+                    android:textColor="@color/onlyWhite"
                     android:gravity="center"
                     android:textSize="16sp"
                     android:background="@drawable/shape_select_site_bg_purple_line"
@@ -906,7 +907,7 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <androidx.appcompat.widget.AppCompatButton
+            <TextView
                 android:id="@+id/logoutBtn"
                 android:layout_width="match_parent"
                 android:layout_height="54dp"

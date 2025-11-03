@@ -76,6 +76,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import okhttp3.internal.notifyAll
+import org.scilab.forge.jlatexmath.LaTeXAtom
 import retrofit2.Retrofit
 import java.lang.ref.WeakReference
 import java.util.concurrent.CopyOnWriteArrayList
@@ -718,6 +719,7 @@ class ChatAdapter(private var messageList: List<ChatMessage>, private val contex
 //                }
 //            }))
             .usePlugin(HtmlPlugin.create()) // 支持HTML标签
+            //.usePlugin(JLatexMathPlugin.create(17f)) // 支持latex标签
             .usePlugin(StrikethroughPlugin.create()) // 支持删除线
             .usePlugin(TaskListPlugin.create(context)) // 支持任务列表
             .usePlugin(TablePlugin.create(context)) // 支持表格
@@ -785,8 +787,22 @@ class ChatAdapter(private var messageList: List<ChatMessage>, private val contex
 
 
         val fullText = message.trimIndent()
-        val mFullText = StringObjectUtils.convertLatexFormat(fullText)
+        var mFullText = StringObjectUtils.convertLatexFormat(fullText)
         //holder.deepLine.visibility = View.GONE
+        Log.e("ceshi","识别了：$mFullText")
+        if (mFullText.contains("%-------------------------")){
+            mFullText = StringObjectUtils.processLatexString(mFullText)
+            mFullText = mFullText.replace("%-------------------------","$")
+            mFullText = mFullText.replace("\\","$")
+//            mFullText = mFullText.replace("\\end","$"+"end")
+//            mFullText = mFullText.replace("\\begin","$"+"begin")
+            Log.e("ceshi","0识别了：$mFullText")
+            /*if (mFullText.contains("\\")){
+                mFullText = mFullText.replace("\\","$")
+                Log.e("ceshi","1识别了：$mFullText")
+            }*/
+        }
+
         if (message.contains("&&&&&&")){
             // 将Markdown渲染到TextView
             markwon.setMarkdown(holder.deepTextView, extractBeforeAmpersand(mFullText))

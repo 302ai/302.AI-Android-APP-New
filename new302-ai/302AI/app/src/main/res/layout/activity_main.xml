@@ -610,9 +610,11 @@
             android:layout_marginTop="12dp"
             android:layout_marginRight="10dp">
             <TextView
+                android:id="@+id/todayTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/today_message"
+                android:visibility="gone"
                 android:textSize="14sp"
                 android:textColor="@color/textColor1"
                 app:layout_constraintLeft_toLeftOf="parent"

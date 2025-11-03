@@ -13,6 +13,7 @@ import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
 import android.view.View
+import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -293,6 +294,9 @@ class PersonalCenterActivity : AppCompatActivity() {
 
         // 设置最大高度（可选，根据需要调整）
         behavior.peekHeight = Resources.getSystem().displayMetrics.heightPixels
+
+        // 关键：设置BottomSheet的背景为透明，避免默认背景遮挡布局圆角
+        bottomSheet.setBackgroundResource(android.R.color.transparent)
 
         // 获取布局中的 Button，并设置点击事件
         val btnClose = view.findViewById<ImageView>(R.id.btnMoreClose)

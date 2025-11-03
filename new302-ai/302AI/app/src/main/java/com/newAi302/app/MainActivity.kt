@@ -848,10 +848,21 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
             if (isTrueApiKey){
                 binding.userConst.visibility = View.VISIBLE
                 binding.moreSelectConst.visibility = View.GONE
+                binding.todayTv.visibility = View.GONE
                 val job = lifecycleScope.launch(Dispatchers.IO) {
                     //chatId = chatDatabase.chatDao().getAllChats().reversed().toMutableList().size
                     Log.e("ceshi","0返回的模型类型$modelType,,$chatTitle,,${messageList.size},,$isPrivate")
                     //chatTime = TimeUtils.getCurrentDateTime()
+                    val allChatList = chatDatabase.chatDao().getAllChats()
+                    for (chat in allChatList){
+                        if (TimeUtils.getTimeTag(chat.time,TimeUtils.getCurrentDateTime())=="今日"){
+                            lifecycleScope.launch(Dispatchers.Main) {
+                                binding.todayTv.visibility = View.VISIBLE
+                            }
+                            break
+                        }
+                    }
+
                     if (!isPrivate){
                         if(chatTitle != ContextCompat.getString(this@MainActivity, R.string.chat_title) && isHaveTitle){
                             //直接插入，做了title唯一性，如果有了就替换成最新的
@@ -1132,8 +1143,11 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
 
-                binding.searchCloseBtn.visibility = View.VISIBLE
+
                 val searchText = s?.toString() ?: ""
+                if (searchText != ""){
+                    binding.searchCloseBtn.visibility = View.VISIBLE
+                }
 
                 // 取消上一次未执行的任务
                 searchDebounceJob?.cancel()
@@ -1492,6 +1506,7 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
                         messageAdapter.notifyDataSetChanged()
                         //adapter.updateData(messageList)
                         messageAdapter.notifyItemInserted(messageAdapter.itemCount - 1)
+                        binding.chatRecyclerView.layoutManager?.scrollToPosition(messageList.size-1)
                         binding.chatRecyclerView.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
                             private var lastHeight = 0
 
@@ -1977,6 +1992,7 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
         lifecycleScope.launch(Dispatchers.Main) {
             binding.floatingButton.visibility = View.GONE
         }
+        isSendMessage.set(false)
         restoreInitialHeight()
         if (messageList.isEmpty()){
             if (!isComeFromSetting){
@@ -1987,7 +2003,6 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
 
         }else{
             performVibration()
-            isSendMessage.set(false)
             Log.e("ceshi","创建新的会话$isUseTracelessSwitch")
 
             lifecycleScope.launch(Dispatchers.IO) {

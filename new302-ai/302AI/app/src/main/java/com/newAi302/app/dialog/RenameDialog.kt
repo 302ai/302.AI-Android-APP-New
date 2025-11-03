@@ -14,6 +14,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.view.WindowManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -32,10 +33,24 @@ class RenameDialog(context: Context,private val oldName:String) : Dialog(context
         super.onCreate(savedInstanceState)
         setContentView(R.layout.dialog_rename)
 
+        // 关键：清除Window默认背景，设为透明
+        window?.apply {
+            // 方式1：直接设置透明背景（推荐）
+            setBackgroundDrawableResource(android.R.color.transparent)
+            // 方式2：或用ColorDrawable设置透明（效果一致）
+            // setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+            // 可选：设置窗口宽高（避免布局被压缩，按需调整）
+            val layoutParams = attributes
+            layoutParams.width = WindowManager.LayoutParams.MATCH_PARENT
+            layoutParams.height = WindowManager.LayoutParams.WRAP_CONTENT
+            attributes = layoutParams
+        }
+
         etName = findViewById(R.id.etName)
         textCountTv = findViewById(R.id.textCountTv)
-        val btnCancel: Button = findViewById(R.id.btnCancel)
-        val btnSave: Button = findViewById(R.id.btnSave)
+        val btnCancel: TextView = findViewById(R.id.btnCancel)
+        val btnSave: TextView = findViewById(R.id.btnSave)
 
         // 取消按钮逻辑
         btnCancel.setOnClickListener {

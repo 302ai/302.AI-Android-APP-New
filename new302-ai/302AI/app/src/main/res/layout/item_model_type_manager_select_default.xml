@@ -85,11 +85,18 @@
         android:layout_width="48dp"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="@drawable/shape_select_site_bg_left_red_line">
-        <ImageView
-            android:layout_width="28dp"
-            android:layout_height="28dp"
-            android:layout_gravity="center"
-            android:background="@drawable/icon_new_delete"/>
+        >
+        <FrameLayout
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="bottom"
+            android:background="@drawable/shape_select_site_bg_left_red_line1">
+            <ImageView
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_gravity="center"
+                android:background="@drawable/icon_new_delete"/>
+        </FrameLayout>
+
     </FrameLayout>
 </com.mcxtzhang.swipemenulib.SwipeMenuLayout>

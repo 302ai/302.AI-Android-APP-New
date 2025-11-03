@@ -57,7 +57,7 @@
             android:layout_width="68dp"
             android:layout_height="34dp"
             android:text="@string/setting_add_model_save_message"
-            android:textColor="@color/white"
+            android:textColor="@color/onlyWhite"
             android:gravity="center"
             android:textSize="16sp"
             android:background="@drawable/shape_select_site_bg_purple_line"
@@ -164,7 +164,7 @@
             android:lines="1"
             android:singleLine="true"
             android:hint="@string/setting_add_model_remark_edit_message"
-            android:textColorHint="@color/textColor2"
+            android:textColorHint="@color/textColor4"
             android:textSize="16sp"/>
     </LinearLayout>
 

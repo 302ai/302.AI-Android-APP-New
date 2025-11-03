@@ -6,6 +6,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -26,6 +27,7 @@ import com.newAi302.app.datastore.DataStoreManager
 import com.newAi302.app.infa.OnItemClickListener
 import com.newAi302.app.room.ChatDatabase
 import com.newAi302.app.room.ChatItemRoom
+import com.newAi302.app.utils.ToastUtils
 import com.newAi302.app.utils.ViewAnimationUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
@@ -90,20 +92,48 @@ class ModelManagerActivity : BaseActivity(), OnItemClickListener {
             adapter302Ai = ModelTypeManager302aiAdapter(this@ModelManagerActivity,options3,chatDatabase,lifecycleScope){ position, data ->
                 if (data == "Delete"){
                     val modelId = options3[position]
-                    options3.removeAt(position)
-                    //adapter302Ai.notifyItemRemoved(position)
-                    adapter302Ai.notifyDataSetChanged()
-                    lifecycleScope.launch(Dispatchers.IO) {
-                        chatDatabase.chatDao().deleteModelById(modelId)
-                        dataStoreManager.saveModelList(options3)
+                    if (options3.size>1){
+                        options3.removeAt(position)
+                        //adapter302Ai.notifyItemRemoved(position)
+                        adapter302Ai.notifyDataSetChanged()
+                        lifecycleScope.launch(Dispatchers.IO) {
+                            chatDatabase.chatDao().deleteModelById(modelId)
+                            dataStoreManager.saveModelList(options3)
+
+                            if (modelId == dataStoreManager.readModelType.first()){
+                                val readChatDefaultModelType = options3[0]
+                                dataStoreManager.saveModelType(readChatDefaultModelType)
+                            }
+                            if (modelId == dataStoreManager.readBuildTitleModelType.first()){
+                                val readBuildTitleModelType = options3[0]
+                                dataStoreManager.saveBuildTitleModeTypeData(readBuildTitleModelType)
+                            }
+
+                        }
+                    }else{
+                        ToastUtils.showLong(resources.getString(R.string.setting_model_manager_delete_fail_toast_message))
                     }
+
                 }else if (data == "Delete1"){
                     val modelId = options3[position]
-                    options3.removeAt(position)
-                    adapter302Ai.notifyItemRemoved(position)
-                    lifecycleScope.launch(Dispatchers.IO) {
-                        chatDatabase.chatDao().deleteModelById(modelId)
-                        dataStoreManager.saveModelList(options3)
+                    if (options3.size>1){
+                        options3.removeAt(position)
+                        adapter302Ai.notifyItemRemoved(position)
+                        lifecycleScope.launch(Dispatchers.IO) {
+                            chatDatabase.chatDao().deleteModelById(modelId)
+                            dataStoreManager.saveModelList(options3)
+
+                            if (modelId == dataStoreManager.readModelType.first()){
+                                val readChatDefaultModelType = options3[0]
+                                dataStoreManager.saveModelType(readChatDefaultModelType)
+                            }
+                            if (modelId == dataStoreManager.readBuildTitleModelType.first()){
+                                val readBuildTitleModelType = options3[0]
+                                dataStoreManager.saveBuildTitleModeTypeData(readBuildTitleModelType)
+                            }
+                        }
+                    }else{
+                        ToastUtils.showLong(resources.getString(R.string.setting_model_manager_delete_fail_toast_message))
                     }
                 }else{
                     val intent = Intent(this@ModelManagerActivity, ModelAddActivity::class.java)

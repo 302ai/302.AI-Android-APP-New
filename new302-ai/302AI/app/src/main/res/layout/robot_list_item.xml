@@ -45,7 +45,7 @@
         android:orientation="horizontal"
         android:layout_marginTop="10dp"
         android:visibility="gone"
-        android:background="@drawable/shape_select_site_bg_purple_more_function_line"
+        android:background="@drawable/shape_select_site_bg_purple_more_function"
         android:padding="5dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageHorScr">

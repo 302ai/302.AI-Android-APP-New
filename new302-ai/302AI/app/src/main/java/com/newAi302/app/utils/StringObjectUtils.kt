@@ -277,6 +277,52 @@ object StringObjectUtils {
         }
     }
 
+    fun convertLatexFormat2(text: String): String {
+        // 新增匹配 %-------------------------....%------------------------- 格式
+        // 规则：% 开头 + 至少1个连字符(-) + 内容 + % 开头 + 至少1个连字符(-)
+        val regex = Regex(
+            "\\\\\\((.*?)\\\\\\)|" +  // 匹配 \(...\)
+                    "\\\\\\[(.*?)\\\\\\]|" +  // 匹配 \[...\]
+                    "\\\\[(.*?)\\\\]|" +      // 原有其他\[...\]变体
+                    "\\\\[\\\\s*([^\\\\]](.*?)\\\\s*\\\\]|" +  // 原有空格变体
+                    "\\\$(.*?)\\\$|" +        // 匹配 $...$
+                    "%-+(.*?)%-+"             // 新增：匹配 %---...%--- 格式（%+连字符包裹内容）
+            // 说明：%-+ 表示 % 后接至少1个连字符(-)；(.*?) 匹配中间内容；整体非贪婪匹配
+        )
+
+        return text.replace(regex) { match ->
+            // 提取公式内容：新增对第7个捕获组（%-+...%-+ 格式）的判断
+            val formula = match.groupValues[0].takeIf { it.isNotEmpty() }
+                ?: match.groupValues[1].takeIf { it.isNotEmpty() }  // \(...\)
+                ?: match.groupValues[2].takeIf { it.isNotEmpty() }  // \[...\]
+                ?: match.groupValues[3].takeIf { it.isNotEmpty() }  // 原有\[...\]变体
+                ?: match.groupValues[4].takeIf { it.isNotEmpty() }  // 原有空格变体第1组
+                ?: match.groupValues[5].takeIf { it.isNotEmpty() }  // 原有空格变体第2组
+                ?: match.groupValues[6].takeIf { it.isNotEmpty() }  // $...$
+                ?: match.groupValues[7]  // 新增：%-+...%-+ 格式的中间内容
+
+            // 保持原有替换逻辑
+            if (formula.contains("\n")) {
+                "$$${formula}$$"  // 含换行→块级公式
+            } else if (match.groupValues[4].isNotEmpty()) {
+                "$${formula}$"
+            } else {
+                "$$${formula}$$"  // 行内公式
+            }
+        }
+    }
+
+    // 处理 LaTeX 字符串（针对硬编码场景，自动转义反斜杠）
+    fun processLatexString(rawString: String): String {
+        // 1. 转义反斜杠（将单个 \ 替换为 \\）
+        var processed = rawString.replace("\\", "\\\\")
+        // 2. 清理行内公式的多余空格（$ 与公式间无空格）
+        processed = processed.replace(Regex("\\$\\s+(.*?)\\s+\\$"), "$$1$$")
+        // 3. 确保块级公式环境闭合（简单校验，实际可根据需求扩展）
+        processed = processed.replace(Regex("(\\\\begin\\{equation\\})(.*?)(?!\\\\end\\{equation\\})"), "$1$2\\\\end{equation}")
+        return processed
+    }
+
 
     /**
      * 自动识别并转换公式格式

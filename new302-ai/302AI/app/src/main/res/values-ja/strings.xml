@@ -81,6 +81,7 @@
     <string name="setting_general_message">一般的な</string>
     <string name="setting_manager_message">管理</string>
     <string name="setting_model_manager_message">モデル管理</string>
+    <string name="setting_model_manager_delete_fail_toast_message">モデルリストは空にできません</string>
     <string name="setting_tools_manager_message">MCPサービス</string>
     <string name="setting_my_archive_manager_message">アーカイブ</string>
     <string name="setting_my_kb_manager_message">ナレッジベース</string>

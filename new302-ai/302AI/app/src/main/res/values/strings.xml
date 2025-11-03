@@ -81,6 +81,7 @@
     <string name="setting_general_message">General</string>
     <string name="setting_manager_message">Manager</string>
     <string name="setting_model_manager_message">Model management</string>
+    <string name="setting_model_manager_delete_fail_toast_message">The model list cannot be empty</string>
     <string name="setting_tools_manager_message">MCP services</string>
     <string name="setting_my_archive_manager_message">Archive</string>
     <string name="setting_my_kb_manager_message">Knowledge Base</string>

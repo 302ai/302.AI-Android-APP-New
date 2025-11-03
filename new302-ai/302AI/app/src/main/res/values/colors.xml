@@ -2,11 +2,13 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="onlyWhite">#FFFFFFFF</color>
     <color name="white1">#FFFFFFFF</color>
     <color name="textColor">#333333</color>
     <color name="textColor1">#8E8E8E</color>
     <color name="textColor2">#D3D3D3</color>
     <color name="textColor3">#C7C7C7</color>
+    <color name="textColor4">#D3D3D3</color>
     <color name="textSettingColor">#5C5C5C</color>
     <color name="textSettingColor1">#8E8E8E</color>
     <color name="textSettingColor2">#CD0404</color>
@@ -32,6 +34,7 @@
     <color name="voiceDialogBgColor">#7D7D7D</color>
 
     <color name="itemBgColor">#FFFFFFFF</color>
+    <color name="inputBgColor">#F5F5F5</color>
 
     <color name="grayBgColor">#F5F5F5</color>
 
@@ -42,6 +45,7 @@
 
 
     <color name="lineSetting">#F6F6F6</color>
+    <color name="lineDialog">#EBEBEB</color>
 
     <color name="leftDialogLine">#EBEBEB</color>
 

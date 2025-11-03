@@ -178,7 +178,7 @@
         android:background="@drawable/shape_select_site_bg_purple_line"
         android:layout_width="134dp"
         android:layout_height="46dp"
-        android:textColor="@color/white"
+        android:textColor="@color/onlyWhite"
         android:textSize="16sp"
         android:text="@string/feed_back_push_issues_message" />
 

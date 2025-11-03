@@ -6,6 +6,7 @@
     <color name="textColor">#FFFFFFFF</color>
     <color name="textColor1">#8E8E8E</color>
     <color name="textColor2">#D3D3D3</color>
+    <color name="textColor4">#929292</color>
     <color name="textSettingColor">#FFFFFFFF</color>
     <color name="textSettingColor1">#8E8E8E</color>
     <color name="textSettingColor2">#CD0404</color>
@@ -25,11 +26,12 @@
     <color name="textLoginColor">#929292</color>
 
     <color name="toolDialogBgColor">#242424</color>
-    <color name="toolDialogBg1Color">#242424</color>
+    <color name="toolDialogBg1Color">#323234</color>
 
     <color name="voiceDialogBgColor">#191919</color>
 
     <color name="itemBgColor">#242424</color>
+    <color name="inputBgColor">#000000</color>
 
     <color name="grayBgColor">#242424</color>
 
@@ -39,6 +41,7 @@
 
 
     <color name="lineSetting">#3A3A3A</color>
+    <color name="lineDialog">#3A3A3A</color>
 
     <color name="leftDialogLine">#3A3A3A</color>
 
