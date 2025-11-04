@@ -133,6 +133,7 @@
     <string name="back_login_message">Back to login</string>
 
     <string name="setting_add_model_title_message">Add Model</string>
+    <string name="setting_edit_model_title_message">Edit Model</string>
     <string name="setting_add_model_id_message">Model ID</string>
     <string name="setting_add_model_save_message">Save</string>
     <string name="setting_add_model_id_edit_message">Please enter the model ID</string>
@@ -171,7 +172,7 @@
     <string name="setting_bottom_parameter_message">Parameter Settings</string>
     <string name="setting_bottom_model_message">Model</string>
     <string name="setting_bottom_painting_message">painting</string>
-    <string name="setting_bottom_cue_words_message">Set system prompt words</string>
+    <string name="setting_bottom_cue_words_message">System prompt words</string>
     <string name="setting_bottom_kb_message">Knowledge Base</string>
     <string name="setting_bottom_prompt_message">Set System Prompt Words</string>
     <string name="setting_bottom_random_message">Randomness</string>

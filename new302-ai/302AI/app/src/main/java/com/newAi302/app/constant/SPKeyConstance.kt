@@ -19,4 +19,6 @@ object SPKeyConstance {
     const val USER_SELECT_REMEMBER_PASSWORD_PHONE: String = "REMEMBER_PASSWORD_phone" //用户选择了记住密码操作 --手机
 
     const val READ_AGREE_UTS_PAS: String = "READ_AGREE_UTS_PAS" //
+
+    const val GET_MODEL_LIST_SUCCESS: String = "get_model_list_success" //获取模型列表成功
 }

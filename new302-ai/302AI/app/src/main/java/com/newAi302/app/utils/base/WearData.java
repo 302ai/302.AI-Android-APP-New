@@ -38,6 +38,17 @@ public class WearData {
         return SPUtils.getInstance().getString(SPKeyConstance.USER_LOGIN_SUCCESS);
     }
 
+    public void saveGetModelList(Boolean isGet) {
+        SPUtils.getInstance().put(SPKeyConstance.GET_MODEL_LIST_SUCCESS, isGet);
+    }
+
+    /**
+     * 获取token
+     */
+    public Boolean getGetModelList() {
+        return SPUtils.getInstance().getBoolean(SPKeyConstance.GET_MODEL_LIST_SUCCESS);
+    }
+
     //保存邮箱登录code
     public void saveLoginEmailCode(String emailCode) {
         SPUtils.getInstance().put(SPKeyConstance.USER_LOGIN_EMAIL_CODE, emailCode);

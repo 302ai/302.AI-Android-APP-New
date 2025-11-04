@@ -134,6 +134,7 @@
 
 
     <string name="setting_add_model_title_message">添加模型</string>
+    <string name="setting_edit_model_title_message">编辑模型</string>
     <string name="setting_add_model_id_message">模型ID</string>
     <string name="setting_add_model_save_message">保存</string>
     <string name="setting_add_model_id_edit_message">请输入模型ID</string>
@@ -172,7 +173,7 @@
     <string name="setting_bottom_parameter_message">参数设置</string>
     <string name="setting_bottom_model_message">模型</string>
     <string name="setting_bottom_painting_message">绘画</string>
-    <string name="setting_bottom_cue_words_message">设置系统提示词</string>
+    <string name="setting_bottom_cue_words_message">系统提示词</string>
     <string name="setting_bottom_kb_message">知识库</string>
     <string name="setting_bottom_prompt_message">设置系统提示词</string>
     <string name="setting_bottom_random_message">随机性</string>

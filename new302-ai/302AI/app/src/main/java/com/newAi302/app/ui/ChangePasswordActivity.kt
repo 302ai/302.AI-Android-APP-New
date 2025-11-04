@@ -30,9 +30,9 @@ import kotlinx.coroutines.launch
 class ChangePasswordActivity : AppCompatActivity() {
     private lateinit var binding: ActivityChangePasswordBinding
     val minNumber = 8  //最新密码字数
-    private var mEyeSwitch: Boolean = true //眼睛切换状态 默认为false
-    private var mEyeSwitch1: Boolean = true //眼睛切换状态 默认为false
-    private var mEyeSwitch2: Boolean = true //眼睛切换状态 默认为false
+    private var mEyeSwitch: Boolean = false //眼睛切换状态 默认为false
+    private var mEyeSwitch1: Boolean = false //眼睛切换状态 默认为false
+    private var mEyeSwitch2: Boolean = false //眼睛切换状态 默认为false
 
     private val BASE_URL = "https://api.302.ai/"
     private var CUSTOMIZE_URL_TWO = "https://api.siliconflow.cn/"
@@ -74,6 +74,10 @@ class ChangePasswordActivity : AppCompatActivity() {
 
     @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
     private fun initView(){
+        binding.editTitle.transformationMethod = PasswordTransformationMethod.getInstance()
+        binding.editTitle1.transformationMethod = PasswordTransformationMethod.getInstance()
+        binding.editTitle2.transformationMethod = PasswordTransformationMethod.getInstance()
+
         binding.editTitle.addTextChangedListener {
             Log.e("ceshi","password:${it.toString()}")
             if (!TextUtils.isEmpty(it.toString())) {
@@ -154,21 +158,21 @@ class ChangePasswordActivity : AppCompatActivity() {
         binding.editTitle.text?.let { binding.editTitle.setSelection(it.length) }
         binding.editTitle.transformationMethod =
             if (isHide) HideReturnsTransformationMethod.getInstance() else PasswordTransformationMethod.getInstance()
-        binding.textEyeImage.setBackgroundResource(if (isHide) R.drawable.icon_visible else R.drawable.icon_invisible)
+        binding.textEyeImage.setBackgroundResource(if (isHide) R.drawable.icon_eye_open else R.drawable.icon_eye_close)
     }
 
     private fun setEyeSwitch1(isHide: Boolean) {
         binding.editTitle1.text?.let { binding.editTitle1.setSelection(it.length) }
         binding.editTitle1.transformationMethod =
             if (isHide) HideReturnsTransformationMethod.getInstance() else PasswordTransformationMethod.getInstance()
-        binding.textEyeImage1.setBackgroundResource(if (isHide) R.drawable.icon_visible else R.drawable.icon_invisible)
+        binding.textEyeImage1.setBackgroundResource(if (isHide) R.drawable.icon_eye_open else R.drawable.icon_eye_close)
     }
 
     private fun setEyeSwitch2(isHide: Boolean) {
         binding.editTitle2.text?.let { binding.editTitle2.setSelection(it.length) }
         binding.editTitle2.transformationMethod =
             if (isHide) HideReturnsTransformationMethod.getInstance() else PasswordTransformationMethod.getInstance()
-        binding.textEyeImage2.setBackgroundResource(if (isHide) R.drawable.icon_visible else R.drawable.icon_invisible)
+        binding.textEyeImage2.setBackgroundResource(if (isHide) R.drawable.icon_eye_open else R.drawable.icon_eye_close)
     }
 
 }

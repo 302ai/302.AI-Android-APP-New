@@ -413,6 +413,7 @@ class SettingActivity : BaseActivity(), PayDetailsDialog.OnButtonClickListener {
             lifecycleScope.launch(Dispatchers.IO) {
                 dataStoreManager.saveData("")
                 WearData.getInstance().saveToken("")
+                WearData.getInstance().saveGetModelList(false)
             }
             val botMsg = getString(R.string.front_page_bottom_message)
             val welMsg = getString(R.string.front_page_message)

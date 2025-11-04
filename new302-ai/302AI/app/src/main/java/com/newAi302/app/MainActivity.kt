@@ -397,17 +397,33 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
     override fun onResume() {
         super.onResume()
         Log.e("ceshi","onResume获取到${WearData.getInstance().token != ""}")
-        if (WearData.getInstance().token != ""){
+        Log.e("ceshi","onResume获取到0${WearData.getInstance().getModelList}")
+        if (WearData.getInstance().getModelList){
+            isTrueApiKey = true
+            lifecycleScope.launch(Dispatchers.IO) {
+                val modelListFlow = dataStoreManager.modelListFlow.first()
+                modelListFlow.let {
+                    modelList = CopyOnWriteArrayList(it)
+                }
+            }
+            binding.modeTypeTv.visibility = View.VISIBLE
+
+        }else{
+            isTrueApiKey = false
+            binding.modeTypeTv.visibility = View.GONE
+        }
+
+        /*if (WearData.getInstance().token != ""){
             isTrueApiKey = true
             binding.modeTypeTv.visibility = View.VISIBLE
         }else{
             isTrueApiKey = false
-        }
+        }*/
         //applyLanguage()
         // 每次 resume 时都确保只保留当前页面
         ActivityManager.finishAllExcept(this)
         Log.e("ceshi","onResume")
-        binding.modeTypeTv.visibility = View.GONE
+
         val comeFrom = intent.getSerializableExtra("come_from") as? String
         val setMsg = intent.getSerializableExtra("msg_setting") as? MainMessage
         Log.e("ceshi","onResume返回信息$comeFrom")
@@ -450,7 +466,10 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
             data?.let {
                 Log.e("ceshi","appKey是多少：$it")
                 apiKey = it
-                chatViewModel.get302AiModelList(it,apiService)
+                if (!isTrueApiKey){
+                    chatViewModel.get302AiModelList(it,apiService)
+                }
+
             }
 
             val readCueWords = dataStoreManager.readCueWords.first()
@@ -588,7 +607,7 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
                     .into(binding.userImage)
 
                 if (data == ""){
-                    binding.modeTypeTv.visibility = View.GONE
+                    //binding.modeTypeTv.visibility = View.GONE
                 }
             }
 
@@ -1693,6 +1712,8 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
             }else{
                 isTrueApiKey = true
                 binding.modeTypeTv.visibility = View.VISIBLE
+                WearData.getInstance().saveGetModelList(true)
+
             }
 
             it?.let {
@@ -1787,7 +1808,10 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
                         insertUserConfiguration(it.email)
                     }
 
-                    chatViewModel.get302AiModelList(it.api_key,apiService)
+                    if (!isTrueApiKey){
+                        chatViewModel.get302AiModelList(it.api_key,apiService)
+                    }
+
 
                 }
             }
