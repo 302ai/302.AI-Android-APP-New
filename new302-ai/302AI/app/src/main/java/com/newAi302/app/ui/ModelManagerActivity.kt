@@ -174,6 +174,7 @@ class ModelManagerActivity : BaseActivity(), OnItemClickListener {
                     if (options3.size>1){
                         options3.removeAt(position)
                         //adapter302Ai.notifyItemRemoved(position)
+                        adapter302Ai.updateData(options3)
                         adapter302Ai.notifyDataSetChanged()
                         lifecycleScope.launch(Dispatchers.IO) {
                             chatDatabase.chatDao().deleteModelById(modelId)
@@ -197,6 +198,7 @@ class ModelManagerActivity : BaseActivity(), OnItemClickListener {
                     val modelId = options3[position]
                     if (options3.size>1){
                         options3.removeAt(position)
+                        adapter302Ai.updateData(options3)
                         adapter302Ai.notifyItemRemoved(position)
                         lifecycleScope.launch(Dispatchers.IO) {
                             chatDatabase.chatDao().deleteModelById(modelId)

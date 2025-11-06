@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingTop="16dp"
-    android:paddingBottom="10dp"
+    android:paddingBottom="2dp"
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
     android:background="@drawable/shape_select_site_bg_write_dialog_new"> <!-- 可自定义背景形状、颜色 -->

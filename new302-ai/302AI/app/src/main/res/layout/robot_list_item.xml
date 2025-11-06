@@ -167,6 +167,7 @@
             app:layout_constraintTop_toBottomOf="@+id/text1"
             android:background="@drawable/shape_select_site_bg_write_line"
             tools:ignore="WebViewLayout"
+            android:textSize="16sp"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:paddingTop="10dp"

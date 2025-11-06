@@ -265,6 +265,8 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
 
     private var badPosition = 0
 
+    private var isUserEdit = false
+
     //原子
     private val isSendMessage = AtomicBoolean(false)
     private val isSendMessageAll = AtomicBoolean(true)
@@ -466,7 +468,8 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
             data?.let {
                 Log.e("ceshi","appKey是多少：$it")
                 apiKey = it
-                if (!isTrueApiKey){
+                if (!isTrueApiKey || MyApplication.isFirstLaunch){
+                    MyApplication.isFirstLaunch = false
                     chatViewModel.get302AiModelList(it,apiService)
                 }
 
@@ -776,6 +779,12 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
                val message = binding.messageEditText.text.toString().trim()
                Log.e("ceshi","点击")
                if (message.isNotEmpty()) {
+                   if (isUserEdit){
+                       isUserEdit = false
+                       filterMessageList(message)
+                       Log.e("ceshi","0位置是${filterMessageList(message)}")
+                   }
+                   Log.e("ceshi","位置是$messageList")
                    //发送消息后隐私按钮消失
                    binding.hideImage.visibility = View.GONE
                    if (isPicture || isFile){
@@ -872,15 +881,6 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
                     //chatId = chatDatabase.chatDao().getAllChats().reversed().toMutableList().size
                     Log.e("ceshi","0返回的模型类型$modelType,,$chatTitle,,${messageList.size},,$isPrivate")
                     //chatTime = TimeUtils.getCurrentDateTime()
-                    val allChatList = chatDatabase.chatDao().getAllChats()
-                    for (chat in allChatList){
-                        if (TimeUtils.getTimeTag(chat.time,TimeUtils.getCurrentDateTime())=="今日"){
-                            lifecycleScope.launch(Dispatchers.Main) {
-                                binding.todayTv.visibility = View.VISIBLE
-                            }
-                            break
-                        }
-                    }
 
                     if (!isPrivate){
                         if(chatTitle != ContextCompat.getString(this@MainActivity, R.string.chat_title) && isHaveTitle){
@@ -890,6 +890,16 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
                         }
                         else if (messageList.size>1){
                             chatDatabase.chatDao().insertChat(ChatItemRoom(0,chatTitle, messageList, chatTime,modelType,isDeepThink,isNetWorkThink,userId,isMe,false,isR1Fusion))
+                        }
+                    }
+
+                    val allChatList = chatDatabase.chatDao().getAllChats()
+                    for (chat in allChatList){
+                        if (TimeUtils.getTimeTag(chat.time,TimeUtils.getCurrentDateTime())=="今日"){
+                            lifecycleScope.launch(Dispatchers.Main) {
+                                binding.todayTv.visibility = View.VISIBLE
+                            }
+                            break
                         }
                     }
 
@@ -1073,6 +1083,7 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
                 }
 
                 val deleteCounts = itemsToDelete.size
+                var toNewChat = false
 
                 // 3. 异步删除数据库中对应的记录
                 lifecycleScope.launch(Dispatchers.IO) {
@@ -1080,6 +1091,9 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
                     for (item in itemsToDelete) {
                         if (chatDatabase.chatDao().checkTitleExists(item.title)) {
                             chatDatabase.chatDao().deleteChatByTitle(item.title)
+                            if (item.title == chatTitle){
+                                toNewChat = true
+                            }
                         }
                     }
 
@@ -1108,6 +1122,22 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
                         adapterHistory.upDataMoreSelect(false)
                         adapterHistory.notifyDataSetChanged()
 
+                        binding.todayTv.visibility = View.GONE
+                        lifecycleScope.launch(Dispatchers.IO) {
+                            //val allChatList = chatDatabase.chatDao().getAllChats()
+                            for (chat in chatListReversed){
+                                //Log.e("ceshi","查询到${TimeUtils.getTimeTag(chat.time,TimeUtils.getCurrentDateTime())}")
+                                if (TimeUtils.getTimeTag(chat.time,TimeUtils.getCurrentDateTime())=="今日"){
+                                    lifecycleScope.launch(Dispatchers.Main) {
+                                        binding.todayTv.visibility = View.VISIBLE
+                                    }
+                                    break
+                                }
+                            }
+                        }
+                        if (toNewChat){
+                            buildNewChat(false)
+                        }
 
                     }
                 }
@@ -1166,6 +1196,8 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
                 val searchText = s?.toString() ?: ""
                 if (searchText != ""){
                     binding.searchCloseBtn.visibility = View.VISIBLE
+                }else{
+                    binding.searchCloseBtn.visibility = View.GONE
                 }
 
                 // 取消上一次未执行的任务
@@ -1218,6 +1250,17 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
                                         job1.join()
                                         adapterHistorySearch.updateDataTime(chatListSearch)
                                         adapterHistorySearch.notifyDataSetChanged()
+                                        binding.todayTv.visibility = View.GONE
+                                        lifecycleScope.launch(Dispatchers.IO) {
+                                            for (chat in chatListSearch){
+                                                if (TimeUtils.getTimeTag(chat.time,TimeUtils.getCurrentDateTime())=="今日"){
+                                                    lifecycleScope.launch(Dispatchers.Main) {
+                                                        binding.todayTv.visibility = View.VISIBLE
+                                                    }
+                                                    break
+                                                }
+                                            }
+                                        }
                                     }
                                 }else{
                                     Toast.makeText(this@MainActivity, ContextCompat.getString(this@MainActivity, R.string.plase_wait_back_delect_toast_message), Toast.LENGTH_SHORT).show()
@@ -1247,6 +1290,17 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
                                         adapterHistorySearch.updateDataTime(chatListSearch)
                                         adapterHistorySearch.notifyItemRemoved(position)
                                         adapterHistorySearch.notifyItemRangeChanged(position, chatListReversed.size - position)
+                                        binding.todayTv.visibility = View.GONE
+                                        lifecycleScope.launch(Dispatchers.IO) {
+                                            for (chat in chatListSearch){
+                                                if (TimeUtils.getTimeTag(chat.time,TimeUtils.getCurrentDateTime())=="今日"){
+                                                    lifecycleScope.launch(Dispatchers.Main) {
+                                                        binding.todayTv.visibility = View.VISIBLE
+                                                    }
+                                                    break
+                                                }
+                                            }
+                                        }
                                     }
                                 }else{
                                     Toast.makeText(this@MainActivity, ContextCompat.getString(this@MainActivity, R.string.plase_wait_back_delect_toast_message), Toast.LENGTH_SHORT).show()
@@ -1808,7 +1862,8 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
                         insertUserConfiguration(it.email)
                     }
 
-                    if (!isTrueApiKey){
+                    if (!isTrueApiKey || MyApplication.isFirstLaunch){
+                        MyApplication.isFirstLaunch = false
                         chatViewModel.get302AiModelList(it.api_key,apiService)
                     }
 
@@ -2321,6 +2376,19 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
                                 job1.join()
                                 adapterHistory.updateDataTime(chatListReversed)
                                 adapterHistory.notifyDataSetChanged()
+                                binding.todayTv.visibility = View.GONE
+                                lifecycleScope.launch(Dispatchers.IO) {
+                                    //val allChatList = chatDatabase.chatDao().getAllChats()
+                                    for (chat in chatListReversed){
+                                        //Log.e("ceshi","查询到${TimeUtils.getTimeTag(chat.time,TimeUtils.getCurrentDateTime())}")
+                                        if (TimeUtils.getTimeTag(chat.time,TimeUtils.getCurrentDateTime())=="今日"){
+                                            lifecycleScope.launch(Dispatchers.Main) {
+                                                binding.todayTv.visibility = View.VISIBLE
+                                            }
+                                            break
+                                        }
+                                    }
+                                }
                             }
 
 
@@ -2351,6 +2419,19 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
                                 adapterHistory.updateDataTime(chatListReversed)
                                 adapterHistory.notifyItemRemoved(position)
                                 adapterHistory.notifyItemRangeChanged(position, chatListReversed.size - position)
+                                binding.todayTv.visibility = View.GONE
+                                lifecycleScope.launch(Dispatchers.IO) {
+                                    //val allChatList = chatDatabase.chatDao().getAllChats()
+                                    for (chat in chatListReversed){
+                                        //Log.e("ceshi","查询到${TimeUtils.getTimeTag(chat.time,TimeUtils.getCurrentDateTime())}")
+                                        if (TimeUtils.getTimeTag(chat.time,TimeUtils.getCurrentDateTime())=="今日"){
+                                            lifecycleScope.launch(Dispatchers.Main) {
+                                                binding.todayTv.visibility = View.VISIBLE
+                                            }
+                                            break
+                                        }
+                                    }
+                                }
                             }
 
 
@@ -2583,6 +2664,7 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
             }
             "userEdit" -> {
                 binding.messageEditText.setText(chatFunction.message)
+                isUserEdit = true
             }
             "userAgain" -> {
                 performVibration()
@@ -3193,8 +3275,14 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
             }
         }
 
-        // 设置图片（示例：加载随机图片）
-        removableLayout.setImageResource(imageUrlLocal,count,isFile,fileName, fileSize)
+        if (imageUrlLocal.contains("media.documents/")){
+            // 设置图片（示例：加载随机图片）
+            removableLayout.setImageResource(imageUrlLocal,count,true,fileName, fileSize)
+        }else{
+            // 设置图片（示例：加载随机图片）
+            removableLayout.setImageResource(imageUrlLocal,count,false,fileName, fileSize)
+        }
+
 
         // 添加到容器
         binding.imageLine.addView(removableLayout)
@@ -3237,7 +3325,7 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
             .setView(dialogView)
             .setPositiveButton("关闭") { dialog, _ -> dialog.dismiss()
                 lifecycleScope.launch(Dispatchers.Main) {
-                    Log.e("ceshi","图片列表：${imageUrlLocalList.size}")
+                    Log.e("ceshi","图片列表：${imageUrlLocalList}")
                     //binding.imageLineHorScroll.visibility  = View.VISIBLE
 //                    for (resUrl in imageUrlLocalList.values) {
 //                        resUrl.let {
@@ -4080,6 +4168,23 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
             // 强制刷新布局，确保高度立即生效
             binding.chatRecyclerView.requestLayout()
         }
+    }
+
+    /**
+     * 过滤 messageList：清除第一个 message == str 的元素及其之后的所有数据
+     * @param str 要匹配的目标字符串
+     * @return 过滤后的新列表（原列表不变）
+     */
+    fun filterMessageList(str: String): MutableList<ChatMessage> {
+        val targetIndex = messageList.indexOfFirst { it.message == str }
+        Log.e("ceshi","位置是$targetIndex")
+
+        if (targetIndex != -1) {
+            // 直接修改原列表：删除 targetIndex 及之后的所有元素
+            messageList.subList(targetIndex, messageList.size).clear()
+        }
+        // 返回修改后的原列表（或返回其副本，根据需求选择）
+        return messageList.toMutableList()
     }
 
 

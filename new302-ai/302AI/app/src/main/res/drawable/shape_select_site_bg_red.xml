@@ -3,8 +3,8 @@
 <!-- 阴影层 -->
 <item>
     <shape android:shape="rectangle">
-        <solid android:color="@color/itemBgColor"/>
-        <corners android:radius="4dp"/>
+        <solid android:color="#FD5912"/>
+        <corners android:radius="8dp"/>
     </shape>
 </item>
 <!-- 主内容层 -->
@@ -14,8 +14,8 @@
     android:right="0dp"
     android:top="0dp">
     <shape android:shape="rectangle">
-        <solid android:color="@color/itemBgColor"/>
-        <corners android:radius="4dp"/>
+        <solid android:color="#FD5912"/>
+        <corners android:radius="8dp"/>
     </shape>
 </item>
 </layer-list>

@@ -917,6 +917,7 @@
                 android:textStyle="bold"
                 android:textSize="16sp"
                 android:layout_marginTop="10dp"
+                android:layout_marginBottom="20dp"
                 android:background="@drawable/shape_select_site_bg_write_new"/>
 
 

@@ -122,6 +122,7 @@ class ModelAddActivity : BaseActivity() {
         val actionType = intent.getSerializableExtra("action_type") as? String
         if (actionType != null){
             if (actionType == "ADD"){
+                binding.modelTitleTv.text = getString(R.string.setting_add_model_title_message)
                 apiKey = ""
                 baseUrl = ""
                 isActionAdd = true
@@ -130,6 +131,8 @@ class ModelAddActivity : BaseActivity() {
                     modelList = dataStoreManager.modelListFlow.first()
                     Log.e("ceshi","0获取自定义模型列表$modelList")
                 }
+            }else{
+                binding.modelTitleTv.text = getString(R.string.setting_edit_model_title_message)
             }
         }
 
