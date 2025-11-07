@@ -17,6 +17,8 @@ import com.newAi302.app.R
 import com.newAi302.app.data.ImageBack
 import com.newAi302.app.infa.OnWordPrintOverClickListener
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -113,6 +115,10 @@ class RemovableImageChatLayout(context: Context, attrs: AttributeSet? = null, pr
                 }
                 Glide.with(this@RemovableImageChatLayout)
                     .load(image)
+                    .transform(
+                        CenterCrop(),
+                        RoundedCornersTransformation(4, 4, RoundedCornersTransformation.CornerType.ALL) // 第二个参数：圆角dp，第三个参数：边缘模糊度（0为无模糊）
+                    )
                     .placeholder(android.R.drawable.ic_menu_gallery) // 加载中占位图
                     .error(android.R.drawable.stat_notify_error) // 加载失败占位图
                     .into(findViewById<ImageView>(R.id.imageViewMain))
@@ -121,6 +127,10 @@ class RemovableImageChatLayout(context: Context, attrs: AttributeSet? = null, pr
                 //findViewById<LinearLayout>(R.id.imageShowChatLine).visibility = View.VISIBLE
                 Glide.with(this@RemovableImageChatLayout)
                     .load(resUrl)
+                    .transform(
+                        CenterCrop(),
+                        RoundedCornersTransformation(4, 4, RoundedCornersTransformation.CornerType.ALL) // 第二个参数：圆角dp，第三个参数：边缘模糊度（0为无模糊）
+                    )
                     .placeholder(android.R.drawable.ic_menu_gallery) // 加载中占位图
                     .error(android.R.drawable.stat_notify_error) // 加载失败占位图
                     .into(findViewById<ImageView>(R.id.imageViewMain))

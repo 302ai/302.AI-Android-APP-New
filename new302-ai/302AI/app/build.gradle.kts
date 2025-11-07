@@ -118,6 +118,8 @@ dependencies {
     implementation("io.noties.markwon:image-glide:4.6.2")
     implementation("com.github.bumptech.glide:glide:4.16.0")
 
+    implementation("jp.wasabeef:glide-transformations:4.3.0")
+
 
     // PhotoView 图片缩放库（用于放大预览）
     implementation("com.github.chrisbanes:PhotoView:2.3.0")

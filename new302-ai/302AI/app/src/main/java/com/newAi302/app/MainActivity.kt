@@ -266,6 +266,7 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
     private var badPosition = 0
 
     private var isUserEdit = false
+    private var UserEditPosition = 0
 
     //原子
     private val isSendMessage = AtomicBoolean(false)
@@ -450,14 +451,14 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
             moreFunctionQuantity++
         }
         if (moreFunctionQuantity>0){
-            binding.moreFrame.setBackgroundResource(R.drawable.shape_select_site_bg_purple_more_function_line)
+            binding.moreFrame1.setBackgroundResource(R.drawable.shape_select_site_bg_purple_more_function_line)
             binding.moreFunctionLine.visibility = View.VISIBLE
             binding.moreIdTv.text = moreFunctionQuantity.toString()
             binding.moreImage.setImageResource(R.drawable.icon_new_more1)
             binding.moreImage.setColorFilter(ContextCompat.getColor(this, R.color.color302AI), PorterDuff.Mode.SRC_IN)
         }else{
             binding.moreFunctionLine.visibility = View.GONE
-            binding.moreFrame.setBackgroundResource(R.drawable.shape_select_site_chat_edit_bg_write)
+            binding.moreFrame1.setBackgroundResource(R.drawable.shape_select_site_chat_edit_bg_write)
             binding.moreImage.setImageResource(R.drawable.icon_new_more1)
             binding.moreImage.clearColorFilter()
         }
@@ -781,6 +782,7 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
                if (message.isNotEmpty()) {
                    if (isUserEdit){
                        isUserEdit = false
+                       //filterMessageList1(UserEditPosition)
                        filterMessageList(message)
                        Log.e("ceshi","0位置是${filterMessageList(message)}")
                    }
@@ -1491,14 +1493,14 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
                 mMessageList.add(message.message)
             }
             if (moreFunctionQuantity>0){
-                binding.moreFrame.setBackgroundResource(R.drawable.shape_select_site_bg_purple_more_function_line)
+                binding.moreFrame1.setBackgroundResource(R.drawable.shape_select_site_bg_purple_more_function_line)
                 binding.moreFunctionLine.visibility = View.VISIBLE
                 binding.moreIdTv.text = moreFunctionQuantity.toString()
                 binding.moreImage.setImageResource(R.drawable.icon_new_more1)
                 binding.moreImage.setColorFilter(ContextCompat.getColor(this, R.color.color302AI), PorterDuff.Mode.SRC_IN)
             }else{
                 binding.moreFunctionLine.visibility = View.GONE
-                binding.moreFrame.setBackgroundResource(R.drawable.shape_select_site_chat_edit_bg_write)
+                binding.moreFrame1.setBackgroundResource(R.drawable.shape_select_site_chat_edit_bg_write)
                 binding.moreImage.setImageResource(R.drawable.icon_new_more1)
                 binding.moreImage.clearColorFilter()
             }
@@ -1532,14 +1534,14 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
                 mMessageList.add(message.message)
             }
             if (moreFunctionQuantity>0){
-                binding.moreFrame.setBackgroundResource(R.drawable.shape_select_site_bg_purple_more_function_line)
+                binding.moreFrame1.setBackgroundResource(R.drawable.shape_select_site_bg_purple_more_function_line)
                 binding.moreFunctionLine.visibility = View.VISIBLE
                 binding.moreIdTv.text = moreFunctionQuantity.toString()
                 binding.moreImage.setImageResource(R.drawable.icon_new_more1)
                 binding.moreImage.setColorFilter(ContextCompat.getColor(this, R.color.color302AI), PorterDuff.Mode.SRC_IN)
             }else{
                 binding.moreFunctionLine.visibility = View.GONE
-                binding.moreFrame.setBackgroundResource(R.drawable.shape_select_site_chat_edit_bg_write)
+                binding.moreFrame1.setBackgroundResource(R.drawable.shape_select_site_chat_edit_bg_write)
                 binding.moreImage.setImageResource(R.drawable.icon_new_more1)
                 binding.moreImage.clearColorFilter()
             }
@@ -1641,6 +1643,10 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
                                 chatTitle = it+"${chatTitleId}"
                             }
                         }else{
+                            if (chatDatabase.chatDao().checkTitleExists(chatTitle) && messageList.size>0){
+                                //先删除后添加
+                                chatDatabase.chatDao().deleteChatByTitle(chatTitle)
+                            }
                             chatTitle = it
                         }
                         isHaveTitle = true
@@ -2135,21 +2141,21 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
 
                     //moreFunctionQuantity = 0
                     binding.moreFunctionLine.visibility = View.GONE
-                    binding.moreFrame.setBackgroundResource(R.drawable.shape_select_site_chat_edit_bg_write)
+                    binding.moreFrame1.setBackgroundResource(R.drawable.shape_select_site_chat_edit_bg_write)
                     binding.moreImage.setImageResource(R.drawable.icon_new_more1)
                     binding.moreImage.clearColorFilter()
 
                     binding.modeTypeTv.text = modelType
                     //不清空功能状态集成上一会话
                     if (moreFunctionQuantity>0){
-                        binding.moreFrame.setBackgroundResource(R.drawable.shape_select_site_bg_purple_more_function_line)
+                        binding.moreFrame1.setBackgroundResource(R.drawable.shape_select_site_bg_purple_more_function_line)
                         binding.moreFunctionLine.visibility = View.VISIBLE
                         binding.moreIdTv.text = moreFunctionQuantity.toString()
                         binding.moreImage.setImageResource(R.drawable.icon_new_more1)
                         binding.moreImage.setColorFilter(ContextCompat.getColor(this@MainActivity, R.color.color302AI), PorterDuff.Mode.SRC_IN)
                     }else{
                         binding.moreFunctionLine.visibility = View.GONE
-                        binding.moreFrame.setBackgroundResource(R.drawable.shape_select_site_chat_edit_bg_write)
+                        binding.moreFrame1.setBackgroundResource(R.drawable.shape_select_site_chat_edit_bg_write)
                         binding.moreImage.setImageResource(R.drawable.icon_new_more1)
                         binding.moreImage.clearColorFilter()
                     }
@@ -2565,14 +2571,14 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
         binding.newChatCon.visibility = View.GONE
         binding.chatRecyclerView.visibility = View.VISIBLE
         if (moreFunctionQuantity>0){
-            binding.moreFrame.setBackgroundResource(R.drawable.shape_select_site_bg_purple_more_function_line)
+            binding.moreFrame1.setBackgroundResource(R.drawable.shape_select_site_bg_purple_more_function_line)
             binding.moreFunctionLine.visibility = View.VISIBLE
             binding.moreIdTv.text = moreFunctionQuantity.toString()
             binding.moreImage.setImageResource(R.drawable.icon_new_more1)
             binding.moreImage.setColorFilter(ContextCompat.getColor(this, R.color.color302AI), PorterDuff.Mode.SRC_IN)
         }else{
             binding.moreFunctionLine.visibility = View.GONE
-            binding.moreFrame.setBackgroundResource(R.drawable.shape_select_site_chat_edit_bg_write)
+            binding.moreFrame1.setBackgroundResource(R.drawable.shape_select_site_chat_edit_bg_write)
             binding.moreImage.setImageResource(R.drawable.icon_new_more1)
             binding.moreImage.clearColorFilter()
         }
@@ -2665,6 +2671,7 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
             "userEdit" -> {
                 binding.messageEditText.setText(chatFunction.message)
                 isUserEdit = true
+                UserEditPosition = chatFunction.position
             }
             "userAgain" -> {
                 performVibration()
@@ -3010,14 +3017,14 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
         }
         bottomSheetDialog.setOnDismissListener {
             if (moreFunctionQuantity>0){
-                binding.moreFrame.setBackgroundResource(R.drawable.shape_select_site_bg_purple_more_function_line)
+                binding.moreFrame1.setBackgroundResource(R.drawable.shape_select_site_bg_purple_more_function_line)
                 binding.moreFunctionLine.visibility = View.VISIBLE
                 binding.moreIdTv.text = moreFunctionQuantity.toString()
                 binding.moreImage.setImageResource(R.drawable.icon_new_more1)
                 binding.moreImage.setColorFilter(ContextCompat.getColor(this, R.color.color302AI), PorterDuff.Mode.SRC_IN)
             }else{
                 binding.moreFunctionLine.visibility = View.GONE
-                binding.moreFrame.setBackgroundResource(R.drawable.shape_select_site_chat_edit_bg_write)
+                binding.moreFrame1.setBackgroundResource(R.drawable.shape_select_site_chat_edit_bg_write)
                 binding.moreImage.setImageResource(R.drawable.icon_new_more1)
                 binding.moreImage.clearColorFilter()
             }
@@ -4186,6 +4193,10 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
         // 返回修改后的原列表（或返回其副本，根据需求选择）
         return messageList.toMutableList()
     }
+
+    /*fun filterMessageList1(position: Int): MutableList<ChatMessage> {
+
+    }*/
 
 
 }

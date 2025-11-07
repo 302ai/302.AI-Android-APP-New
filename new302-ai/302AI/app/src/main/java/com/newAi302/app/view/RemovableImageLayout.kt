@@ -12,6 +12,8 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import com.newAi302.app.R
 import com.newAi302.app.infa.OnWordPrintOverClickListener
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation
 
 /**
  * author :
@@ -73,6 +75,10 @@ class RemovableImageLayout(context: Context, attrs: AttributeSet? = null,private
             }
             Glide.with(this)
                 .load(image)
+                .transform(
+                    CenterCrop(),
+                    RoundedCornersTransformation(4, 4, RoundedCornersTransformation.CornerType.ALL) // 第二个参数：圆角dp，第三个参数：边缘模糊度（0为无模糊）
+                )
                 .placeholder(android.R.drawable.ic_menu_gallery) // 加载中占位图
                 .error(android.R.drawable.stat_notify_error) // 加载失败占位图
                 .into(findViewById<ImageView>(R.id.imageViewMain))
@@ -81,6 +87,10 @@ class RemovableImageLayout(context: Context, attrs: AttributeSet? = null,private
             findViewById<ImageView>(R.id.imageViewDelete).visibility = View.VISIBLE
             Glide.with(this)
                 .load(resUrl)
+                .transform(
+                    CenterCrop(),
+                    RoundedCornersTransformation(4, 4, RoundedCornersTransformation.CornerType.ALL) // 第二个参数：圆角dp，第三个参数：边缘模糊度（0为无模糊）
+                )
                 .placeholder(android.R.drawable.ic_menu_gallery) // 加载中占位图
                 .error(android.R.drawable.stat_notify_error) // 加载失败占位图
                 .into(findViewById<ImageView>(R.id.imageViewMain))

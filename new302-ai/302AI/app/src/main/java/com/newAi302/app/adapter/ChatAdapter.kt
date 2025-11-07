@@ -349,7 +349,7 @@ class ChatAdapter(private var messageList: List<ChatMessage>, private val contex
         var chatToolItem = ChatBackMessage(chatMessage.message,chatMessage.isMe,"",position,codeNameStr,chatMessage.fileName,chatMessage.fileSize)
         holder.copyLine.setOnClickListener {
             val fullText = messageList[position].message.trimIndent()
-            val mFullText = StringObjectUtils.convertLatexFormat(fullText)
+            val mFullText = StringObjectUtils.convertLatexFormat1(fullText)
             if (messageList[position].message.contains("&&&&&&")){
                 SystemUtils.copyTextToClipboard(context,AfterAmpersand(mFullText))
             }else{
@@ -495,7 +495,7 @@ class ChatAdapter(private var messageList: List<ChatMessage>, private val contex
                     ).show()
                     chatItem.doType = "chooseText"
                     val fullText = messageList[threePosition].message.trimIndent()
-                    val mFullText = StringObjectUtils.convertLatexFormat(fullText)
+                    val mFullText = StringObjectUtils.convertLatexFormat1(fullText)
                     Log.e("ceshi","选择文本内容:${AfterAmpersand(mFullText)}")
                     if (messageList[threePosition].message.contains("&&&&&&")){
                         chatItem.message = AfterAmpersand(mFullText)
@@ -787,13 +787,13 @@ class ChatAdapter(private var messageList: List<ChatMessage>, private val contex
 
 
         val fullText = message.trimIndent()
-        var mFullText = StringObjectUtils.convertLatexFormat(fullText)
+        var mFullText = StringObjectUtils.convertLatexFormat1(fullText)
         //holder.deepLine.visibility = View.GONE
         Log.e("ceshi","识别了：$mFullText")
         if (mFullText.contains("%-------------------------")){
             mFullText = StringObjectUtils.processLatexString(mFullText)
             mFullText = mFullText.replace("%-------------------------","$")
-            mFullText = mFullText.replace("\\","$")
+            //mFullText = mFullText.replace("\\","$")
 //            mFullText = mFullText.replace("\\end","$"+"end")
 //            mFullText = mFullText.replace("\\begin","$"+"begin")
             Log.e("ceshi","0识别了：$mFullText")

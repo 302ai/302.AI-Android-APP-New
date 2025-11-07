@@ -467,7 +467,8 @@ object CommonDialogUtils {
                 CoroutineScope(Dispatchers.IO).launch {
                     Log.e("ceshi","自定义输入存储：${s}，，，$")
                     if (userPromptSelectedImage.visibility == View.VISIBLE){
-                        dataStoreManager.saveCustomizeKeyData(s.toString())
+                        //dataStoreManager.saveCustomizeKeyData(s.toString())
+                        dataStoreManager.saveCueWords(etCueWords.text.toString())
                     }
                 }
                 if (userPromptSelectedImage.visibility == View.VISIBLE){

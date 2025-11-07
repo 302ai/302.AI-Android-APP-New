@@ -326,7 +326,7 @@ class HomeMessageAdapter(private val context:Context,private var chatList: List<
                     false
                 }
             }
-        })
+        })//
 
         /*holder.btnDelete.setOnClickListener {
             // 点击时执行动画效果

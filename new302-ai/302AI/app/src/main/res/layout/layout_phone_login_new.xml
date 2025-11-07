@@ -87,7 +87,7 @@
             android:layout_toEndOf="@+id/edit_verify_code"
             android:gravity="center"
             android:text="@string/get_verify_code"
-            android:textColor="@color/white" />
+            android:textColor="@color/onlyWhite" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_code_empty"
@@ -200,7 +200,7 @@
         android:background="@drawable/shape_btn_login_bg"
         android:gravity="center"
         android:text="@string/login"
-        android:textColor="@color/white"
+        android:textColor="@color/onlyWhite"
         android:textSize="16sp" />
 
 </RelativeLayout>

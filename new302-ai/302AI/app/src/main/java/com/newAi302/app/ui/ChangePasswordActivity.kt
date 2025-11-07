@@ -21,6 +21,7 @@ import com.newAi302.app.databinding.ActivityChangePasswordBinding
 import com.newAi302.app.http.ApiService
 import com.newAi302.app.http.NetworkFactory
 import com.newAi302.app.ui.login.LoginOneActivity
+import com.newAi302.app.utils.EnglishNumberSpecialFilter
 import com.newAi302.app.utils.ViewAnimationUtils
 import com.newAi302.app.utils.base.WearData
 import com.newAi302.app.viewModel.ChatViewModel
@@ -33,7 +34,7 @@ class ChangePasswordActivity : AppCompatActivity() {
     private var mEyeSwitch: Boolean = false //眼睛切换状态 默认为false
     private var mEyeSwitch1: Boolean = false //眼睛切换状态 默认为false
     private var mEyeSwitch2: Boolean = false //眼睛切换状态 默认为false
-
+    val filter = EnglishNumberSpecialFilter()
     private val BASE_URL = "https://api.302.ai/"
     private var CUSTOMIZE_URL_TWO = "https://api.siliconflow.cn/"
     private var apiService = NetworkFactory.createApiService(ApiService::class.java,BASE_URL)
@@ -77,6 +78,9 @@ class ChangePasswordActivity : AppCompatActivity() {
         binding.editTitle.transformationMethod = PasswordTransformationMethod.getInstance()
         binding.editTitle1.transformationMethod = PasswordTransformationMethod.getInstance()
         binding.editTitle2.transformationMethod = PasswordTransformationMethod.getInstance()
+        binding.editTitle.filters = arrayOf(filter)
+        binding.editTitle1.filters = arrayOf(filter)
+        binding.editTitle2.filters = arrayOf(filter)
 
         binding.editTitle.addTextChangedListener {
             Log.e("ceshi","password:${it.toString()}")

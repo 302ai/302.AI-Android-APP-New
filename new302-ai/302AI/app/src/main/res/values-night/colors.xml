@@ -86,7 +86,7 @@
     <color name="un_selected">#929292</color> <!--登录 未选中-->
     <color name="selected">#3756CA</color> <!--登录 已选中-->
     <color name="underline">#375CAC</color>  <!--登录 下划线-->
-    <color name="input_bg">#242424</color> <!--输入框背景-->
+    <color name="input_bg">#000000</color> <!--输入框背景-->
     <color name="input_model_bg">#000000</color> <!--输入框背景-->
     <color name="input_hint">#9CA6B0</color> <!--输入框提示颜色-->
     <color name="verification_bg">#FFECE8</color> <!--验证码背景颜色-->

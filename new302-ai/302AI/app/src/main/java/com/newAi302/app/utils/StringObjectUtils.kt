@@ -248,31 +248,43 @@ object StringObjectUtils {
     }
 
     fun convertLatexFormat1(text: String): String {
-        // 精准匹配 LaTeX 语法：
-        // 1. \( 行内公式 \)  2. \[ 块级公式 \]  3. $ 行内公式 $
-        val latexRegex = Regex(
-            // 匹配 \(...\)（非贪婪，不跨换行）
-            "\\\\ \\( (.*?) \\\\ \\) | " +
-                    // 匹配 \[...\]（非贪婪，可跨换行）
-                    "\\\\ \\[ ([\\s\\S]*?) \\\\ \\] | " +
-                    // 匹配 $...$（非贪婪，不跨换行）
-                    "\\$ (.*?) \\$",
-            RegexOption.COMMENTS // 忽略正则中的空格，提高可读性
+        // 关键1：添加 RegexOption.DOT_MATCHES_ALL 支持 . 匹配换行符（解决多行公式问题）
+        val regex = Regex(
+            "\\\\\\((.*?)\\\\\\)|" +  // 1. 匹配 \(...\) → 捕获组1：纯公式内容
+                    "\\\\\\[(.*?)\\\\\\]|" +  // 2. 匹配 \[...\] → 捕获组2：纯公式内容（支持多行）
+                    "\\\\[(.*?)\\\\]|" +      // 3. 原有 \[...\] 变体 → 捕获组3：纯公式内容
+                    "\\\\[\\\\s*([^\\\\])(.*?)\\\\s*\\\\]|" +  // 4. 原有空格变体 → 捕获组4+5：纯公式内容
+                    "\\\$(.*?)\\\$|" +        // 5. 匹配 $...$ → 捕获组6：纯公式内容
+                    "\\[(.*?)\\]|" +          // 6. 匹配 [...] → 捕获组7：纯公式内容
+                    "%-+(.*?)%-+"  +           // 7. 匹配 %---...%--- → 捕获组8：纯公式内容
+                    "\\\\(.*?)\\\\+"             // 8. 匹配 \...\ → 捕获组8：纯公式内容
+            , RegexOption.DOT_MATCHES_ALL // 允许 . 匹配换行符，支持多行公式
         )
 
-        return text.replace(latexRegex) { match ->
-            val group1 = match.groupValues[1] // \(...\) 内容
-            val group2 = match.groupValues[2] // \[...\] 内容
-            val group3 = match.groupValues[3] // $...$ 内容
+        return text.replace(regex) { match ->
+            // 安全提取公式：先判断捕获组是否存在，再取值（避免越界）
+            val formula = when {
+                // 按捕获组编号顺序提取，优先非空值
+                match.groupValues.size > 1 && match.groupValues[1].isNotEmpty() -> match.groupValues[1]  // 规则1：\(...\)
+                match.groupValues.size > 2 && match.groupValues[2].isNotEmpty() -> match.groupValues[2]  // 规则2：\[...\]
+                match.groupValues.size > 3 && match.groupValues[3].isNotEmpty() -> match.groupValues[3]  // 规则3：\[...\]变体
+                // 规则4：空格变体（拼接捕获组4和5）
+                match.groupValues.size > 5 && (match.groupValues[4].isNotEmpty() || match.groupValues[5].isNotEmpty()) ->
+                    match.groupValues[4] + match.groupValues[5]
+                match.groupValues.size > 6 && match.groupValues[6].isNotEmpty() -> match.groupValues[6]  // 规则5：$...$
+                match.groupValues.size > 7 && match.groupValues[7].isNotEmpty() -> match.groupValues[7]  // 规则6：[...]
+                match.groupValues.size > 8 && match.groupValues[8].isNotEmpty() -> match.groupValues[8]  // 规则7：\...\
+                match.groupValues.size > 9 && match.groupValues[9].isNotEmpty() -> match.groupValues[9]  // 规则8：%---...%---
+                else -> ""  // 无匹配时返回空（避免空指针）
+            }.trim()  // 统一去除首尾空格
 
-            when {
-                // 处理 \[...\]（块级公式，保留内部换行）
-                group2.isNotEmpty() -> "$$${group2}$$"
-                // 处理 \(...\) 或 $...$（行内公式，去除内部换行，避免影响布局）
-                group1.isNotEmpty() -> "$$${group1.replace("\n", "")}$$"
-                group3.isNotEmpty() -> "$$${group3.replace("\n", "")}$$"
-                // 无匹配项（理论上不会走到这里）
-                else -> match.value
+            // 原有替换逻辑
+            if (formula.contains("\n")) {
+                "$$${formula}$$"
+            } else if (match.groupValues.size > 4 && match.groupValues[4].isNotEmpty()) {
+                "$${formula}$"
+            } else {
+                "$$${formula}$$"
             }
         }
     }
@@ -314,12 +326,21 @@ object StringObjectUtils {
 
     // 处理 LaTeX 字符串（针对硬编码场景，自动转义反斜杠）
     fun processLatexString(rawString: String): String {
-        // 1. 转义反斜杠（将单个 \ 替换为 \\）
-        var processed = rawString.replace("\\", "\\\\")
+        var processed = rawString
+        // 1. 转义反斜杠（将单个 \ 替换为 \\）—— 这步逻辑正确，保留
+        processed = processed.replace("\\", "\\\\")
         // 2. 清理行内公式的多余空格（$ 与公式间无空格）
-        processed = processed.replace(Regex("\\$\\s+(.*?)\\s+\\$"), "$$1$$")
-        // 3. 确保块级公式环境闭合（简单校验，实际可根据需求扩展）
-        processed = processed.replace(Regex("(\\\\begin\\{equation\\})(.*?)(?!\\\\end\\{equation\\})"), "$1$2\\\\end{equation}")
+        // 关键修复：替换字符串中的 $ 转义为 \\$，避免被解析为组引用
+        processed = processed.replace(
+            Regex("\\\\\\$\\s+(.*?)\\s+\\\\\\$"),  // 匹配 \$ 前后带空格的情况（因第一步已转义\，故匹配\\$）
+            "\\\$$1\\\\$"  // 替换为 \$公式\$（$1 是捕获组，保留公式内容）
+        )
+        // 3. 确保块级公式环境闭合（简单校验）
+        // 关键修复：替换字符串中的 $1/$2 转义为 \\$1/\\$2，同时添加 DOT_MATCHES_ALL 支持多行匹配
+        processed = processed.replace(
+            Regex("(\\\\begin\\{equation\\})(.*?)(?!\\\\end\\{equation\\})", RegexOption.DOT_MATCHES_ALL),
+            "\\\\$1\\\\$2\\\\end{equation}"  // 补全 \\end{equation}
+        )
         return processed
     }
 

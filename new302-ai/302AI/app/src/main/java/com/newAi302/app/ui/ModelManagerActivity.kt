@@ -50,6 +50,8 @@ class ModelManagerActivity : BaseActivity(), OnItemClickListener {
 
     private lateinit var options3:MutableList<String>
     private lateinit var options2:MutableList<String>
+
+    private var modelSearchList:MutableList<String> = mutableListOf()
     // 修改后（线程安全）
     //private var options2 = CopyOnWriteArrayList<String>()
     private lateinit var dataStoreManager: DataStoreManager
@@ -273,24 +275,36 @@ class ModelManagerActivity : BaseActivity(), OnItemClickListener {
                 Log.e("ceshi","0搜索文字：${start},$before,$count")
                 binding.searchCloseBtn.visibility = View.VISIBLE
 
+                // 1. 预处理搜索关键词：判空、去首尾空格、转为小写（忽略大小写）
+                val keyword = s?.toString()?.trim()?.lowercase() ?: ""
+                //modelSearchList.clear()
+                if (modelSearchList.isNotEmpty()){
+                    modelSearchList.clear()
+                }
                 val job2 = lifecycleScope.launch(Dispatchers.IO) {
-                    targetIndex = options3.indexOfFirst { mModelType ->
+                    /*targetIndex = options3.indexOfFirst { mModelType ->
                         // 核心：用 contains() 检查 message 字段是否包含目标链接（而非完全相等）
                         mModelType.contains(s.toString())
+                    }*/
+                    for (modelType in options3){
+                        if (modelType.contains(s.toString(),ignoreCase = true)){
+                            modelSearchList.add(modelType)
+                        }
                     }
                 }
 
                 lifecycleScope.launch(Dispatchers.Main) {
                     job2.join() // 等待数据库操作完成
-                    if (targetIndex != 0){
+                    /*if (targetIndex != 0){
                         binding.ai302Recycle.layoutManager?.scrollToPosition(targetIndex)
                         // 3. 刷新目标item（无需获取ViewHolder）
                         adapter302Ai.notifyItemChanged(targetIndex)
-                    }
+                    }*/
+                    adapter302Ai.updateData(modelSearchList)
 
                 }
 
-                val job3 = lifecycleScope.launch(Dispatchers.IO) {
+                /*val job3 = lifecycleScope.launch(Dispatchers.IO) {
                     targetCustomizeIndex = options2.indexOfFirst { mModelType ->
                         // 核心：用 contains() 检查 message 字段是否包含目标链接（而非完全相等）
                         mModelType.contains(s.toString())
@@ -305,17 +319,19 @@ class ModelManagerActivity : BaseActivity(), OnItemClickListener {
                         adapter302Ai.notifyItemChanged(targetCustomizeIndex)
                     }
 
-                }
+                }*/
 
             }
 
             override fun afterTextChanged(s: Editable?) {
                 Log.e("ceshi","afterTextChanged搜索文字：${s.toString()}")
 
+                adapter302Ai.updateData(options3)
+
 
 
                 if (s?.isEmpty() == true) {
-
+                    binding.searchCloseBtn.visibility = View.GONE
                 }
 
             }
