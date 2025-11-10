@@ -91,6 +91,21 @@ object StringObjectUtils {
         return matchResult?.value ?: ""
     }
 
+    fun extractPythonCodeFromMarkdown(markdown: String): String {
+        // 匹配 ```python 开头、``` 结尾的代码块，支持多行
+        val codeBlockRegex = Regex(
+            "```\\s*([\\s\\S]*?)\\s*```",
+            RegexOption.DOT_MATCHES_ALL
+        )
+        // 提取所有匹配的代码块内容
+        val codeBlocks = codeBlockRegex.findAll(markdown)
+            .map { it.groupValues[1].trim() } // 提取捕获组并去除首尾空格
+            .filter { it.isNotEmpty() } // 过滤空代码块
+            .toList()
+        // 用换行连接所有代码块
+        return codeBlocks.joinToString("\n\n")
+    }
+
     /**
      * 识别代码字符串所属的编程语言
      * @param code 待识别的代码字符串

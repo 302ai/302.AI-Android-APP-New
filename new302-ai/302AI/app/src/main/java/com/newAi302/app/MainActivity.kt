@@ -824,6 +824,7 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
                    }
 
                    messageAdapter.upDateIsNewChat(false)
+                   binding.chatRecyclerView.layoutManager?.scrollToPosition(messageList.size-1)
                    lifecycleScope.launch(Dispatchers.IO) {
                        val model = "gpt-4o-image-generation"
                        isSendMessage.set(true)
@@ -1878,6 +1879,26 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
             }
         }
 
+        chatViewModel.loadCodeResult.observe(this){
+            it.let {
+
+                if (it != "nothing"){
+                    // 方法1：使用内置的CircleCrop变换
+                    /*Glide.with(this@MainActivity)
+                        .load(it)
+                        .apply(RequestOptions.circleCropTransform())
+                        .placeholder(android.R.drawable.ic_menu_gallery)
+                        .error(android.R.drawable.stat_notify_error)
+                        .into(binding.userImage)*/
+                    CommonDialogUtils.setUrlCodePre(it!!)
+                }else{
+
+                }
+
+
+            }
+        }
+
 
     }
 
@@ -2810,6 +2831,12 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
                 // 初始化Markwon（包含常用插件）
                 var codeStr = chatFunction.message
                 Log.e("ceshi","位置是${chatFunction.position},,字符串：$codeStr")
+                if (!codeStr.contains("html")){
+                    lifecycleScope.launch(Dispatchers.IO) {
+                        chatViewModel.loadCode(apiKey,apiService,StringObjectUtils.extractPythonCodeFromMarkdown(codeStr))
+                    }
+                }
+
                 Log.e("ceshi","位置载入html字符串：${
                     StringObjectUtils.extractHtmlFromMarkdownCode(
                         codeStr

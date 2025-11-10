@@ -45,7 +45,6 @@
         android:layout_height="25dp"
         android:layout_marginTop="15dp"
         android:layout_marginRight="15dp"
-        android:visibility="gone"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:background="@drawable/icon_eye3"/>
@@ -88,6 +87,11 @@
             android:id="@+id/codePreTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
+            <ImageView
+                android:id="@+id/codePreImage"
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
         </LinearLayout>
 
     </ScrollView>

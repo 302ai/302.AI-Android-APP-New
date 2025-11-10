@@ -67,6 +67,7 @@ class ChatViewModel :ViewModel(){
     val deleteUserResult = MutableLiveData<String?>()
     val changeUserNameResult = MutableLiveData<String?>()
     val changeUserPswResult = MutableLiveData<String?>()
+    val loadCodeResult = MutableLiveData<String?>()
 
     private lateinit var request: Any
 
@@ -492,6 +493,82 @@ class ChatViewModel :ViewModel(){
                 // 在主线程更新 UI
                 Log.e("ceshi","修改用户密码返回数据为：${response.msg}")
                 changeUserPswResult.postValue(response.msg)
+            }
+        } catch (e: HttpException) {
+            // 处理 HTTP 错误
+        } catch (e: IOException) {
+            // 处理网络错误
+        } catch (e: retrofit2.HttpException){
+            Log.e("ceshi","错误：${e.toString()}")
+            //modelListResult.postValue(modelListNull)
+        } catch (e: IllegalArgumentException) {
+            // 处理异常
+            Log.e("Network", "无效的 Authorization 头: ${e.message}")
+
+            // 可选：提供默认值或执行恢复逻辑
+        }
+
+    }
+
+    @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
+    suspend fun loadCode(token:String,apiService:ApiService,code:String){
+        Log.e("ceshi","获取到的token：$token")
+        val authorizationToken = "Bearer $token"//sk-RcnM7qzDdqa3i4mylTGPSl5peJzu8CNMx2pe6cauC0es3JCA
+        try {
+            val code5 = "import javax.swing.*;\n" +
+                    "import java.awt.*;\n" +
+                    "\n" +
+                    "public class LineDrawing extends JPanel {\n" +
+                    "    @Override\n" +
+                    "    protected void paintComponent(Graphics g) {\n" +
+                    "        super.paintComponent(g);\n" +
+                    "        // 绘制一条直线\n" +
+                    "        g.drawLine(10, 10, 290, 290); // 从(10, 10)到(290, 290)\n" +
+                    "    }\n" +
+                    "\n" +
+                    "    public static void main(String[] args) {\n" +
+                    "        JFrame frame = new JFrame(\"Line Drawing\");\n" +
+                    "        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);\n" +
+                    "        frame.add(new LineDrawing());\n" +
+                    "        frame.setSize(300, 300); // 设置窗口大小\n" +
+                    "        frame.setLocationRelativeTo(null); // 居中显示窗口\n" +
+                    "        frame.setVisible(true);\n" +
+                    "    }\n" +
+                    "}\n"
+            val code2 = "# print('Hello from simplified code')"
+            val code3 = "val a=2;val b = 3;var c = a+b;print(c)"
+            val code1 = "# 保存绘制的气温折线图为图片文件\nimport os\n\nimport matplotlib.pyplot as plt\n\n# 从之前整理的字典数据结构获取天气数据\nweather_data = {\n    '03月17日': {'最高气温': 16, '最低气温': 12},\n    '03月18日': {'最高气温': 21, '最低气温': 12},\n    '03月19日': {'最高气温': 22, '最低气温': 11},\n    '03月20日': {'最高气温': 22, '最低气温': 11},\n    '03月21日': {'最高气温': 24, '最低气温': 12},\n    '03月22日': {'最高气温': 25, '最低气温': 13},\n    '03月23日': {'最高气温': 26, '最低气温': 14}\n}\n\n# 提取日期、最高气温和最低气温\ndates = list(weather_data.keys())\nhighs = [data['最高气温'] for data in weather_data.values()]\nlows = [data['最低气温'] for data in weather_data.values()]\n\n# 创建折线图\nplt.figure(figsize=(10, 5))\nplt.plot(dates, highs, marker='o', label='最高气温 (℃)', color='red')\nplt.plot(dates, lows, marker='o', label='最低气温 (℃)', color='blue')\n\n# 添加标题和标签\nplt.title('未来一周广州天气气温折线图')\nplt.xlabel('日期')\nplt.ylabel('气温 (℃)')\nplt.xticks(rotation=45)\nplt.legend()\nplt.grid()\n\nprint(os.getcwd())\n\n# 保存图形为PNG文件\nplt.savefig('guangzhou_weather_temperature_chart.png')\nplt.close()\nprint(11)"
+            val code4 = "# 保存绘制的气温折线图为图片文件\n" +
+                    "import matplotlib.pyplot as plt\n" +
+                    "\n" +
+                    "fig, ax = plt.subplots()\n" +
+                    "\n" +
+                    "ax.plot([0, 1], [0, 1], label='直线')\n" +
+                    "\n" +
+                    "ax.set_title('一条直线')\n" +
+                    "ax.set_xlabel('x轴')\n" +
+                    "ax.set_ylabel('y轴')\n" +
+                    "\n" +
+                    "ax.legend()\n" +
+                    "\n" +
+                    "plt.savefig('straight_line.png')"
+            val request1 = ApiService.LoadCodeRequest(code = code,is_download = true)
+            val response = apiService.loadCode(
+                authorization = authorizationToken, request = request1
+            )
+            // 处理返回的响应数据
+            viewModelScope.launch(Dispatchers.Main) {
+                // 在主线程更新 UI
+                if (response.result.file != null){
+                    if (!response.result.file.url.isNullOrEmpty()){
+                        Log.e("ceshi","载入代码返回数据为：${response.result.file.url}")
+                        loadCodeResult.postValue(response.result.file.url)
+                    }
+
+                }else{
+                    loadCodeResult.postValue("nothing")
+                }
+
             }
         } catch (e: HttpException) {
             // 处理 HTTP 错误

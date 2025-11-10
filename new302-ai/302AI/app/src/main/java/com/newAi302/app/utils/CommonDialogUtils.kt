@@ -29,6 +29,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.newAi302.app.R
 import com.newAi302.app.adapter.ModelType302aiAdapter
 import com.newAi302.app.adapter.ModelTypeSelectAdapter
@@ -57,6 +59,7 @@ import kotlinx.coroutines.launch
 object CommonDialogUtils {
 
     private lateinit var adapterSelectModel: ModelTypeSelectChatAdapter
+    var codeUrl = ""
 
 
     @SuppressLint("MissingInflatedId")
@@ -486,6 +489,11 @@ object CommonDialogUtils {
     }
 
 
+    fun setUrlCodePre(url:String){
+        this.codeUrl = url
+    }
+
+
     @SuppressLint("MissingInflatedId")
     fun showBottomSheetCodePreDialog(context: Context,codeStr:String,codeName:String) {
         var isCodePre = true
@@ -526,6 +534,7 @@ object CommonDialogUtils {
         var codePreTitleTV = view.findViewById<TextView>(R.id.codePreTitleTV)
         var codePreTv = view.findViewById<TextView>(R.id.codePreTv)
         var codePreWeb = view.findViewById<WebView>(R.id.codePreWeb)
+        var codePreImage = view.findViewById<ImageView>(R.id.codePreImage)
         var eyeCodePreImage = view.findViewById<ImageView>(R.id.eyeCodePreImage)
         var copyCodePreImage = view.findViewById<ImageView>(R.id.copyCodePreImage)
 
@@ -546,12 +555,24 @@ object CommonDialogUtils {
             ViewAnimationUtils.performClickEffect(it)
             if (isCodePre){
                 isCodePre = false
+                if (codeUrl != ""){
+                    Glide.with(context)
+                        .load(it)
+                        .apply(RequestOptions.circleCropTransform())
+                        .placeholder(android.R.drawable.ic_menu_gallery)
+                        .error(android.R.drawable.stat_notify_error)
+                        .into(codePreImage)
+                    codePreImage.visibility = View.VISIBLE
+                }else{
+                    codePreWeb.visibility = View.VISIBLE
+                }
                 codePreTv.visibility = View.GONE
-                codePreWeb.visibility = View.VISIBLE
+
             }else{
                 isCodePre = true
                 codePreTv.visibility = View.VISIBLE
                 codePreWeb.visibility = View.GONE
+                codePreImage.visibility = View.GONE
             }
         }
 

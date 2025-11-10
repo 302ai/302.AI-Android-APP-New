@@ -127,6 +127,19 @@ interface ApiService {
         @Part("need_compress") needCompress: Boolean
     ): UploadImageResponseUser // 返回类型为UploadResponse
 
+    @POST("/302/sandbox/direct_run_code")
+    suspend fun loadCode(
+        @Header("Accept") accept: String = "application/json",
+        @Header("Authorization") authorization: String,
+        @Header("Content-Type") contentType: String = "application/json",
+        @Body request: LoadCodeRequest
+    ) : LoadCodeResponse
+
+    data class LoadCodeRequest(
+        val code: String,
+        val is_download: Boolean
+    )
+
 
 
 }
@@ -152,6 +165,21 @@ data class UserInfo(
     val phone: String,
     val balance: Double,
     val avatar: String
+)
+
+data class LoadCodeResponse(
+    val result:LoadCodeInfo,
+    val code: Int,
+    val msg: String
+)
+
+data class LoadCodeInfo(
+    val stdout: List<String>?,
+    val stderr: List<String>?,
+    val file: LoadCodeFile
+)
+data class LoadCodeFile(
+    val url:String
 )
 
 data class ModelList(
