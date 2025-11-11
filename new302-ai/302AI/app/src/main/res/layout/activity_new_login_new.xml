@@ -46,68 +46,78 @@
 
 
 
+
+        <LinearLayout
+            android:id="@+id/titleButtonLine"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal"
+            android:weightSum="2">
+            <LinearLayout
+                android:id="@+id/ll_email_login"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_email_login_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/sms_login"
+                    android:layout_gravity="center"
+                    android:textColor="@color/un_selected"
+                    android:textSize="18sp" />
+
+                <View
+                    android:id="@+id/view_email_line"
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@drawable/shape_line_r2_bg_302ai"
+                    android:visibility="gone"
+                    tools:visibility="visible" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_phone_login"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_email_phone_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/password_login"
+                    android:layout_gravity="center"
+                    android:textColor="@color/un_selected"
+                    android:textSize="18sp" />
+
+                <View
+                    android:id="@+id/view_phone_line"
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="4dp"
+                    android:background="@drawable/shape_line_r2_bg_302ai"
+                    android:visibility="gone"
+                    tools:visibility="visible" />
+
+            </LinearLayout>
+        </LinearLayout>
+
         <View
             android:id="@+id/view"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginTop="50dp"
+            android:layout_below="@+id/titleButtonLine"
             android:background="@color/dividing_line" />
 
-        <LinearLayout
-            android:id="@+id/ll_email_login"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            android:orientation="vertical">
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_email_login_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/sms_login"
-                android:textColor="@color/un_selected"
-                android:textSize="18sp" />
-
-            <View
-                android:id="@+id/view_email_line"
-                android:layout_width="70dp"
-                android:layout_height="3dp"
-                android:layout_marginTop="4dp"
-                android:background="@drawable/shape_line_r2_bg_302ai"
-                android:visibility="gone"
-                tools:visibility="visible" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/ll_phone_login"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
-            android:layout_marginTop="20dp"
-            android:layout_toEndOf="@+id/ll_email_login"
-            android:orientation="vertical">
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_email_phone_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/password_login"
-                android:textColor="@color/un_selected"
-                android:textSize="18sp" />
-
-            <View
-                android:id="@+id/view_phone_line"
-                android:layout_width="80dp"
-                android:layout_height="3dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="4dp"
-                android:background="@drawable/shape_line_r2_bg_302ai"
-                android:visibility="gone"
-                tools:visibility="visible" />
-
-        </LinearLayout>
 
         <RelativeLayout
             android:id="@+id/rl_input_info"

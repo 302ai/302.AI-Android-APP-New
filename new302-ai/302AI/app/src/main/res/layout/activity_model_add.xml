@@ -55,12 +55,12 @@
         </LinearLayout>
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/saveModeTypeBt"
-            android:layout_width="68dp"
-            android:layout_height="34dp"
+            android:layout_width="52dp"
+            android:layout_height="28dp"
             android:text="@string/setting_add_model_save_message"
             android:textColor="@color/onlyWhite"
             android:gravity="center"
-            android:textSize="16sp"
+            android:textSize="14sp"
             android:background="@drawable/shape_select_site_bg_purple_line"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -385,7 +385,7 @@
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
             android:orientation="horizontal"
-            android:background="@drawable/shape_chat_site_bg_gray_line">
+            android:background="@drawable/shape_chat_site_bg_gray">
             <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/edit_url_setting"
                 android:layout_width="match_parent"
@@ -425,7 +425,7 @@
             android:layout_marginRight="15dp"
             android:layout_marginBottom="25dp"
             android:orientation="horizontal"
-            android:background="@drawable/shape_chat_site_bg_gray_line">
+            android:background="@drawable/shape_chat_site_bg_gray">
             <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/edit_key_setting1"
                 android:layout_width="match_parent"

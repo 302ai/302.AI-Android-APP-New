@@ -53,13 +53,13 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/addModeTypeBt"
-            android:layout_width="68dp"
-            android:layout_height="34dp"
+            android:layout_width="52dp"
+            android:layout_height="28dp"
             android:layout_marginRight="10dp"
             android:text="@string/setting_add_model_manager_add_message"
             android:textColor="@color/blue"
             android:gravity="center"
-            android:textSize="16sp"
+            android:textSize="14sp"
             android:background="@drawable/shape_select_site_bg_blue_line"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"

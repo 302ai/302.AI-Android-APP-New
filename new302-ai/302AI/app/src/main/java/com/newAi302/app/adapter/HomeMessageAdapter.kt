@@ -92,8 +92,8 @@ class HomeMessageAdapter(private val context:Context,private var chatList: List<
     @SuppressLint("ClickableViewAccessibility")
     override fun onBindViewHolder(holder: ChatViewHolder, position: Int) {
         val chatItem = chatList[position]
-        Log.e("ceshi","历史列表显示：$chatItem")
-        Log.e("ceshi","历史列表显示时间：${chatItem.time}")//2025-08-12 16:54:59
+        //Log.e("ceshi","历史列表显示：$chatItem")
+        //Log.e("ceshi","历史列表显示时间：${chatItem.time}")//2025-08-12 16:54:59
         holder.title.text = chatItem.title
 
         // 从缓存中获取当前位置的时间标签

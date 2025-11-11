@@ -260,6 +260,7 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
     private var isHasGetTitle = false
     private var searchServiceType = ""
     private var moreFunctionQuantity = 0
+    private var isHistory = false
 
     private var isChatRes = false
 
@@ -777,9 +778,15 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
             performVibration()
            if (isTrueApiKey){
                isSendMessageAll.set(false)
-               val message = binding.messageEditText.text.toString().trim()
+               var message = binding.messageEditText.text.toString().trim()
                Log.e("ceshi","点击")
                if (message.isNotEmpty()) {
+                   Log.e("ceshi","发送信息是$message")
+                   if (message.contains("\n")){
+                       message = message.replace("\n","\n\n")
+                       Log.e("ceshi","1发送信息是$message")
+                   }
+
                    if (isUserEdit){
                        isUserEdit = false
                        //filterMessageList1(UserEditPosition)
@@ -882,7 +889,7 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
                 binding.todayTv.visibility = View.GONE
                 val job = lifecycleScope.launch(Dispatchers.IO) {
                     //chatId = chatDatabase.chatDao().getAllChats().reversed().toMutableList().size
-                    Log.e("ceshi","0返回的模型类型$modelType,,$chatTitle,,${messageList.size},,$isPrivate")
+                    Log.e("ceshi","0返回的模型类型$modelType,,$chatTitle,,${messageList.size},,$isPrivate,,$isHaveTitle")
                     //chatTime = TimeUtils.getCurrentDateTime()
 
                     if (!isPrivate){
@@ -2110,7 +2117,6 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
         }else{
             performVibration()
             Log.e("ceshi","创建新的会话$isUseTracelessSwitch")
-
             lifecycleScope.launch(Dispatchers.IO) {
 
                 Log.e("ceshi","侧边栏删除：${leftDelect.get()}")
@@ -2118,7 +2124,7 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
                     chatId = chatDatabase.chatDao().getAllChats().toMutableList().size
                     Log.e("ceshi","返回的模型类型$modelType,,$chatTitle")
                     Log.e("ceshi","插入最新的${chatId}")
-                    if (chatTitle.contains(ContextCompat.getString(this@MainActivity, R.string.chat_title))){
+                    if (chatTitle.contains(ContextCompat.getString(this@MainActivity, R.string.chat_title)) && !isHistory){
                         chatTitle = chatTitle+chatId
                     }
                     //直接插入，做了title唯一性，如果有了就替换成最新的
@@ -2547,6 +2553,7 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
     @RequiresApi(35)
     override fun onItemClick(chatItem: ChatItemRoom) {
         Log.e("ceshi","点击聊天历史列表：$chatItem")
+        isHistory = true
         moreFunctionQuantity = 0
         imageCounter = 0
         isSendMessage.set(false)

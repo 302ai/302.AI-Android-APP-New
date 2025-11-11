@@ -20,7 +20,7 @@
                 android:layout_height="52dp"
                 android:scaleType="centerCrop"
                 android:layout_gravity="center"
-                android:background="@color/BgPrimary"/>
+                />
 
             <ImageView
                 android:id="@+id/imageViewDelete"

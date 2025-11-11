@@ -4,11 +4,13 @@
     <color name="white">#FFFFFFFF</color>
     <color name="onlyWhite">#FFFFFFFF</color>
     <color name="white1">#FFFFFFFF</color>
+    <color name="white2">#FFFFFFFF</color>
     <color name="textColor">#333333</color>
     <color name="textColor1">#8E8E8E</color>
     <color name="textColor2">#D3D3D3</color>
     <color name="textColor3">#C7C7C7</color>
     <color name="textColor4">#D3D3D3</color>
+    <color name="textColor5">#D9D9D9</color>
     <color name="textSettingColor">#5C5C5C</color>
     <color name="textSettingColor1">#8E8E8E</color>
     <color name="textSettingColor2">#CD0404</color>
@@ -22,6 +24,7 @@
     <color name="backgroundBottomDialog">#F5F5F5</color>
     <color name="backgroundGreen">#DEF3E4</color>
     <color name="backgroundLogin">#FFFFFFFF</color>
+    <color name="backgroundLoginNew">#FFFFFFFF</color>
 
     <color name="backgroundChatEdit">#FFFFFFFF</color>
     <color name="backgroundChatFun">#FFFFFFFF</color>
@@ -96,8 +99,11 @@
     <color name="selected">#3756CA</color> <!--登录 已选中-->
     <color name="underline">#375CAC</color>  <!--登录 下划线-->
     <color name="input_bg">#F2F3F5</color> <!--输入框背景-->
+    <color name="input1_bg">#F2F3F5</color> <!--输入框背景-->
+
     <color name="input_model_bg">#F2F3F5</color> <!--输入框背景-->
     <color name="input_hint">#9CA6B0</color> <!--输入框提示颜色-->
+    <color name="input1_hint">#9CA6B0</color> <!--输入框提示颜色-->
     <color name="verification_bg">#FFECE8</color> <!--验证码背景颜色-->
     <color name="empty_tip">#F53F3F</color> <!--验证码为空提示-->
     <color name="forget_password">#7664DD</color> <!--忘记密码-->

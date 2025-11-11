@@ -651,8 +651,12 @@ class ChatAdapter(private var messageList: List<ChatMessage>, private val contex
             holder.deepTextView.visibility = View.GONE
         }
 
-        if (chatMessage.message.contains(".jpg") || chatMessage.message.contains("media.documents/") || chatMessage.message.contains(".png")){
+        //Log.e("ceshi","识别了4：${chatMessage.message}")
+
+        if ((chatMessage.message.contains(".jpg") || chatMessage.message.contains("media.documents/") || chatMessage.message.contains(".png"))
+            && chatMessage.isMe){
             setMessageUi(holder,StringObjectUtils.extractInfoFromString(chatMessage.message))
+            //Log.e("ceshi","识别了4：${chatMessage.message}")
         }else{
             setMessageUi(holder,chatMessage.message)
         }

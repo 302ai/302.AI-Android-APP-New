@@ -3,6 +3,7 @@ package com.newAi302.app.utils
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
@@ -24,10 +25,12 @@ import com.chad.library.adapter.base.viewholder.BaseViewHolder
 class DialogUtils(private val onDeleteClickListener: (String) -> Unit) {
     private lateinit var popupWindow: PopupWindow
     private var mType = ""
+    private lateinit var context: Context
 
 
 
     fun setupPopupWindow(options0:MutableList<String>,type:String,context:Context) {
+        this.context = context
         mType = type
         val popupView = LayoutInflater.from(context).inflate(R.layout.setting_popup_list, null)
         popupWindow = PopupWindow(
@@ -311,11 +314,41 @@ class DialogUtils(private val onDeleteClickListener: (String) -> Unit) {
                 )
             }
             "moreLine" -> {
-                popupWindow.showAsDropDown(
+                // 直接测量屏幕位置
+                ViewScreenPositionHelper.getViewScreenPosition(
+                    targetView = anchorView,
+                    onResult = { position ->
+                        // 拿到屏幕坐标：position.x（X轴）、position.y（Y轴）
+                        Log.e("ceshi","屏幕位置：X=${position.y}px")
+                        val scrHei = ScreenUtils.getScreenHeight(
+                            this.context
+                        )
+                        Log.e("ceshi","屏幕高度：X=${scrHei}px，，，比值：${position.y.toDouble()/scrHei}")
+                        //Log.e("ceshi","弹窗的高度：${popupWindow.height}")
+                        if (position.y.toDouble()/scrHei < 0.76){
+                            popupWindow.showAsDropDown(
+                                anchorView,
+                                -(anchorView.width - popupWindow.width) / 2,
+                                8
+                            )
+                        }else{
+                            popupWindow.showAsDropDown(
+                                anchorView,
+                                -(anchorView.width - popupWindow.width) / 2,
+                                -260
+                            )
+                        }
+                    },
+                    onError = { error ->
+                        Log.e("ceshi","测量失败：$error")
+                    }
+                )
+
+                /*popupWindow.showAsDropDown(
                     anchorView,
                     -(anchorView.width - popupWindow.width) / 2,
                     8
-                )
+                )*/
             }
             "meChatList" -> {
                 popupWindow.showAsDropDown(

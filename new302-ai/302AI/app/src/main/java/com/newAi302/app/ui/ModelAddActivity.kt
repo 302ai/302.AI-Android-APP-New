@@ -221,6 +221,7 @@ class ModelAddActivity : BaseActivity() {
             if (modelType == ""){
                 Toast.makeText(this, ContextCompat.getString(this@ModelAddActivity, R.string.setting_add_model_no_id_message), Toast.LENGTH_SHORT).show()
             }else{
+                var isHave = false
                 lifecycleScope.launch(Dispatchers.IO) {
 
                     if (isActionAdd){
@@ -233,10 +234,25 @@ class ModelAddActivity : BaseActivity() {
                             apiKey = apiKey,
                             isCustomize = true
                         )
-                        chatDatabase.chatDao().insertModel(model)
-                        modelList.add(modelType)
-                        //dataStoreManager.saveCustomizeModelList(modelList)
-                        dataStoreManager.saveModelList(modelList)
+
+                        for (modelHave in modelList){
+                            if (modelHave == modelType){
+                                isHave = true
+                                break
+                            }
+                        }
+                        if (!isHave){
+                            chatDatabase.chatDao().insertModel(model)
+                            modelList.add(modelType)
+                            //dataStoreManager.saveCustomizeModelList(modelList)
+                            dataStoreManager.saveModelList(modelList)
+                        }else{
+                            lifecycleScope.launch(Dispatchers.Main) {
+                                Toast.makeText(this@ModelAddActivity, ContextCompat.getString(this@ModelAddActivity, R.string.setting_add_model_has_id_message), Toast.LENGTH_SHORT).show()
+                            }
+
+                        }
+
                     }else{
                         val model = ModelDataRoom(
                             modelId = modelType,
@@ -263,7 +279,9 @@ class ModelAddActivity : BaseActivity() {
                     }*/
 
                     lifecycleScope.launch(Dispatchers.Main) {
-                        finish()
+                        if (!isHave){
+                            finish()
+                        }
                     }
                 }
             }
