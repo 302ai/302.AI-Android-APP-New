@@ -15,10 +15,10 @@
             android:id="@+id/rl_content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="50dp"
-            android:background="@drawable/shape_login_r20_white_bg"
-            android:paddingStart="30dp"
-            android:paddingEnd="30dp">
+            android:layout_marginTop="16dp"
+
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp">
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/backImage"
@@ -46,7 +46,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:weightSum="2"
-                android:layout_marginTop="20dp">
+                android:layout_marginTop="40dp">
                 <LinearLayout
                     android:id="@+id/ll_email_register"
                     android:layout_width="0dp"

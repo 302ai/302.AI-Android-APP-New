@@ -5,7 +5,7 @@
     android:id="@+id/ll_phone_register"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/backgroundLoginNew"
+    android:background="@color/backgroundLogin"
     android:orientation="vertical">
 
     <LinearLayout
@@ -24,7 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginTop="6dp"
-            android:background="@color/input_bg">
+            android:background="@color/input1_bg">
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/img_user"
@@ -112,7 +112,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <com.newAi302.app.widget.view.VerificationEditTextView
+        <com.newAi302.app.widget.view.VerificationEditResTextView
             android:id="@+id/verification_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -147,7 +147,7 @@
             android:id="@+id/edit_verify_code"
             android:layout_width="150dp"
             android:layout_height="40dp"
-            android:background="@color/input_bg"
+            android:background="@color/input1_bg"
             android:hint="@string/please_verify_code"
             android:maxLines="1"
             android:paddingStart="10dp"
@@ -165,7 +165,7 @@
             android:gravity="center"
             android:background="@drawable/shape_line_r2_bg_302ai"
             android:text="@string/get_verify_code"
-            android:textColor="@color/white" />
+            android:textColor="@color/onlyWhite" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_code_empty"
@@ -178,13 +178,13 @@
 
     </RelativeLayout>
 
-    <com.newAi302.app.widget.view.PassWorkEditView
+    <com.newAi302.app.widget.view.PassWorkResEditView
         android:id="@+id/rl_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:hint="@string/email_password" />
 
-    <com.newAi302.app.widget.view.PassWorkEditView
+    <com.newAi302.app.widget.view.PassWorkResEditView
         android:id="@+id/rl_password_again"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -198,7 +198,7 @@
         android:background="@drawable/shape_line_r2_bg_302ai"
         android:gravity="center"
         android:text="@string/register_use_phone_number"
-        android:textColor="@color/white"
+        android:textColor="@color/onlyWhite"
         android:textSize="16sp" />
 
 </androidx.appcompat.widget.LinearLayoutCompat>

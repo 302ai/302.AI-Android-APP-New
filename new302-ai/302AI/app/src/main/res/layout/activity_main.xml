@@ -215,6 +215,21 @@
 
             </LinearLayout>
         </HorizontalScrollView>
+        
+        <TextView
+            android:id="@+id/cancelEditSendMsgTv"
+            android:layout_width="106dp"
+            android:layout_height="36dp"
+            android:text="取消编辑"
+            android:textSize="14sp"
+            android:visibility="gone"
+            android:textColor="@color/color302AI"
+            android:gravity="center"
+            android:background="@drawable/shape_select_site_chat_edit_cancel_bg_line"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/bottomConst"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"/>
 
 <!--        <ScrollView-->
 <!--            android:id="@+id/scroll2"-->

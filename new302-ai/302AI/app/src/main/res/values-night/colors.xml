@@ -4,6 +4,7 @@
     <color name="white">#242424</color>
     <color name="white1">#FFFFFFFF</color>
     <color name="white2">#000000</color>
+    <color name="white3">#3A3A3A</color>
     <color name="textColor">#FFFFFFFF</color>
     <color name="textColor1">#8E8E8E</color>
     <color name="textColor2">#D3D3D3</color>
@@ -26,6 +27,7 @@
 
     <color name="backgroundChatEdit">#242424</color>
     <color name="backgroundChatFun">#00000000</color>
+    <color name="backgroundChatCancelEdit">#2B1548</color>
 
     <color name="textLoginColor">#929292</color>
 

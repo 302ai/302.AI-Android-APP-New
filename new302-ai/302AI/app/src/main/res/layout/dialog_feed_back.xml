@@ -26,7 +26,7 @@
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:background="@drawable/icon_love"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="2dp"
         app:layout_constraintLeft_toRightOf="@+id/tvTitle"
         app:layout_constraintBottom_toBottomOf="@+id/tvTitle"
         app:layout_constraintTop_toTopOf="@+id/tvTitle"/>
@@ -46,8 +46,7 @@
         android:layout_height="wrap_content"
         android:text="@string/feed_back_bottom_message"
         android:textSize="12sp"
-        android:textStyle="bold"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="2dp"
         android:textColor="@color/textDialogColor"
         app:layout_constraintTop_toBottomOf="@+id/tvTitle"
         app:layout_constraintStart_toStartOf="parent"/>
@@ -66,7 +65,7 @@
         app:alignItems="flex_start">
         <TextView
             android:id="@+id/tvBad1"
-            android:background="@drawable/shape_select_site_bg_write_line"
+            android:background="@drawable/shape_select_site_bg_write_feed_back_line"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/feed_back_content_issues_message"
@@ -78,7 +77,7 @@
             android:paddingRight="10dp"/>
         <TextView
             android:id="@+id/tvBad2"
-            android:background="@drawable/shape_select_site_bg_write_line"
+            android:background="@drawable/shape_select_site_bg_write_feed_back_line"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/feed_back_logical_issues_message"
@@ -91,7 +90,7 @@
             android:paddingRight="10dp"/>
         <TextView
             android:id="@+id/tvBad3"
-            android:background="@drawable/shape_select_site_bg_write_line"
+            android:background="@drawable/shape_select_site_bg_write_feed_back_line"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/feed_back_expression_issues_message"
@@ -115,7 +114,7 @@
         android:layout_marginTop="10dp">
         <TextView
             android:id="@+id/tvBad4"
-            android:background="@drawable/shape_select_site_bg_write_line"
+            android:background="@drawable/shape_select_site_bg_write_feed_back_line"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/feed_back_answer_issues_message"
@@ -127,7 +126,7 @@
             android:paddingRight="10dp"/>
         <TextView
             android:id="@+id/tvBad5"
-            android:background="@drawable/shape_select_site_bg_write_line"
+            android:background="@drawable/shape_select_site_bg_write_feed_back_line"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/feed_back_other_issues_message"
@@ -177,7 +176,7 @@
         app:layout_constraintRight_toRightOf="parent"
         android:background="@drawable/shape_select_site_bg_purple_line"
         android:layout_width="134dp"
-        android:layout_height="46dp"
+        android:layout_height="38dp"
         android:textColor="@color/onlyWhite"
         android:textSize="16sp"
         android:text="@string/feed_back_push_issues_message" />

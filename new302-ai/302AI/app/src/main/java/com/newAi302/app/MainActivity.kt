@@ -801,10 +801,13 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
                    }
 
                    if (isUserEdit){
-                       isUserEdit = false
                        //filterMessageList1(UserEditPosition)
-                       filterMessageList(message)
-                       Log.e("ceshi","0位置是${filterMessageList(message)}")
+                       //filterMessageList(message)
+                       filterMessageList1(UserEditPosition)
+                       //Log.e("ceshi","0位置是${filterMessageList(message)}")
+                       isUserEdit = false
+                       UserEditPosition = 0
+                       binding.cancelEditSendMsgTv.visibility = View.GONE
                    }
                    Log.e("ceshi","位置是$messageList")
                    //发送消息后隐私按钮消失
@@ -1465,6 +1468,12 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
                 return false
             }
         })
+
+        binding.cancelEditSendMsgTv.setOnClickListener {
+            ViewAnimationUtils.performClickEffect(it)
+            binding.cancelEditSendMsgTv.visibility = View.GONE
+            isUserEdit = false
+        }
 
 
     }
@@ -2720,6 +2729,7 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
             }
             "userEdit" -> {
                 binding.messageEditText.setText(chatFunction.message)
+                binding.cancelEditSendMsgTv.visibility = View.VISIBLE
                 isUserEdit = true
                 UserEditPosition = chatFunction.position
             }
@@ -4246,6 +4256,18 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
         if (targetIndex != -1) {
             // 直接修改原列表：删除 targetIndex 及之后的所有元素
             messageList.subList(targetIndex, messageList.size).clear()
+        }
+        // 返回修改后的原列表（或返回其副本，根据需求选择）
+        return messageList.toMutableList()
+    }
+
+    fun filterMessageList1(targetIndex: Int): MutableList<ChatMessage> {
+        Log.e("ceshi","位置是$targetIndex")
+
+        if (targetIndex != -1) {
+            // 直接修改原列表：删除 targetIndex 及之后的所有元素
+            messageList.subList(targetIndex, messageList.size).clear()
+            mMessageList.subList(targetIndex, mMessageList.size).clear()
         }
         // 返回修改后的原列表（或返回其副本，根据需求选择）
         return messageList.toMutableList()

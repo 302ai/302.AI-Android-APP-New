@@ -67,7 +67,7 @@ class RegisterPhoneInputView(context: Context, attrs: AttributeSet? = null) :
         })
 
         mBinding.verificationInput.setVerifyCodeListener(object :
-            VerificationEditTextView.VerifyCodeListener {
+            VerificationEditResTextView.VerifyCodeListener {
             override fun verifyCode(code: String) {
                 mImgVerifyCode = code
             }
@@ -99,7 +99,7 @@ class RegisterPhoneInputView(context: Context, attrs: AttributeSet? = null) :
 
         //设置密码
         mBinding.rlPassword.setLoginPassWordListener(object :
-            PassWorkEditView.LoginPasswordListener {
+            PassWorkResEditView.LoginPasswordListener {
             override fun inputContent(password: String) {
                 mPassWord = password
             }
@@ -114,7 +114,7 @@ class RegisterPhoneInputView(context: Context, attrs: AttributeSet? = null) :
         })
         //再次输入密码
         mBinding.rlPasswordAgain.setLoginPassWordListener(object :
-            PassWorkEditView.LoginPasswordListener {
+            PassWorkResEditView.LoginPasswordListener {
             override fun inputContent(password: String) {
                 mPassWordAgain = password
             }

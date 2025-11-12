@@ -70,8 +70,8 @@ class FeedBackDialog(context: Context) : Dialog(context) {
                 tvBad1.setBackgroundResource(R.drawable.shape_select_site_bg_purple_line)
             }else{
                 oneBad = false
-                tvBad1.setTextColor( ContextCompat.getColor(context, android.R.color.black))
-                tvBad1.setBackgroundResource(R.drawable.shape_select_site_bg_write_line)
+                tvBad1.setTextColor( ContextCompat.getColor(context, R.color.black))
+                tvBad1.setBackgroundResource(R.drawable.shape_select_site_bg_write_feed_back_line)
             }
         }
         tvBad2.setOnClickListener {
@@ -81,8 +81,8 @@ class FeedBackDialog(context: Context) : Dialog(context) {
                 tvBad2.setBackgroundResource(R.drawable.shape_select_site_bg_purple_line)
             }else{
                 twoBad = false
-                tvBad2.setTextColor( ContextCompat.getColor(context, android.R.color.black))
-                tvBad2.setBackgroundResource(R.drawable.shape_select_site_bg_write_line)
+                tvBad2.setTextColor( ContextCompat.getColor(context, R.color.black))
+                tvBad2.setBackgroundResource(R.drawable.shape_select_site_bg_write_feed_back_line)
             }
         }
         tvBad3.setOnClickListener {
@@ -92,8 +92,8 @@ class FeedBackDialog(context: Context) : Dialog(context) {
                 tvBad3.setBackgroundResource(R.drawable.shape_select_site_bg_purple_line)
             }else{
                 threeBad = false
-                tvBad3.setTextColor( ContextCompat.getColor(context, android.R.color.black))
-                tvBad3.setBackgroundResource(R.drawable.shape_select_site_bg_write_line)
+                tvBad3.setTextColor( ContextCompat.getColor(context, R.color.black))
+                tvBad3.setBackgroundResource(R.drawable.shape_select_site_bg_write_feed_back_line)
             }
         }
         tvBad4.setOnClickListener {
@@ -103,8 +103,8 @@ class FeedBackDialog(context: Context) : Dialog(context) {
                 tvBad4.setBackgroundResource(R.drawable.shape_select_site_bg_purple_line)
             }else{
                 fourBad = false
-                tvBad4.setTextColor( ContextCompat.getColor(context, android.R.color.black))
-                tvBad4.setBackgroundResource(R.drawable.shape_select_site_bg_write_line)
+                tvBad4.setTextColor( ContextCompat.getColor(context, R.color.black))
+                tvBad4.setBackgroundResource(R.drawable.shape_select_site_bg_write_feed_back_line)
             }
         }
         tvBad5.setOnClickListener {
@@ -114,8 +114,8 @@ class FeedBackDialog(context: Context) : Dialog(context) {
                 tvBad5.setBackgroundResource(R.drawable.shape_select_site_bg_purple_line)
             }else{
                 fiveBad = false
-                tvBad5.setTextColor( ContextCompat.getColor(context, android.R.color.black))
-                tvBad5.setBackgroundResource(R.drawable.shape_select_site_bg_write_line)
+                tvBad5.setTextColor( ContextCompat.getColor(context, R.color.black))
+                tvBad5.setBackgroundResource(R.drawable.shape_select_site_bg_write_feed_back_line)
             }
         }
 

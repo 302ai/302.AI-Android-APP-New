@@ -185,7 +185,7 @@
             android:layout_marginTop="3dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text1"
-            android:background="@drawable/shape_select_site_bg_gray_line">
+            android:background="@drawable/shape_select_site_bg_write_line">
             <com.newAi302.app.view.ThreeCircularLoadingAnim
                 android:id="@+id/loadThreeImage"
                 android:layout_width="40dp"

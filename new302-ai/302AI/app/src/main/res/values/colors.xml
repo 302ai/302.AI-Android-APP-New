@@ -5,6 +5,7 @@
     <color name="onlyWhite">#FFFFFFFF</color>
     <color name="white1">#FFFFFFFF</color>
     <color name="white2">#FFFFFFFF</color>
+    <color name="white3">#FFFFFFFF</color>
     <color name="textColor">#333333</color>
     <color name="textColor1">#8E8E8E</color>
     <color name="textColor2">#D3D3D3</color>
@@ -28,6 +29,7 @@
 
     <color name="backgroundChatEdit">#FFFFFFFF</color>
     <color name="backgroundChatFun">#FFFFFFFF</color>
+    <color name="backgroundChatCancelEdit">#F3F2FF</color>
 
     <color name="textLoginColor">#FF000000</color>
 

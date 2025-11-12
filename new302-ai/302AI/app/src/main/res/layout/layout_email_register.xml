@@ -138,7 +138,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <com.newAi302.app.widget.view.VerificationEditTextView
+        <com.newAi302.app.widget.view.VerificationEditResTextView
             android:id="@+id/verification_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -213,14 +213,14 @@
             tools:text="@string/email_code_empty" />
     </RelativeLayout>
 
-    <com.newAi302.app.widget.view.PassWorkEditView
+    <com.newAi302.app.widget.view.PassWorkResEditView
         android:id="@+id/rl_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         app:hint="@string/email_password" />
 
-    <com.newAi302.app.widget.view.PassWorkEditView
+    <com.newAi302.app.widget.view.PassWorkResEditView
         android:id="@+id/rl_password_again"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
