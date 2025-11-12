@@ -90,6 +90,20 @@ object StringObjectUtils {
         // 如果找到匹配项，则返回完整的代码块（包括开始和结束标记）
         return matchResult?.value ?: ""
     }
+    fun extractCodeFromMarkdown(source: String): String {
+        // 正则说明：
+        // 1. ```(\\w+)? → 匹配开头的```，可选的语言标识（如html/python，不限制具体语言）
+        // 2. \\s* → 匹配语言标识后的空白（固定包含\n，也兼容可能的空格）
+        // 3. ([\\s\\S]*?) → 捕获组2：非贪婪匹配所有内容（从\n开始到结尾```前，含\n）
+        // 4. \\s*``` → 匹配结尾的```（兼容前后可能的空格）
+        val codeBlockRegex = Regex("```(\\w+)?\\s*([\\s\\S]*?)\\s*```")
+
+        // 查找第一个匹配的代码块
+        val matchResult = codeBlockRegex.find(source)
+
+        // 提取捕获组2的内容（即\n开头的目标字符串，不含```和语言标识）
+        return matchResult?.groupValues?.getOrNull(2) ?: ""
+    }
 
     fun extractPythonCodeFromMarkdown(markdown: String): String {
         // 匹配 ```python 开头、``` 结尾的代码块，支持多行

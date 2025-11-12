@@ -24,7 +24,7 @@
     <string name="plase_wait_back_delect_toast_message">Please wait for the reply to be completed before deleting</string>
     <string name="plase_first_enter_question_toast_message">Please enter a question first</string>
     <string name="can_not_send_empty_toast_message">Cannot send empty content</string>
-    <string name="parsing_image_toast_message">Parsing the image, please wait</string>
+    <string name="parsing_image_toast_message">Parsing now, please wait</string>
     <string name="network_error_toast_message">Network Error:</string>
     <string name="already_new_session_toast_message">This is already a new session, thank you</string>
     <string name="cancel_rename_toast_message">Cancel Rename</string>

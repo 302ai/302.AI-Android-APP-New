@@ -23,7 +23,7 @@
     <string name="plase_wait_back_delect_toast_message">请等待回复完成，再进行删除操作</string>
     <string name="plase_first_enter_question_toast_message">请先输入问题</string>
     <string name="can_not_send_empty_toast_message">无法发送空白内容</string>
-    <string name="parsing_image_toast_message">正在解析图片请稍后</string>
+    <string name="parsing_image_toast_message">正在解析，请稍后</string>
     <string name="network_error_toast_message">网络错误:</string>
     <string name="already_new_session_toast_message">这已经是新会话，谢谢</string>
     <string name="cancel_rename_toast_message">取消重命名</string>

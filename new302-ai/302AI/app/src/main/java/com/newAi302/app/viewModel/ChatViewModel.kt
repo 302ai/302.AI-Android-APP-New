@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.annotation.RequiresExtension
 import androidx.core.content.ContextCompat.getString
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.newAi302.app.R
@@ -68,6 +69,11 @@ class ChatViewModel :ViewModel(){
     val changeUserNameResult = MutableLiveData<String?>()
     val changeUserPswResult = MutableLiveData<String?>()
     val loadCodeResult = MutableLiveData<String?>()
+
+    // 关键：当前最新的请求标识（每次发新请求时更新，用于过滤旧请求结果）
+    private var currentRequestId: Long = 0L
+    private var currentTitleRequestId: Long = 0L
+
 
     private lateinit var request: Any
 
@@ -756,6 +762,11 @@ class ChatViewModel :ViewModel(){
                              apiService:ApiService,isClearContext:Boolean,messagesList:List<String>,serviceProvider:String,prompt:String,temp:Double,searchServiceType:String,isR1Fusion:Boolean){
         //val authorizationToken = "sk-RcnM7qzDdqa3i4mylTGPSl5peJzu8CNMx2pe6cauC0es3JCA"
         Log.e("ceshi","sendQuestion$question,,${imageUrlServiceResultList?.isEmpty()},,$isPrompt")
+        // 1. 生成新的请求标识（用时间戳保证唯一性，也可用 AtomicLong 自增）
+        val newRequestId = System.currentTimeMillis()
+        // 2. 更新当前最新请求标识（覆盖旧标识）
+        currentRequestId = newRequestId
+
         var extract = ""
         if (isExtract){
             extract = "-file-parse"
@@ -1549,26 +1560,32 @@ class ChatViewModel :ViewModel(){
                         //chattextView.append(content)
                         //questionResult.postValue("${mContent}")
                         if (mDeepThinkAssistantMessage.length != 0){
-                            if (isNetWorkThink){
-                                questionResult.postValue("${mDeepThinkAssistantMessage}&&&&&&${mContent}${citations?.let {
-                                    convertUrlsToMarkdown(
-                                        it
-                                    )
-                                }}")
-                            }else{
-                                questionResult.postValue("${mDeepThinkAssistantMessage}&&&&&&${mContent}")
+                            if (newRequestId == currentRequestId) {
+                                if (isNetWorkThink){
+                                    questionResult.postValue("${mDeepThinkAssistantMessage}&&&&&&${mContent}${citations?.let {
+                                        convertUrlsToMarkdown(
+                                            it
+                                        )
+                                    }}")
+                                }else{
+                                    questionResult.postValue("${mDeepThinkAssistantMessage}&&&&&&${mContent}")
+                                }
                             }
 
+
                         }else{
-                            if (isNetWorkThink){
-                                questionResult.postValue("${mContent}${citations?.let {
-                                    convertUrlsToMarkdown(
-                                        it
-                                    )
-                                }}")
-                            }else{
-                                questionResult.postValue("${mContent}")
+                            if (newRequestId == currentRequestId) {
+                                if (isNetWorkThink){
+                                    questionResult.postValue("${mContent}${citations?.let {
+                                        convertUrlsToMarkdown(
+                                            it
+                                        )
+                                    }}")
+                                }else{
+                                    questionResult.postValue("${mContent}")
+                                }
                             }
+
                         }
                         //questionDeepResult.postValue("${mDeepThinkAssistantMessage}")
                         if (citations != null){
@@ -1617,12 +1634,15 @@ class ChatViewModel :ViewModel(){
                     }
                 },
                 onComplete = {
-                    if (mContent.length != 0){
-                        questionAllResult.postValue("${mContent}")
+                    if (newRequestId == currentRequestId) {
+                        if (mContent.length != 0){
+                            questionAllResult.postValue("${mContent}")
+                        }
+                        if (mDeepThinkAssistantMessage.length != 0){
+                            questionDeepAllResult.postValue("${mDeepThinkAssistantMessage}")
+                        }
                     }
-                    if (mDeepThinkAssistantMessage.length != 0){
-                        questionDeepAllResult.postValue("${mDeepThinkAssistantMessage}")
-                    }
+
                     contentMessagesList.clear()
                     mContent.clear()
                     mDeepThinkAssistantMessage.clear()
@@ -1666,8 +1686,10 @@ class ChatViewModel :ViewModel(){
         }catch (e: SocketTimeoutException) {
             viewModelScope.launch(Dispatchers.Main) {
                 Toast.makeText(context, "网络请求超时，请重试", Toast.LENGTH_SHORT).show()
-                questionResult.postValue("网络请求超时，请重试")
                 //questionResult.value = "网络请求超时，请重试"
+                if (newRequestId == currentRequestId) {
+                    questionResult.postValue("网络请求超时，请重试")
+                }
             }
         }
         catch (e: HttpException) {
@@ -1683,13 +1705,18 @@ class ChatViewModel :ViewModel(){
                 //Toast.makeText(context, "当前无可用通道，更多请访问 302.AI", Toast.LENGTH_SHORT).show()
                 //questionResult.postValue("当前无可用通道，更多请访问 302.AI")
                 //questionResult.value = "网络请求超时，请重试"
-                if (e.code() == 401){
-                    questionResult.postValue(getString(context,R.string.insufficient_message))
-                }else{
-                    questionResult.postValue("当前无可用通道，更多请访问 302.AI")
+                if (newRequestId == currentRequestId) {
+                    if (e.code() == 401){
+                        questionResult.postValue(getString(context,R.string.insufficient_message))
+                    }else{
+                        questionResult.postValue("当前无可用通道，更多请访问 302.AI")
+                    }
                 }
+
             }
         }
+
+
 
 
 
@@ -1799,6 +1826,10 @@ class ChatViewModel :ViewModel(){
         //val authorizationToken = "Bearer sk-uuhpqdroarauzlltffpybpnvoskghjnlmstmdzynjizybtcb"
         val authorizationToken = "Bearer $apikey"//sk-RcnM7qzDdqa3i4mylTGPSl5peJzu8CNMx2pe6cauC0es3JCA
         //val authorizationToken ="Bearer sk-RcnM7qzDdqa3i4mylTGPSl5peJzu8CNMx2pe6cauC0es3JCA"
+        // 1. 生成新的请求标识（用时间戳保证唯一性，也可用 AtomicLong 自增）
+        val newRequestId = System.currentTimeMillis()
+        // 2. 更新当前最新请求标识（覆盖旧标识）
+        currentTitleRequestId = newRequestId
         request = ChatCompletionRequest1(
             model = "$modelType",
             stream = false,
@@ -1826,7 +1857,10 @@ class ChatViewModel :ViewModel(){
                     // 可以在这里更新 UI 显示结果
                     Log.e("ceshi","返回数据：${assistantMessage}")
                     try {
-                        questionTitleResult.postValue("${assistantMessage}")
+                        if (newRequestId == currentTitleRequestId) {
+                            questionTitleResult.postValue("${assistantMessage}")
+                        }
+
                     }catch(t: Throwable) {
                         Log.e("ChatViewModel", "更新 questionResult 时出现异常: ${t.message}")
                     } catch (e: Exception) {
@@ -1850,13 +1884,28 @@ class ChatViewModel :ViewModel(){
         } catch (e: retrofit2.HttpException){
             Log.e("ceshi","0错误：${e.toString()}")
             viewModelScope.launch(Dispatchers.Main) {
-                if (e.code() == 401){
-                    questionResult.postValue(getString(context,R.string.insufficient_message))
-                }else{
-                    questionResult.postValue("当前无可用通道，更多请访问 302.AI")
+                if (newRequestId == currentTitleRequestId) {
+                    if (e.code() == 401){
+                        questionResult.postValue(getString(context,R.string.insufficient_message))
+                    }else{
+                        questionResult.postValue("当前无可用通道，更多请访问 302.AI")
+                    }
                 }
+
             }
         }
+    }
+
+    /**
+     * 清空 LiveData 的旧数据（供 Activity 重新监听前调用）
+     */
+    fun clearQuestionResult() {
+        // 主线程直接用 setValue，子线程用 postValue（此处 Activity 调用时在主线程）
+        questionResult.value = null
+        currentRequestId = 0L // 重置请求标识
+        currentTitleRequestId = 0L
+        contentMessagesList1.clear()
+        contentMessagesList.clear()
     }
 
 

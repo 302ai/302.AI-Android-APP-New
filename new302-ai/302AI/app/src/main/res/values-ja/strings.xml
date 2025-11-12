@@ -23,7 +23,7 @@
     <string name="plase_wait_back_delect_toast_message">削除する前に返信が完了するまでお待ちください</string>
     <string name="plase_first_enter_question_toast_message">まず質問を入力してください</string>
     <string name="can_not_send_empty_toast_message">空のコンテンツを送信できません</string>
-    <string name="parsing_image_toast_message">画像を解析しています。お待ちください</string>
+    <string name="parsing_image_toast_message">を解析しています。お待ちください</string>
     <string name="network_error_toast_message">ネットワーク エラー:</string>
     <string name="already_new_session_toast_message">これはすでに新しいセッションです。ありがとうございます</string>
     <string name="cancel_rename_toast_message">名前の変更をキャンセル</string>

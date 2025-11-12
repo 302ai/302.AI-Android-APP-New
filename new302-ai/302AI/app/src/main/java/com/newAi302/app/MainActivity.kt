@@ -56,6 +56,7 @@ import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -310,6 +311,13 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
             }
         }
     }
+
+    // 1. 类成员全局变量：lateinit var 声明（延迟初始化，非空）
+    private lateinit var questionObserver: Observer<String?>
+    private lateinit var questionAllObserver: Observer<String?>
+    private lateinit var questionDeepObserver: Observer<String?>
+    private lateinit var questionDeepAllObserver: Observer<String?>
+    private lateinit var questionTitleObserver: Observer<String?>
 
 
 
@@ -677,6 +685,10 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
         isScreenTurnedOff = false
         isTemporary = false
         unregisterReceiver(screenReceiver)
+        unregisterObserver()
+        mMessageList.clear()
+        // 步骤2：清空 LiveData 旧数据（关键：避免重新注册时回调粘性数据）
+        chatViewModel.clearQuestionResult()
         //TtsManagerUtils.TtsStop()
 //        Glide.with(this).clear(binding.userImage) // 清理单个 View
 //        // 清理所有未完成的请求
@@ -781,6 +793,7 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
                var message = binding.messageEditText.text.toString().trim()
                Log.e("ceshi","点击")
                if (message.isNotEmpty()) {
+                   registerObserver()
                    Log.e("ceshi","发送信息是$message")
                    if (message.contains("\n")){
                        message = message.replace("\n","\n\n")
@@ -834,6 +847,7 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
                    binding.chatRecyclerView.layoutManager?.scrollToPosition(messageList.size-1)
                    lifecycleScope.launch(Dispatchers.IO) {
                        val model = "gpt-4o-image-generation"
+                       //Log.e("ceshi","点击发送消息:$mMessageList")
                        isSendMessage.set(true)
                        chatViewModel.sendQuestion(message,modelType,isNetWorkThink,isDeepThink,this@MainActivity,userId,imageUrlServiceResultList,false,apiKey,false,
                            apiService,false,mMessageList,"302.AI",prompt,temperature,searchServiceType,isDeepThink)
@@ -1570,7 +1584,7 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
     @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
     @RequiresApi(35)
     private fun initObserver(){
-        chatViewModel.questionResult.observeForever { result ->
+        questionObserver = Observer<String?>  { result ->
             Log.e("ceshi","0机器人有回复：$result,,${isSendMessage.get()}")
             isSendMessageAgain.set(true)
             chatTime = TimeUtils.getCurrentDateTime()
@@ -1638,7 +1652,7 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
 
     }
 
-        chatViewModel.questionTitleResult.observeForever { result ->
+        questionTitleObserver = Observer<String?> { result ->
             if (isSendMessage.get()){
                 result?.let {
                     Log.e("ceshi", "机器人有回复标题：$it,,")
@@ -1672,7 +1686,7 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
 
         }
 
-        chatViewModel.questionAllResult.observeForever { result ->
+        questionAllObserver = Observer<String?> { result ->
             result?.let {
                 //震动反馈
                 performVibration()
@@ -1682,14 +1696,14 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
             }
         }
 
-        chatViewModel.questionDeepAllResult.observeForever { result ->
+        questionDeepAllObserver = Observer<String?> { result ->
             result?.let {
                 Log.e("ceshi", "机器人有回复深度完全：$it,,")
                 //mMessageList.add(it)
             }
         }
 
-        chatViewModel.questionDeepResult.observeForever { result ->
+        questionDeepObserver = Observer<String?> { result ->
             result?.let {
                 Log.e("ceshi", "机器人有回复深度：$it,,")
                 //mMessageList.add(it)
@@ -2116,6 +2130,10 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
 
         }else{
             performVibration()
+            unregisterObserver()
+            mMessageList.clear()
+            // 步骤2：清空 LiveData 旧数据（关键：避免重新注册时回调粘性数据）
+            chatViewModel.clearQuestionResult()
             Log.e("ceshi","创建新的会话$isUseTracelessSwitch")
             lifecycleScope.launch(Dispatchers.IO) {
 
@@ -2553,6 +2571,10 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
     @RequiresApi(35)
     override fun onItemClick(chatItem: ChatItemRoom) {
         Log.e("ceshi","点击聊天历史列表：$chatItem")
+        unregisterObserver()
+        mMessageList.clear()
+        // 步骤2：清空 LiveData 旧数据（关键：避免重新注册时回调粘性数据）
+        chatViewModel.clearQuestionResult()
         isHistory = true
         moreFunctionQuantity = 0
         imageCounter = 0
@@ -2845,7 +2867,7 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
                 }
 
                 Log.e("ceshi","位置载入html字符串：${
-                    StringObjectUtils.extractHtmlFromMarkdownCode(
+                    StringObjectUtils.extractCodeFromMarkdown(
                         codeStr
                     )
                 }")
@@ -4003,6 +4025,7 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
     private fun againSendQuestion(sendMessage:String){
         lifecycleScope.launch(Dispatchers.IO) {
             isSendMessage.set(true)
+            registerObserver()
 
             if (sendMessage.contains("jpg") || sendMessage.contains("png") || sendMessage.contains("documents")){
                 val urlLists = StringObjectUtils.extractAllImageUrlsNew(sendMessage)
@@ -4231,6 +4254,26 @@ class MainActivity : BaseActivity(), OnItemClickListener, OnWordPrintOverClickLi
     /*fun filterMessageList1(position: Int): MutableList<ChatMessage> {
 
     }*/
+
+    // 封装：注册监听（重新监听时调用）
+    private fun registerObserver() {
+        // 关键：传入复用的 Observer 实例（与取消时是同一个）
+        chatViewModel.questionResult.observeForever(questionObserver)
+        chatViewModel.questionAllResult.observeForever(questionAllObserver)
+        chatViewModel.questionDeepResult.observeForever(questionDeepObserver)
+        chatViewModel.questionDeepAllResult.observeForever(questionDeepAllObserver)
+        chatViewModel.questionTitleResult.observeForever(questionTitleObserver)
+    }
+
+    // 封装：取消监听（需要时调用）
+    private fun unregisterObserver() {
+        // 关键：传入与注册时完全相同的 Observer 实例
+        chatViewModel.questionResult.removeObserver(questionObserver)
+        chatViewModel.questionAllResult.removeObserver(questionAllObserver)
+        chatViewModel.questionDeepResult.removeObserver(questionDeepObserver)
+        chatViewModel.questionDeepAllResult.removeObserver(questionDeepAllObserver)
+        chatViewModel.questionTitleResult.removeObserver(questionTitleObserver)
+    }
 
 
 }

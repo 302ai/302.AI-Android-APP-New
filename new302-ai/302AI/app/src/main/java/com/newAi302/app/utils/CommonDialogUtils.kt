@@ -11,6 +11,7 @@ import android.text.TextWatcher
 import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.WindowManager
 import android.webkit.WebView
@@ -494,7 +495,7 @@ object CommonDialogUtils {
     }
 
 
-    @SuppressLint("MissingInflatedId")
+    @SuppressLint("MissingInflatedId", "ClickableViewAccessibility")
     fun showBottomSheetCodePreDialog(context: Context,codeStr:String,codeName:String) {
         var isCodePre = true
         val markwon = Markwon.builder(context)
@@ -543,11 +544,73 @@ object CommonDialogUtils {
         // 加载HTML内容到WebView
         codePreWeb.loadDataWithBaseURL(
             null,
-            StringObjectUtils.extractHtmlFromMarkdownCode(codeStr),
+            StringObjectUtils.extractCodeFromMarkdown(codeStr),
             "text/html",
             "UTF-8",
             null
         )
+
+        // 处理WebView滑动与BottomSheet关闭的冲突
+        var startY = 0f // 记录触摸起始Y坐标
+        codePreWeb.setOnTouchListener { v, event ->
+            when (event.action) {
+                MotionEvent.ACTION_DOWN -> {
+                    // 记录触摸起始位置
+                    startY = event.y
+                }
+                MotionEvent.ACTION_MOVE -> {
+                    val currentY = event.y
+                    val dy = currentY - startY // 滑动距离（正数表示向下滑动）
+
+                    // 核心逻辑：判断是否需要阻止父容器（BottomSheet）拦截事件
+                    if (dy > 0 && codePreWeb.scrollY > 0) {
+                        // 向下滑动，且WebView未滑到顶部 → 阻止BottomSheet拦截事件（让WebView自己滚动）
+                        v.parent.requestDisallowInterceptTouchEvent(true)
+                    } else {
+                        // 其他情况（向上滑动、WebView已在顶部）→ 允许BottomSheet拦截事件
+                        v.parent.requestDisallowInterceptTouchEvent(false)
+                    }
+                    // 更新起始位置
+                    startY = currentY
+                }
+                MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
+                    // 触摸结束，恢复父容器拦截权限
+                    v.parent.requestDisallowInterceptTouchEvent(false)
+                }
+            }
+            false // 不消费事件，让WebView正常处理滚动
+        }
+
+        // 处理WebView滑动与BottomSheet关闭的冲突
+        var startY1 = 0f // 记录触摸起始Y坐标
+        codePreTv.setOnTouchListener { v, event ->
+            when (event.action) {
+                MotionEvent.ACTION_DOWN -> {
+                    // 记录触摸起始位置
+                    startY1 = event.y
+                }
+                MotionEvent.ACTION_MOVE -> {
+                    val currentY = event.y
+                    val dy = currentY - startY1 // 滑动距离（正数表示向下滑动）
+
+                    // 核心逻辑：判断是否需要阻止父容器（BottomSheet）拦截事件
+                    if (dy > 0 && codePreTv.scrollY > 0) {
+                        // 向下滑动，且WebView未滑到顶部 → 阻止BottomSheet拦截事件（让WebView自己滚动）
+                        v.parent.requestDisallowInterceptTouchEvent(true)
+                    } else {
+                        // 其他情况（向上滑动、WebView已在顶部）→ 允许BottomSheet拦截事件
+                        v.parent.requestDisallowInterceptTouchEvent(false)
+                    }
+                    // 更新起始位置
+                    startY1 = currentY
+                }
+                MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
+                    // 触摸结束，恢复父容器拦截权限
+                    v.parent.requestDisallowInterceptTouchEvent(false)
+                }
+            }
+            false // 不消费事件，让WebView正常处理滚动
+        }
 
         markwon.setMarkdown(codePreTv, StringObjectUtils.extractHtml(codeStr))
 
